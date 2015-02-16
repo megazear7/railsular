@@ -1,0 +1,23 @@
+<aside class="flash row">
+  <article flash-alert duration="0" active-class="alert" class="col-md-6 col-md-offset-3 col-sm-12">
+    {{flash.message}}
+  </article>
+</aside>
+<section>
+  <div class="btn-group col-md-6 col-md-offset-3">
+    <button ng-click="back()" class="btn btn-default">Back</button>
+    <button ng-click="link('plan')" class="btn btn-default">Plan</button>
+  </div>
+</section>
+<section class="col-md-6 col-md-offset-3">
+  <article class="panel panel-info">
+    <header class="panel-heading"><h1>{{title}}</h1></header>
+    <p class="panel-body">
+      {{message}}
+    </p>
+  </article>
+</section>
+<div ng-controller="TodoModuleController">
+  <div ng-include="template.url">
+  </div>
+</div>
