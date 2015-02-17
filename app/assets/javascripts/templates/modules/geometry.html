@@ -1,8 +1,17 @@
 <article ng-if="geoSelected.selected" class="panel panel-info">
-  <header class="panel-heading"><h1>{{geometry.name}}</h1></header>
+  <header class="panel-heading">
+    <h1 ng-if="!edit">{{geometry.name}}</h1>
+    <h1 ng-if="edit"><input type="text" ng-model="geometry.name" class="form-control form-custom" /></h1>
+  </header>
   <div class="panel-body">
-    <div>Description: {{geometry.description}}</div>
-    <div>Status: {{geometry.status}}</div>
+    <a ng-if="!edit" ng-click="startEdit()" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
+    <a ng-if="edit" ng-click="stopEdit()" class="pull-right"><span class="glyphicon glyphicon-ok btn btn-default"></span></a>
+    <div ng-if="!edit">
+      <div>Description: {{geometry.description}}</div>
+    </div>
+    <div ng-if="edit">
+      Description: <input type="text" ng-model="geometry.description" class="form-control form-custom" />
+    </div>
   </div>
 </article>
 <article ng-if="!geoSelected.selected" class="panel panel-info">

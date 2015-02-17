@@ -8,12 +8,11 @@
     <a ng-if="edit" ng-click="stopEdit()" class="pull-right"><span class="glyphicon glyphicon-ok btn btn-default"></span></a>
     <div ng-if="!edit">
       <p>Description: {{simulation.description}}</p>
-      <p>Status: {{simulation.status}}</p>
     </div>
     <div ng-if="edit">
       Description: <input type="text" ng-model="simulation.description" class="form-control form-custom" />
-      <div>Status: {{simulation.status}}</div>
     </div>
+    <div>Status: {{simulation.status}}</div>
   </div>
 </article>
 <article ng-if="!simSelected.selected" class="panel panel-info">

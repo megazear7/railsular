@@ -6,7 +6,7 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
     $scope.template = { url: "modules/simulation.html" }
 
     $scope.edit = false
-    if $scope.simulation.name == ""
+    if $scope.simulation && $scope.simulation.name == ""
       $scope.edit = true
 
     $scope.startEdit = ->
