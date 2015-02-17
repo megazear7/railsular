@@ -1,5 +1,10 @@
 <article class="panel panel-info">
-  <header class="panel-heading"><h1>Simulations</h1></header>
+  <ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a>Simulations</a></li>
+    <li role="presentation">
+      <a ng-click="link('projects/'+activeProject.id+'/geometries')">Geometries</a>
+    </li>
+  </ul>
   <div class="panel-body">
     <div ng-repeat="sim in simulations">
       <div ng-if="sim == simulation">

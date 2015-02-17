@@ -19,7 +19,7 @@ controllers.controller("SimulationsController", [ '$scope', '$routeParams', '$lo
       $scope.simulation = $scope.simulations[$routeParams.simulation_id]
       $scope.simSelected = { selected: true, message: "Sim already selected" }
     else
-      $scope.simSelected = { selected: false, message: "Select A project on the left" }
+      $scope.simSelected = { selected: false, message: "Select a simulation on the left" }
 
     # $routeParams.project_id must be set. Display the simulation tree for the given project on the left and 
     # project details on the right. If a simulation is selected display its details on the right instead of project

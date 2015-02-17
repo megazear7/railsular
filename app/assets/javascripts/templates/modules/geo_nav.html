@@ -1,5 +1,10 @@
 <article class="panel panel-info">
-  <header class="panel-heading"><h1>Geometries</h1></header>
+  <ul class="nav nav-tabs">
+    <li role="presentation">
+      <a ng-click="link('projects/'+activeProject.id+'/simulations')">Simulations</a>
+    </li>
+    <li role="presentation" class="active"><a>Geometries</a></li>
+  </ul>
   <div class="panel-body">
     <div ng-repeat="geo in geometries">
       <div ng-if="geo == geometry">
