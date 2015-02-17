@@ -47,6 +47,7 @@ receta.factory('ProjectService', ->
         name: "Test Project"
         id: 1
         description: "test project description"
+        editing: false
         simulations:
           {
             1: {name: "Test Sim", id: 1, description: "blah blaj", status: "Queued"}
@@ -64,6 +65,7 @@ receta.factory('ProjectService', ->
         name: "Project Two"
         id: 2
         description: "test project description"
+        editing: false
         simulations:
           {
             2: {name: "TestAgainSim", id: 2, description: "blah blaj", status: "Queued"}

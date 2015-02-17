@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" ng-click="link('projects')" ng-if="!activeProject">No Project Selected</a>
-      <a class="navbar-brand" ng-click="link('projects/'+activeProject.id)" ng-if="activeProject">Project {{activeProject.id}}</a>
+      <a class="navbar-brand" ng-click="link('projects/'+activeProject.id)" ng-if="activeProject">{{activeProject.name}}</a>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
