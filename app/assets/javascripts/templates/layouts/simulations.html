@@ -9,12 +9,10 @@
 </aside>
 <div class="container-fluid">
   <section class="col-md-4">
-    <article class="panel panel-info">
-      <header class="panel-heading"><h1>{{title}}</h1></header>
-      <p class="panel-body">
-        {{message}}
-      </p>
-    </article>
+    <div ng-controller="SimNavController">
+      <div ng-include="template.url">
+      </div>
+    </div>
   </section>
   <section class="col-md-8">
     <div ng-controller="SimulationController">

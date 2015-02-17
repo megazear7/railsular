@@ -1,7 +1,11 @@
-<article class="panel panel-info">
-  <header class="panel-heading"><h1>{{simulation().name}}</h1></header>
+<article ng-if="simSelected.selected" class="panel panel-info">
+  <header class="panel-heading"><h1>{{simulation.name}}</h1></header>
   <div class="panel-body">
-    <div>Description: {{simulation().description}}</div>
-    <div>Status: {{simulation().status}}</div>
+    <div>Description: {{simulation.description}}</div>
+    <div>Status: {{simulation.status}}</div>
   </div>
+</article>
+<article ng-if="!simSelected.selected" class="panel panel-info">
+  <header class="panel-heading"><h1></h1></header>
+  <p class="panel-body">{{simSelected.message}}</p>
 </article>

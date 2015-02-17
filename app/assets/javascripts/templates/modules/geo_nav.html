@@ -1,0 +1,12 @@
+<article class="panel panel-info">
+  <header class="panel-heading"><h1>Geometries</h1></header>
+  <div class="panel-body">
+    <div ng-repeat="geo in geometries">
+      <div ng-if="geo == geometry">
+        <span style="color:red">{{geo.name}}</span>
+      </div>
+      <div ng-if="geo != geometry">
+        <a ng-click="link('projects/'+activeProject.id+'/geometries/'+geo.id)">{{geo.name}}</a>
+    </div>
+  </div>
+</article>
