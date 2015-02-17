@@ -40,4 +40,45 @@ receta.config([ '$routeProvider', 'flashProvider',
       )
 ])
 
+receta.factory('ProjectService', ->
+  {
+    1:
+      {
+        name: "Test Project"
+        id: 1
+        description: "test project description"
+        simulations:
+          {
+            1: {name: "Test Sim", id: 1, description: "blah blaj", status: "Queued"}
+            3: {name: "SimB", id: 3, description: "blah blah", status: "Queued"}
+            4: {name: "AnotherSim", id: 4, description: "blah", status: "Queued"}
+          }
+        geometries:
+          {
+            1: {name: "GEO B", id: 1, description: "blah"}
+            2: {name: "Geometry Again", id: 2, description: "blah"}
+          }
+      }
+    2:
+      {
+        name: "Project Two"
+        id: 2
+        description: "test project description"
+        simulations:
+          {
+            2: {name: "TestAgainSim", id: 2, description: "blah blaj", status: "Queued"}
+            5: {name: "SimCCC", id: 5, description: "blah blah", status: "Queued"}
+            6: {name: "YetAnotherSim", id: 6, description: "blah", status: "Queued"}
+            8: {name: "Simulation Test", id: 8, description: "blah", status: "Queued"}
+            11: {name: "Sim Test", id: 11, description: "blah", status: "Queued"}
+          }
+        geometries:
+          {
+            3: {name: "GEO C", id: 3, description: "blah"}
+            4: {name: "Geo Again", id: 4, description: "blah"}
+          }
+      }
+  }
+)
+
 controllers = angular.module('controllers',[])
