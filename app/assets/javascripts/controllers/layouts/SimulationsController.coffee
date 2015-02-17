@@ -5,7 +5,8 @@ controllers.controller("SimulationsController", [ '$scope', '$routeParams', '$lo
     $scope.message = "Hello this is the simulations controller"
     $scope.link = (url) -> $location.path("/#{url}")
 
-    $scope.activeProject = ProjectService[$routeParams.project_id]
+    $scope.projects = ProjectService
+    $scope.activeProject = $scope.projects[$routeParams.project_id]
 
     $scope.simulations = $scope.activeProject.simulations
 

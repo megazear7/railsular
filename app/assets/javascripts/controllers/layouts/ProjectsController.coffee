@@ -6,6 +6,9 @@ controllers.controller("ProjectsController", [ '$scope', '$routeParams', '$locat
     $scope.link = (url) -> $location.path("/#{url}")
 
     $scope.startEdit = (project) ->
+      angular.forEach($scope.projects, (value, key) ->
+        value.editing = false
+      )
       project.editing = true
 
     $scope.stopEdit = (project) ->
