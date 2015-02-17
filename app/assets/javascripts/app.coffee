@@ -22,10 +22,13 @@ receta.config([ '$routeProvider', 'flashProvider',
       ).when('/projects',
         templateUrl: "layouts/projects.html"
         controller: 'ProjectsController'
-      ).when('/simulations',
+      ).when('/projects/:project_id',
+        templateUrl: "layouts/projects.html"
+        controller: 'SimulationsController'
+      ).when('/projects/:project_id/simulations',
         templateUrl: "layouts/simulations.html"
         controller: 'SimulationsController'
-      ).when('/geometries',
+      ).when('/projects/:project_id/geometries',
         templateUrl: "layouts/geometries.html"
         controller: 'GeometriesController'
       )

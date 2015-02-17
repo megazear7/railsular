@@ -7,13 +7,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" ng-click="link('projects')">Project 2</a>
+      <a class="navbar-brand" ng-click="link('projects')" ng-if="!activeProject">No Project Selected</a>
+      <a class="navbar-brand" ng-click="link('projects/'+activeProject.id+'/simulations')" ng-if="activeProject">Project {{activeProject.id}}</a>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a ng-click="link('projects')">Edit Project</a></li>
-        <li><a ng-click="link('simulations')">Add Simulation</a></li>
-        <li><a ng-click="link('geometries')">Add Geometry</a></li>
+        <li><a ng-click="link('projects/'+activeProject.id+'/simulations')">Add Simulation</a></li>
+        <li><a ng-click="link('projects/'+activeProject.id+'/geometries')">Add Geometry</a></li>
         <li><a ng-click="link('projects')">Add Project</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

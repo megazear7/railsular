@@ -15,3 +15,8 @@
     </p>
   </article>
 </section>
+<section class="col-md-6 col-md-offset-3">
+  <p ng-repeat="project in projects">
+    <a ng-click="link('projects/' + project.id + '/simulations')">{{project.name}}</a>
+  </p>
+</section>
