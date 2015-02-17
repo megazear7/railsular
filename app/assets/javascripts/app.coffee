@@ -17,14 +17,8 @@ receta.config([ '$routeProvider', 'flashProvider',
 
     $routeProvider
       .when('/',
-        templateUrl: "layouts/home.html"
-        controller: 'HomeController'
-      ).when('/plan',
-        templateUrl: "layouts/plan.html"
-        controller: 'PlanController'
-      ).when('/todo',
-        templateUrl: "layouts/todo.html"
-        controller: 'TodoController'
+        templateUrl: "layouts/projects.html"
+        controller: 'ProjectsController'
       ).when('/projects',
         templateUrl: "layouts/projects.html"
         controller: 'ProjectsController'
