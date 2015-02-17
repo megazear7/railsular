@@ -1,17 +1,23 @@
-<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+<nav class="navbar navbar-inverse navbar-static-top">
   <div class="container">
     <div class="navbar-header">
-      <li><a ng-click="link('projects')">Project 2</a></li>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" ng-click="link('projects')">Brand</a>
     </div>
-    <div class="collapse navbar-collapse navbar-responsive-collapse">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a ng-click="link('projects')">Edit Project</a></li>
         <li><a ng-click="link('simulations')">Add Simulation</a></li>
         <li><a ng-click="link('geometries')">Add Geometry</a></li>
-        <li><a ng-click="link('geometries')">Add Project</a></li>
+        <li><a ng-click="link('projects')">Add Project</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a ng-click="link('geometries')">My Projects</a></li>
+        <li><a ng-click="link('projects')">My Projects</a></li>
       </ul>
     </div>
   </div>
