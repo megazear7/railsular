@@ -1,8 +1,19 @@
 <article ng-if="simSelected.selected" class="panel panel-info">
-  <header class="panel-heading"><h1>{{simulation.name}}</h1></header>
+  <header class="panel-heading">
+    <h1 ng-if="!edit">{{simulation.name}}</h1>
+    <h1 ng-if="edit"><input type="text" ng-model="simulation.name" class="form-control form-custom" /></h1>
+  </header>
   <div class="panel-body">
-    <div>Description: {{simulation.description}}</div>
-    <div>Status: {{simulation.status}}</div>
+    <a ng-if="!edit" ng-click="startEdit()" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
+    <a ng-if="edit" ng-click="stopEdit()" class="pull-right"><span class="glyphicon glyphicon-ok btn btn-default"></span></a>
+    <div ng-if="!edit">
+      <p>Description: {{simulation.description}}</p>
+      <p>Status: {{simulation.status}}</p>
+    </div>
+    <div ng-if="edit">
+      Description: <input type="text" ng-model="simulation.description" class="form-control form-custom" />
+      <div>Status: {{simulation.status}}</div>
+    </div>
   </div>
 </article>
 <article ng-if="!simSelected.selected" class="panel panel-info">
