@@ -5,9 +5,9 @@ controllers.controller("GeometriesController", [ '$scope', '$routeParams', '$loc
     $scope.message = "Hello this is the geometries controller"
     $scope.link = (url) -> $location.path("/#{url}")
 
-    $scope.activeProject = { id: $routeParams.project_id }
+    $scope.activeProject = ProjectService[$routeParams.project_id]
 
-    $scope.geometries = ProjectService[$scope.activeProject.id].geometries
+    $scope.geometries = $scope.activeProject.geometries
 
     if $routeParams.geometry_id
       $scope.geometry = $scope.geometries[$routeParams.geometry_id]

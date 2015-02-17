@@ -5,5 +5,10 @@ controllers.controller("NavController", [ '$scope', '$routeParams', '$location',
     $scope.title = "Nav Module Controller"
     $scope.link = (url) -> $location.path("/#{url}")
 
-    # functionality differs depending on whether $scope.project is set or not
+    $scope.addSim = (project) ->
+      # todo query API for new blank simulation and get its id
+      newSimId = 20
+      project.simulations[newSimId] = { name: "", description: "", id: newSimId, status: "queued" }
+      console.log(project.simulations[newSimId])
+      $location.path("projects/"+$scope.activeProject.id+"/simulations/"+newSimId)
 ])

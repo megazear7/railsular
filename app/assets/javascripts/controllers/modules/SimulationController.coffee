@@ -4,7 +4,10 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
     $scope.title = "Simulation"
     $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/simulation.html" }
+
     $scope.edit = false
+    if $scope.simulation.name == ""
+      $scope.edit = true
 
     $scope.startEdit = ->
       $scope.edit = true
