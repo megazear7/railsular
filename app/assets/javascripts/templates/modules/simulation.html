@@ -8,9 +8,19 @@
     <a ng-if="simulation.editing" ng-click="stopEdit()" class="pull-right"><span class="glyphicon glyphicon-ok"></span></a>
     <div ng-if="!simulation.editing">
       <p>Description: {{simulation.description}}</p>
+      <p>Measurement Scale: {{simulation.measurement_scale}}</p>
+      <p>Fluid Type: {{simulation.fluid_type}}</p>
+      <p>Kinematic Viscosity: {{simulation.kinematic_viscosity}}</p>
+      <p>Density: {{simulation.density}}</p>
+      <p>Steps: {{simulation.steps}}</p>
     </div>
     <div ng-if="simulation.editing">
-      Description: <input type="text" ng-model="simulation.description" class="form-control form-custom" />
+      <p>Description: <input type="text" ng-model="simulation.description" class="form-control form-custom" /></p>
+      <p>Measurement Scale: <input type="text" ng-model="simulation.measurement_scale" class="form-control form-custom" /></p>
+      <p>Fluid Type: <input type="text" ng-model="simulation.fluid_type" class="form-control form-custom" /></p>
+      <p>Kinematic Viscosity: <input type="text" ng-model="simulation.kinematic_viscosity" class="form-control form-custom" /></p>
+      <p>Density: <input type="text" ng-model="simulation.density" class="form-control form-custom" /></p>
+      <p>Steps: <input type="text" ng-model="simulation.steps" class="form-control form-custom" /></p>
     </div>
     <div>Status: {{simulation.status}}</div>
   </div>

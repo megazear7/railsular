@@ -50,9 +50,45 @@ receta.factory('ProjectService', ->
         editing: false
         simulations:
           {
-            1: {name: "Test Sim", id: 1, description: "blah blaj", status: "Queued", editing: false}
-            3: {name: "SimB", id: 3, description: "blah blah", status: "Queued", editing: false}
-            4: {name: "AnotherSim", id: 4, description: "blah", status: "Queued", editing: false}
+            1:
+              {
+                name: "Test Sim"
+                id: 1
+                description: "blah blaj"
+                status: "Queued"
+                editing: false
+                measurement_scale: "mm"
+                fluid_type: "water"
+                kinematic_viscosity: 3.2
+                density: 2.3
+                steps: 120
+              }
+            3:
+              {
+                name: "SimB"
+                id: 3
+                description: "blah blah"
+                status: "Queued"
+                editing: false
+                measurement_scale: "mm"
+                fluid_type: "water"
+                kinematic_viscosity: 3.2
+                density: 2.3
+                steps: 120
+              }
+            4:
+              {
+                name: "AnotherSim"
+                id: 4
+                description: "blah"
+                status: "Queued"
+                editing: false
+                measurement_scale: "mm"
+                fluid_type: "water"
+                kinematic_viscosity: 3.2
+                density: 2.3
+                steps: 120
+              }
           }
         geometries:
           {
@@ -68,11 +104,71 @@ receta.factory('ProjectService', ->
         editing: false
         simulations:
           {
-            2: {name: "TestAgainSim", id: 2, description: "blah blaj", status: "Queued", editing: false}
-            5: {name: "SimCCC", id: 5, description: "blah blah", status: "Queued", editing: false}
-            6: {name: "YetAnotherSim", id: 6, description: "blah", status: "Queued", editing: false}
-            8: {name: "Simulation Test", id: 8, description: "blah", status: "Queued", editing: false}
-            11: {name: "Sim Test", id: 11, description: "blah", status: "Queued", editing: false}
+            2:
+              {
+                name: "TestAgainSim"
+                id: 2
+                description: "blah blaj"
+                status: "Queued"
+                editing: false
+                measurement_scale: "mm"
+                fluid_type: "water"
+                kinematic_viscosity: 3.2
+                density: 2.3
+                steps: 120
+              }
+            5:
+              {
+                name: "SimCCC"
+                id: 5
+                description: "blah blah"
+                status: "Queued"
+                editing: false
+                measurement_scale: "mm"
+                fluid_type: "water"
+                kinematic_viscosity: 3.2
+                density: 2.3
+                steps: 120
+              }
+            6:
+              {
+                name: "YetAnotherSim"
+                id: 6
+                description: "blah"
+                status: "Queued"
+                editing: false
+                measurement_scale: "mm"
+                fluid_type: "water"
+                kinematic_viscosity: 3.2
+                density: 2.3
+                steps: 120
+              }
+            8:
+              {
+                name: "Simulation Test"
+                id: 8
+                description: "blah"
+                status: "Queued"
+                editing: false
+                measurement_scale: "mm"
+                fluid_type: "water"
+                kinematic_viscosity: 3.2
+                density: 2.3
+                steps: 120
+              }
+            11:
+              {
+                name: "Sim Test"
+                id: 11
+                description: "blah"
+                status: "Queued"
+                editing: false
+                measurement_scale: "mm"
+                fluid_type: "water"
+                kinematic_viscosity: 3.2
+                density: 2.3
+                steps: 120
+              }
           }
         geometries:
           {
