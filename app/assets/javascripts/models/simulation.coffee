@@ -39,7 +39,5 @@ angular.module('receta').factory('Simulation', (DataCache) ->
       DataCache["simulations"][sim.id] = sim
       addMethods(sim)
       DataCache["simulations"][sim.id]
-    addMethods: addMethods
-
   }
 )

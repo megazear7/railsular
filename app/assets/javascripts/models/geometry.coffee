@@ -28,6 +28,5 @@ angular.module('receta').factory('Geometry', (DataCache) ->
       DataCache["geometries"][geo.id] = geo
       addMethods(geo)
       DataCache["geometries"][geo.id]
-    addMethods: addMethods
   }
 )

@@ -50,6 +50,5 @@ angular.module('receta').factory('Project', (DataCache) ->
       DataCache["projects"][project.id] = project
       addMethods(project)
       DataCache["projects"][project.id]
-    addMethods: addMethods
   }
 )
