@@ -4,8 +4,8 @@
     <h1 ng-if="simulation.editing"><input type="text" ng-model="simulation.name" class="form-control form-custom" /></h1>
   </header>
   <div class="panel-body">
-    <a ng-if="!simulation.editing" ng-click="startEdit()" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
-    <a ng-if="simulation.editing" ng-click="stopEdit()" class="pull-right"><span class="glyphicon glyphicon-ok"></span></a>
+    <a ng-if="!simulation.editing" ng-click="simulation.startEdit()" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
+    <a ng-if="simulation.editing" ng-click="simulation.stopEdit()" class="pull-right"><span class="glyphicon glyphicon-ok"></span></a>
     <div ng-if="!simulation.editing">
       <p>Description: {{simulation.description}}</p>
       <p>Measurement Scale: {{simulation.measurement_scale}}</p>

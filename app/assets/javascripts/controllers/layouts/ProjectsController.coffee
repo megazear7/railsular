@@ -1,6 +1,6 @@
 controllers = angular.module('controllers')
-controllers.controller("ProjectsController", [ '$scope', '$routeParams', '$location', '$resource', 'ProjectService', 'DataProvider',
-  ($scope,$routeParams,$location,$resource,ProjectService,DataProvider)->
+controllers.controller("ProjectsController", [ '$scope', '$routeParams', '$location', '$resource', 'DataProvider',
+  ($scope,$routeParams,$location,$resource,DataProvider)->
     $scope.title = "Projects"
     $scope.message = "Hello this is the projects controller"
     $scope.link = (url) -> $location.path("/#{url}")
@@ -17,5 +17,5 @@ controllers.controller("ProjectsController", [ '$scope', '$routeParams', '$locat
 
     # the projects controller simply lists the projects and lets you select one (which takes you to the simulations controller)
 
-    $scope.projects = ProjectService
+    $scope.projects = DataProvider.projects()
 ])

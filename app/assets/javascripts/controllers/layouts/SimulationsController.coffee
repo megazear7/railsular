@@ -1,14 +1,14 @@
 controllers = angular.module('controllers')
-controllers.controller("SimulationsController", [ '$scope', '$routeParams', '$location', '$resource', 'ProjectService', 'DataProvider',
-  ($scope,$routeParams,$location,$resource,ProjectService,DataProvider)->
+controllers.controller("SimulationsController", [ '$scope', '$routeParams', '$location', '$resource', 'DataProvider',
+  ($scope,$routeParams,$location,$resource,DataProvider)->
     $scope.title = "Simulations"
     $scope.message = "Hello this is the simulations controller"
     $scope.link = (url) -> $location.path("/#{url}")
 
-    $scope.projects = ProjectService
+    $scope.projects = DataProvider.projects()
     $scope.activeProject = $scope.projects[$routeParams.project_id]
 
-    $scope.simulations = $scope.activeProject.simulations
+    $scope.simulations = $scope.activeProject.simulations()
 
     if $routeParams.simulation_id
       $scope.simulation = $scope.simulations[$routeParams.simulation_id]

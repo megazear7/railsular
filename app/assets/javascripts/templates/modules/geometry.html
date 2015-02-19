@@ -5,8 +5,8 @@
     {{geometry.type}}
   </header>
   <div class="panel-body">
-    <a ng-if="!geometry.editing" ng-click="startEdit()" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
-    <a ng-if="geometry.editing" ng-click="stopEdit()" class="pull-right"><span class="glyphicon glyphicon-ok"></span></a>
+    <a ng-if="!geometry.editing" ng-click="geometry.startEdit()" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
+    <a ng-if="geometry.editing" ng-click="geometry.stopEdit()" class="pull-right"><span class="glyphicon glyphicon-ok"></span></a>
     <div ng-if="!geometry.editing">
       <div>Description: {{geometry.description}}</div>
       <div ng-repeat="(attr,val) in geometry.attributes">{{attr}}: {{val}}</div>

@@ -1,14 +1,14 @@
 controllers = angular.module('controllers')
-controllers.controller("GeometriesController", [ '$scope', '$routeParams', '$location', '$resource', 'ProjectService', 'DataProvider',
-  ($scope,$routeParams,$location,$resource,ProjectService,DataProvider)->
+controllers.controller("GeometriesController", [ '$scope', '$routeParams', '$location', '$resource', 'DataProvider',
+  ($scope,$routeParams,$location,$resource,DataProvider)->
     $scope.title = "Geometries"
     $scope.message = "Hello this is the geometries controller"
     $scope.link = (url) -> $location.path("/#{url}")
 
-    $scope.projects = ProjectService
+    $scope.projects = DataProvider.projects()
     $scope.activeProject = $scope.projects[$routeParams.project_id]
 
-    $scope.geometries = $scope.activeProject.geometries
+    $scope.geometries = $scope.activeProject.geometries()
 
     if $routeParams.geometry_id
       $scope.geometry = $scope.geometries[$routeParams.geometry_id]
