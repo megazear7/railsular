@@ -92,8 +92,33 @@ receta.factory('ProjectService', ->
           }
         geometries:
           {
-            1: {name: "GEO B", id: 1, description: "blah", editing: false}
-            2: {name: "Geometry Again", id: 2, description: "blah", editing: false}
+            1:
+              {
+                name: "GEO B"
+                id: 1
+                description: "blah"
+                editing: false
+                type: "inlet"
+                simulation_id: 3
+                attributes:
+                  {
+                    vx: 1.24
+                    vy: 2.45
+                    vz: 1.9
+                  }
+              }
+            2:
+              {
+                name: "Geometry Again"
+                id: 2
+                description: "blah"
+                editing: false
+                type: "outlet"
+                simulation_id: 3
+                attributes:
+                  {
+                  }
+              }
           }
       }
     2:
@@ -172,8 +197,33 @@ receta.factory('ProjectService', ->
           }
         geometries:
           {
-            3: {name: "GEO C", id: 3, description: "blah", editing: false}
-            4: {name: "Geo Again", id: 4, description: "blah", editing: false}
+            3:
+              {
+                name: "GEO C"
+                id: 3
+                description: "blah"
+                editing: false
+                type: "outlet"
+                simulation_id: 11
+                attributes:
+                  {
+                  }
+              }
+            4:
+              {
+                name: "Geo Again"
+                id: 4
+                description: "blah"
+                editing: false
+                type: "inlet"
+                simulation_id: 3
+                attributes:
+                  {
+                    vx: 1.24
+                    vy: 2.45
+                    vz: 1.9
+                  }
+              }
           }
       }
   }

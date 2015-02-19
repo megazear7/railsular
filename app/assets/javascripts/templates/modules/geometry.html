@@ -2,15 +2,18 @@
   <header class="panel-heading">
     <h1 ng-if="!geometry.editing">{{geometry.name}}</h1>
     <h1 ng-if="geometry.editing"><input type="text" ng-model="geometry.name" class="form-control form-custom" /></h1>
+    {{geometry.type}}
   </header>
   <div class="panel-body">
     <a ng-if="!geometry.editing" ng-click="startEdit()" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
     <a ng-if="geometry.editing" ng-click="stopEdit()" class="pull-right"><span class="glyphicon glyphicon-ok"></span></a>
     <div ng-if="!geometry.editing">
       <div>Description: {{geometry.description}}</div>
+      <div ng-repeat="(attr,val) in geometry.attributes">{{attr}}: {{val}}</div>
     </div>
     <div ng-if="geometry.editing">
-      Description: <input type="text" ng-model="geometry.description" class="form-control form-custom" />
+      <p>Description: <input type="text" ng-model="geometry.description" class="form-control form-custom" /></p>
+      <p ng-repeat="(attr,val) in geometry.attributes">{{attr}}: <input type="text" ng-model="geometry.attributes[attr]" class="form-control form-custom" /></p>
     </div>
   </div>
 </article>
