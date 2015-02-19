@@ -22,5 +22,10 @@ File Layout:
 /templates/modules
 > These are template html files that module controllers reference as the html that is supposed to go along with a given module. By convention a module controller should have a $scope.template.url param with the value of '/modules/<my_module>.html' which layout controllers (or other module controllers) will use to plug a module into the page using ng-include.
 
+/models
+> These are the javascript modules. This is basicly the data format as seen on the front end. The are factories that are injected into the controllers. The format of the interface is similiar to active record. So a controller can do things like "Project.create({...})" and does not have to worry about saving it to the database. The model factories abstract this away.
+
+/factories
+> These are general purpose factories. The only one we have so far is DataCache. The DataCache is just a dump of data is shared across the app. The model factories interact with this data. It basically serves as local storage of the data. Whatever data that a controller needs here will be declared by a controller (or maybe model?) and then if other data is needed it will be loaded as it is needed.
 /application.js
 > This is the standard rails asset pipeline stuff. Leave it as is.
