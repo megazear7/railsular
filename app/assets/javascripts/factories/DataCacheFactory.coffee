@@ -196,5 +196,3 @@ angular.module('receta').factory('DataCache', ->
       }
   }
 )
-
-

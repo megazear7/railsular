@@ -1,13 +1,17 @@
 angular.module('receta').factory('Simulation', (DataCache) ->
   addMethods = (simulation) ->
+
     simulation.save = ->
       # todo use $http to save to rails API
       console.log("not yet implemented")
+
     simulation.startEdit = ->
       this.editing = true
+
     simulation.stopEdit = ->
       simulation.save()
       this.editing = false
+
     simulation.geometries = ->
       geoList = {}
       angular.forEach(DataCache["geometries"], (geometry, geo_id) ->
@@ -15,12 +19,14 @@ angular.module('receta').factory('Simulation', (DataCache) ->
           geoList[geo_id] = geometry
       )
       geoList
+
     simulation.geometry = (id) ->
       geos = simulation.geometries()
       if geos[id]
         geos[id]
       else
         "Simulation with id #{simulation.id} does not have a geometry with id #{id}"
+
     simulation.project = ->
       DataCache["projects"][simulation.project_id]
 
