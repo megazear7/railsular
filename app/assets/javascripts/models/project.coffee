@@ -41,10 +41,8 @@ angular.module('receta').factory('Project', (DataCache) ->
 
   {
     all: ->
-      # todo caching functionality?
       DataCache["projects"]
     find: (id) ->
-      # todo caching functionality?
       DataCache["projects"][id]
     create: (project) ->
       # todo use $http to save to rails API

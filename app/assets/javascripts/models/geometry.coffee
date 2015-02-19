@@ -19,10 +19,8 @@ angular.module('receta').factory('Geometry', (DataCache) ->
 
   {
     all: ->
-      # todo caching functionality?
       DataCache["geometries"]
     find: (id) ->
-      # todo caching functionality?
       DataCache["geometries"][id]
     create: (geo) ->
       # todo use $http to save to rails API

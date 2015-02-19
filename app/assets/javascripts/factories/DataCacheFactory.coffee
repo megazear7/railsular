@@ -4,7 +4,6 @@ angular.module('receta').factory('DataCache', ->
       {
         1:
           {
-            dirty: false
             name: "Test Project"
             id: 1
             description: "test project description"
@@ -13,7 +12,6 @@ angular.module('receta').factory('DataCache', ->
           }
         2:
           {
-            dirty: false
             name: "Project Two"
             id: 2
             description: "test project description"
@@ -24,7 +22,6 @@ angular.module('receta').factory('DataCache', ->
       {
         1:
           {
-            dirty: false
             name: "Test Sim"
             id: 1
             project_id: 1
@@ -39,7 +36,6 @@ angular.module('receta').factory('DataCache', ->
           }
         3:
           {
-            dirty: false
             name: "SimB"
             id: 3
             project_id: 1
@@ -54,7 +50,6 @@ angular.module('receta').factory('DataCache', ->
           }
         4:
           {
-            dirty: false
             name: "AnotherSim"
             id: 4
             project_id: 1
@@ -69,7 +64,6 @@ angular.module('receta').factory('DataCache', ->
           }
         2:
           {
-            dirty: false
             name: "TestAgainSim"
             id: 2
             project_id: 2
@@ -84,7 +78,6 @@ angular.module('receta').factory('DataCache', ->
           }
         5:
           {
-            dirty: false
             name: "SimCCC"
             id: 5
             project_id: 2
@@ -99,7 +92,6 @@ angular.module('receta').factory('DataCache', ->
           }
         6:
           {
-            dirty: false
             name: "YetAnotherSim"
             id: 6
             project_id: 2
@@ -114,7 +106,6 @@ angular.module('receta').factory('DataCache', ->
           }
         8:
           {
-            dirty: false
             name: "Simulation Test"
             id: 8
             project_id: 2
@@ -129,7 +120,6 @@ angular.module('receta').factory('DataCache', ->
           }
         11:
           {
-            dirty: false
             name: "Sim Test"
             id: 11
             project_id: 2
@@ -147,7 +137,6 @@ angular.module('receta').factory('DataCache', ->
       {
         1:
           {
-            dirty: false
             name: "GEO B"
             id: 1
             project_id: 1
@@ -164,7 +153,6 @@ angular.module('receta').factory('DataCache', ->
           }
         2:
           {
-            dirty: false
             name: "Geometry Again"
             id: 2
             project_id: 1
@@ -178,7 +166,6 @@ angular.module('receta').factory('DataCache', ->
           }
         3:
           {
-            dirty: false
             name: "GEO C"
             id: 3
             project_id: 2
@@ -192,7 +179,6 @@ angular.module('receta').factory('DataCache', ->
           }
         4:
           {
-            dirty: false
             name: "Geo Again"
             id: 4
             project_id: 2

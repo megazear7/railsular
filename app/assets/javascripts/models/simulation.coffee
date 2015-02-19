@@ -30,10 +30,8 @@ angular.module('receta').factory('Simulation', (DataCache) ->
 
   {
     all: ->
-      # todo caching functionality?
       DataCache["simulations"]
     find: (id) ->
-      # todo caching functionality?
       DataCache["simulations"][id]
     create: (sim) ->
       # todo use $http to save to rails API
