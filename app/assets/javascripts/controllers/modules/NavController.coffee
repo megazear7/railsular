@@ -8,13 +8,13 @@ controllers.controller("NavController", [ '$scope', '$routeParams', '$location',
     $scope.addSim = (project) ->
       # todo query API for new blank simulation and get its id
       newSimId = 20
-      project.simulations[newSimId] = { name: "", description: "", id: newSimId, status: "queued" }
+      project.simulations[newSimId] = { name: "Simulation Name", description: "Description", id: newSimId, status: "queued", editing: true }
       $location.path("projects/"+$scope.activeProject.id+"/simulations/"+newSimId)
 
     $scope.addGeo = (project) ->
       # todo query API for new blank geometry and get its id
       newGeoId = 20
-      project.geometries[newGeoId] = { name: "", description: "", id: newGeoId }
+      project.geometries[newGeoId] = { name: "Geometry Name", description: "Description", id: newGeoId, editing: true }
       $location.path("projects/"+$scope.activeProject.id+"/geometries/"+newGeoId)
 
     $scope.addProject = ->
@@ -23,7 +23,7 @@ controllers.controller("NavController", [ '$scope', '$routeParams', '$location',
         value.editing = false
       )
       newProjectId = 20
-      $scope.projects[newProjectId] = { name: "Project Name", description: "Description", id: newProjectId, editing: true }
+      $scope.projects[newProjectId] = { name: "Project Name", description: "Description", id: newProjectId, editing: true, simulations: {}, geometries: {} }
       $location.path("projects/")
 
     $scope.editProject = (project) ->

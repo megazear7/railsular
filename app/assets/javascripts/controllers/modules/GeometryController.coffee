@@ -5,16 +5,12 @@ controllers.controller("GeometryController", [ '$scope', '$routeParams', '$locat
     $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/geometry.html" }
 
-    $scope.edit = false
-    if $scope.geometry && $scope.geometry.name == ""
-      $scope.edit = true
-
     $scope.startEdit = ->
-      $scope.edit = true
+      $scope.geometry.editing = true
 
     $scope.stopEdit = ->
-      # todo ... save to database
-      $scope.edit = false
+      # todo save this to rails api
+      $scope.geometry.editing = false
 
 
     # the responsibility of this controller is to manage a single given geometry.

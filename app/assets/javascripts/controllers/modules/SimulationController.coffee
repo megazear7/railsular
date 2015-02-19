@@ -5,16 +5,12 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
     $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/simulation.html" }
 
-    $scope.edit = false
-    if $scope.simulation && $scope.simulation.name == ""
-      $scope.edit = true
-
     $scope.startEdit = ->
-      $scope.edit = true
+      $scope.simulation.editing = true
 
     $scope.stopEdit = ->
-      # todo ... save to database
-      $scope.edit = false
+      # todo save this to rails api
+      $scope.simulation.editing = false
 
     # the responsibility of this controller is to manage a single given simulation.
     # this controller expects $scope.simulation to be set to a simulation json object or

@@ -50,14 +50,14 @@ receta.factory('ProjectService', ->
         editing: false
         simulations:
           {
-            1: {name: "Test Sim", id: 1, description: "blah blaj", status: "Queued"}
-            3: {name: "SimB", id: 3, description: "blah blah", status: "Queued"}
-            4: {name: "AnotherSim", id: 4, description: "blah", status: "Queued"}
+            1: {name: "Test Sim", id: 1, description: "blah blaj", status: "Queued", editing: false}
+            3: {name: "SimB", id: 3, description: "blah blah", status: "Queued", editing: false}
+            4: {name: "AnotherSim", id: 4, description: "blah", status: "Queued", editing: false}
           }
         geometries:
           {
-            1: {name: "GEO B", id: 1, description: "blah"}
-            2: {name: "Geometry Again", id: 2, description: "blah"}
+            1: {name: "GEO B", id: 1, description: "blah", editing: false}
+            2: {name: "Geometry Again", id: 2, description: "blah", editing: false}
           }
       }
     2:
@@ -68,16 +68,16 @@ receta.factory('ProjectService', ->
         editing: false
         simulations:
           {
-            2: {name: "TestAgainSim", id: 2, description: "blah blaj", status: "Queued"}
-            5: {name: "SimCCC", id: 5, description: "blah blah", status: "Queued"}
-            6: {name: "YetAnotherSim", id: 6, description: "blah", status: "Queued"}
-            8: {name: "Simulation Test", id: 8, description: "blah", status: "Queued"}
-            11: {name: "Sim Test", id: 11, description: "blah", status: "Queued"}
+            2: {name: "TestAgainSim", id: 2, description: "blah blaj", status: "Queued", editing: false}
+            5: {name: "SimCCC", id: 5, description: "blah blah", status: "Queued", editing: false}
+            6: {name: "YetAnotherSim", id: 6, description: "blah", status: "Queued", editing: false}
+            8: {name: "Simulation Test", id: 8, description: "blah", status: "Queued", editing: false}
+            11: {name: "Sim Test", id: 11, description: "blah", status: "Queued", editing: false}
           }
         geometries:
           {
-            3: {name: "GEO C", id: 3, description: "blah"}
-            4: {name: "Geo Again", id: 4, description: "blah"}
+            3: {name: "GEO C", id: 3, description: "blah", editing: false}
+            4: {name: "Geo Again", id: 4, description: "blah", editing: false}
           }
       }
   }
