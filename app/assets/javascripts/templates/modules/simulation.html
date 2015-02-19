@@ -4,25 +4,47 @@
     <h1 ng-if="simulation.editing"><input type="text" ng-model="simulation.name" class="form-control form-custom" /></h1>
   </header>
   <div class="panel-body">
-    <a ng-if="!simulation.editing" ng-click="simulation.startEdit()" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
-    <a ng-if="simulation.editing" ng-click="simulation.stopEdit()" class="pull-right"><span class="glyphicon glyphicon-ok"></span></a>
-    <div ng-if="!simulation.editing">
-      <p>Description: {{simulation.description}}</p>
-      <p>Measurement Scale: {{simulation.measurement_scale}}</p>
-      <p>Fluid Type: {{simulation.fluid_type}}</p>
-      <p>Kinematic Viscosity: {{simulation.kinematic_viscosity}}</p>
-      <p>Density: {{simulation.density}}</p>
-      <p>Steps: {{simulation.steps}}</p>
+    <div class="row">
+      <div class="col-md-12">
+        <a ng-if="!simulation.editing" ng-click="simulation.startEdit()" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
+        <a ng-if="simulation.editing" ng-click="simulation.stopEdit()" class="pull-right"><span class="glyphicon glyphicon-ok"></span></a>
+      </div>
     </div>
-    <div ng-if="simulation.editing">
-      <p>Description: <input type="text" ng-model="simulation.description" class="form-control form-custom" /></p>
-      <p>Measurement Scale: <input type="text" ng-model="simulation.measurement_scale" class="form-control form-custom" /></p>
-      <p>Fluid Type: <input type="text" ng-model="simulation.fluid_type" class="form-control form-custom" /></p>
-      <p>Kinematic Viscosity: <input type="text" ng-model="simulation.kinematic_viscosity" class="form-control form-custom" /></p>
-      <p>Density: <input type="text" ng-model="simulation.density" class="form-control form-custom" /></p>
-      <p>Steps: <input type="text" ng-model="simulation.steps" class="form-control form-custom" /></p>
+    <div class="row">
+      <div class="col-md-6">
+        <div ng-if="!simulation.editing">
+          <p>Description: {{simulation.description}}</p>
+          <p>Measurement Scale: {{simulation.measurement_scale}}</p>
+          <p>Fluid Type: {{simulation.fluid_type}}</p>
+          <p>Kinematic Viscosity: {{simulation.kinematic_viscosity}}</p>
+          <p>Density: {{simulation.density}}</p>
+          <p>Steps: {{simulation.steps}}</p>
+        </div>
+        <div ng-if="simulation.editing">
+          <p>Description: <input type="text" ng-model="simulation.description" class="form-control form-custom" /></p>
+          <p>Measurement Scale: <input type="text" ng-model="simulation.measurement_scale" class="form-control form-custom" /></p>
+          <p>Fluid Type: <input type="text" ng-model="simulation.fluid_type" class="form-control form-custom" /></p>
+          <p>Kinematic Viscosity: <input type="text" ng-model="simulation.kinematic_viscosity" class="form-control form-custom" /></p>
+          <p>Density: <input type="text" ng-model="simulation.density" class="form-control form-custom" /></p>
+          <p>Steps: <input type="text" ng-model="simulation.steps" class="form-control form-custom" /></p>
+        </div>
+        <div>Status: {{simulation.status}}</div>
+      </div>
+      <h3>Geometries:</h3>
+      <div class="col-md-6">
+        <div class="row"><h4>Outlets:</h4></div>
+        <div ng-repeat="geo in simulation.geometries()">
+          <div class="row" ng-if="geo.type=='outlet'">{{geo.name}}</div>
+        </div>
+        <div class="row"><a ng-click="addOutlet()">Add Outlet</a></div>
+        <br/>
+        <div class="row"><h4>Inlets:</h4></div>
+        <div ng-repeat="geo in simulation.geometries()">
+          <div class="row" ng-if="geo.type=='inlet'">{{geo.name}}</div>
+        </div>
+        <div class="row"><a ng-click="addInlet()">Add Inlet</a></div>
+      </div>
     </div>
-    <div>Status: {{simulation.status}}</div>
   </div>
 </article>
 <article ng-if="!simSelected.selected" class="panel panel-info">
