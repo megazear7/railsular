@@ -1,6 +1,6 @@
 controllers = angular.module('controllers')
-controllers.controller("SimulationsController", [ '$scope', '$routeParams', '$location', '$resource', 'ProjectService',
-  ($scope,$routeParams,$location,$resource,ProjectService)->
+controllers.controller("SimulationsController", [ '$scope', '$routeParams', '$location', '$resource', 'ProjectService', 'DataProvider',
+  ($scope,$routeParams,$location,$resource,ProjectService,DataProvider)->
     $scope.title = "Simulations"
     $scope.message = "Hello this is the simulations controller"
     $scope.link = (url) -> $location.path("/#{url}")
