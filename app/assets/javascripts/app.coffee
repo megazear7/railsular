@@ -50,153 +50,155 @@ receta.config([ '$routeProvider', 'flashProvider',
 # dirty update it with $http and set it to clean. Then use the cache to return all
 # of the simulations/geometries for this project in the format given below
 
-receta.factory('DataProvider', (DataCache) ->
+receta.factory('DataSaver', ($http) ->
+  {
+    saveProject: (project) ->
+      # todo use %http to save to rails API
+      console.log("not yet implemented")
+    saveGeometry: (geometry) ->
+      # todo use %http to save to rails API
+      console.log("not yet implemented")
+    saveSimulation: (simulation) ->
+      # todo use %http to save to rails API
+      console.log("not yet implemented")
+  }
+)
+
+### TODO
+We might be able to use cacheing by getting a complete list of simulation ids, geometry ids and project ids
+but only save the data for those ids for things that we need... maybe
+###
+
+receta.factory('DataReceiver', ($http) ->
+  # we dont seem to need this because we never "dirty" an entry. we update it then post it to the api.
+  # is there a case where we would need having "dirty". Possibly if we want to lazy load data (and we should)
+  {
+    getProject: (project) ->
+      # todo use $http to get the info and update the cache
+      console.log("not yet implemented")
+    getGeometry: (geometry) ->
+      # todo use $http to get the info and update the cache
+      console.log("not yet implemented")
+    getSimulation: (simulation) ->
+      # todo use $http to get the info and update the cache
+      console.log("not yet implemented")
+  }
+)
+
+receta.factory('RelationProvider', (DataCache, DataSaver) ->
+  {
+    addProjectMethods: (project) ->
+      project.simulations = ->
+        simList = {}
+        angular.forEach(DataCache["simulations"], (simulation, sim_id) ->
+          if simulation.project_id == project.id
+            simList[sim_id] = simulation
+        )
+        simList
+      project.simulation = (id) ->
+        sims = project.simulations()
+        if sims[id]
+          sims[id]
+        else
+          "Project with id #{project.id} does not have a simulation with id #{id}"
+      project.geometries = ->
+        geoList = {}
+        angular.forEach(DataCache["geometries"], (geometry, geo_id) ->
+          if geometry.project_id == project.id
+            geoList[geo_id] = geometry
+        )
+        geoList
+      project.geometry = (id) ->
+        geos = project.geometries()
+        if geos[id]
+          geos[id]
+        else
+          "Project with id #{project.id} does not have a geometry with id #{id}"
+      project.startEdit = ->
+        this.editing = true
+      project.stopEdit = ->
+        DataSaver.saveProject(project)
+        this.editing = false
+    addSimulationMethods: (simulation) ->
+      simulation.startEdit = ->
+        this.editing = true
+      simulation.stopEdit = ->
+        DataSaver.saveSimulation(simulation)
+        this.editing = false
+      simulation.geometries = ->
+        geoList = {}
+        angular.forEach(DataCache["geometries"], (geometry, geo_id) ->
+          if geometry.simulation_id == simulation.id
+            geoList[geo_id] = geometry
+        )
+        geoList
+      simulation.geometry = (id) ->
+        geos = simulation.geometries()
+        if geos[id]
+          geos[id]
+        else
+          "Simulation with id #{simulation.id} does not have a geometry with id #{id}"
+      simulation.project = ->
+        DataCache["projects"][simulation.project_id]
+    addGeometryMethods: (geometry) ->
+      geometry.startEdit = ->
+        this.editing = true
+      geometry.stopEdit = ->
+        DataSaver.saveGeometry(geometry)
+        this.editing = false
+      geometry.simulation = ->
+        DataCache["simulations"][geometry.simulation_id]
+      geometry.project = ->
+        DataCache["projects"][geometry.project_id]
+  }
+)
+
+receta.factory('DataProvider', (DataCache, RelationProvider, DataSaver) ->
 
   ### Project Object Instance Methods ###
   angular.forEach(DataCache["projects"], (project, proj_id) ->
-    project.simulations = ->
-      simList = {}
-      angular.forEach(DataCache["simulations"], (simulation, sim_id) ->
-        if simulation.dirty && simulation.id == project.id
-          # todo use $http to update the project
-          tmp = "dirty" # need a line here for coffescript to compile
-        if simulation.project_id == project.id
-          simList[sim_id] = simulation
-      )
-      simList
-    project.simulation = (id) ->
-      sims = project.simulations()
-      if sims[id]
-        if sims[id].dirty
-          # todo use $http to update the project
-          tmp = "dirty" # need a line here for coffescript to compile
-        sims[id]
-      else
-        "Project with id #{project.id} does not have a simulation with id #{id}"
-    project.geometries = ->
-      geoList = {}
-      angular.forEach(DataCache["geometries"], (geometry, geo_id) ->
-        if geometry.dirty && geometry.id == project.id
-          # todo use $http to update the project
-          tmp = "dirty" # need a line here for coffescript to compile
-        if geometry.project_id == project.id
-          geoList[geo_id] = geometry
-      )
-      geoList
-    project.geometry = (id) ->
-      geos = project.geometries()
-      if geos[id]
-        if geos[id].dirty
-          # todo use $http to update the project
-          tmp = "dirty" # need a line here for coffescript to compile
-        geos[id]
-      else
-        "Project with id #{project.id} does not have a geometry with id #{id}"
-    project.startEdit = ->
-      this.editing = true
-    project.stopEdit = ->
-      # todo save this to database
-      # todo mark cache as dirty
-      this.editing = false
+    RelationProvider.addProjectMethods(project)
   )
 
   ### Simulation Object Instance Methods ###
   angular.forEach(DataCache["simulations"], (simulation, sim_id) ->
-    simulation.startEdit = ->
-      this.editing = true
-    simulation.stopEdit = ->
-      # todo save this to database
-      # mark cache as dirty
-      this.editing = false
-    simulation.geometries = ->
-      geoList = {}
-      angular.forEach(DataCache["geometries"], (geometry, geo_id) ->
-        if geometry.dirty && geometry.id == simulation.id
-          # todo use $http to update the project
-          tmp = "dirty" # need a line here for coffescript to compile
-        if geometry.simulation_id == simulation.id
-          geoList[geo_id] = geometry
-      )
-      geoList
-    simulation.geometry = (id) ->
-      geos = simulation.geometries()
-      if geos[id]
-        if geos[id].dirty
-          # todo use $http to update the project
-          tmp = "dirty" # need a line here for coffescript to compile
-        geos[id]
-      else
-        "Simulation with id #{simulation.id} does not have a geometry with id #{id}"
-    simulation.project = ->
-      if DataCache["projects"][simulation.project_id].dirty
-        # todo use $http to update the project
-        tmp = "dirty" # need a line here for coffescript to compile
-      DataCache["projects"][simulation.project_id]
+    RelationProvider.addSimulationMethods(simulation)
   )
 
   ### Geometry Object Instance Methods ###
   angular.forEach(DataCache["geometries"], (geometry, geo_id) ->
-    geometry.startEdit = ->
-      this.editing = true
-    geometry.stopEdit = ->
-      # todo save this to database
-      # mark cache as dirty
-      this.editing = false
-    geometry.simulation = ->
-      if DataCache["simulations"][geometry.simulation_id].dirty
-        # todo use $http to update the project
-        tmp = "dirty" # need a line here for coffescript to compile
-      DataCache["simulations"][geometry.simulation_id]
-    geometry.project = ->
-      if DataCache["projects"][geometry.project_id].dirty
-        # todo use $http to update the project
-        tmp = "dirty" # need a line here for coffescript to compile
-      DataCache["projects"][geometry.project_id]
+    RelationProvider.addSimulationMethods(geometry)
   )
 
   ### Functions to return as the DataProvider ###
   {
     projects: ->
-      angular.forEach(DataCache["projects"], (project, proj_id) ->
-        if project.dirty
-          # todo use $http to update the project
-          tmp = "dirty" # need a line here for coffescript to compile
-      )
       DataCache["projects"]
     project: (id) ->
-      if DataCache["projects"][id].dirty
-        # todo use $http to update the project
-        tmp = "dirty" # need a line here for coffescript to compile
       DataCache["projects"][id]
     simulation: (id) ->
-      if DataCache["simulations"][id].dirty
-        # todo use $http to update the project
-        tmp = "dirty" # need a line here for coffescript to compile
       DataCache["simulations"][id]
     geometry: (id) ->
-      if DataCache["geometries"][id].dirty
-        # todo use $http to update the project
-        tmp = "dirty" # need a line here for coffescript to compile
       DataCache["geometries"][id]
     create:
       {
-        project: (proj) ->
-          # todo use $http to send proj and receive a new project
-          proj.id = 20
-          DataCache["projects"][proj.id] = proj
-          # todo the project methods need added
-          DataCache["projects"][proj.id]
+        project: (project) ->
+          DataSaver.saveProject(project)
+          project.id = 20
+          DataCache["projects"][project.id] = project
+          RelationProvider.addProjectMethods(project)
+          DataCache["projects"][project.id]
         simulation: (sim) ->
-          # todo use $http to send sim and receive a new sim
+          DataSaver.saveSimulation(sim)
           sim.id = 20
           DataCache["simulations"][sim.id] = sim
-          # todo the simulation methods need added
+          RelationProvider.addProjectMethods(sim)
           DataCache["simulations"][sim.id]
         geometry: (geo) ->
-          # todo use $http to send geo and receive a new geo
+          DataSaver.saveGeometry(geo)
           geo.id = 20
           DataCache["geometries"][geo.id] = geo
-          # todo the project methods need added
+          RelationProvider.addProjectMethods(geo)
           DataCache["geometries"][geo.id]
       }
   }
