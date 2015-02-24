@@ -12,6 +12,11 @@ angular.module('receta').factory('DataCache', ->
             name: "outlet"
             attributes: []
           }
+        wall:
+          {
+            name: "wall"
+            attributes: []
+          }
       }
     projects:
       {
@@ -38,7 +43,7 @@ angular.module('receta').factory('DataCache', ->
             name: "Test Sim"
             id: 1
             project_id: 1
-            description: "blah blaj"
+            description: "This is a description for the test sim simulation. These description look kind of bad when they are short. Should we think about the display of these descriptions?"
             status: "Queued"
             editing: false
             measurement_scale: "mm"
@@ -182,7 +187,7 @@ angular.module('receta').factory('DataCache', ->
             name: "GEO C"
             id: 3
             project_id: 2
-            simulation_id: 11
+            simulation_id: 1
             description: "blah"
             editing: false
             type: "outlet"
@@ -204,6 +209,22 @@ angular.module('receta').factory('DataCache', ->
                 vx: 1.24
                 vy: 2.45
                 vz: 1.9
+              }
+          }
+        5:
+          {
+            name: "Geo Again"
+            id: 5
+            project_id: 2
+            simulation_id: 1
+            description: "blah"
+            editing: false
+            type: "inlet"
+            attributes:
+              {
+                vx: 3.67
+                vy: 1.65
+                vz: 3.1
               }
           }
       }

@@ -7,6 +7,7 @@
     "angular-mocks": "latest",
     "bootstrap-sass-official": "latest",
     "angular-flash": "latest",
-    "jstree": "latest"
+    "jstree": "latest",
+    "pluralize": "latest"
   }
 }

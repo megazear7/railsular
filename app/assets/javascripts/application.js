@@ -17,4 +17,5 @@
 //= require angular-resource/angular-resource
 //= require angular-flash/dist/angular-flash
 //= require angular-rails-templates
+//= require pluralize/pluralize.js
 //= require_tree .

@@ -5,6 +5,7 @@ asset 'angular-mocks'
 asset 'bootstrap-sass-official'
 asset 'angular-flash'
 asset 'jstree'
+asset 'pluralize'
 # not I installed jstree but I am not using my own hosted jstree. I am getting it from jster because bower was giving me lots of trouble.
 # at some point though jstree needs hosted by bower.
 # vim: ft=ruby

@@ -17,7 +17,10 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
       alert("report")
 
     $scope.add = (type) ->
-      alert("add " + type)
+      if type == 'inlet'
+        $scope.addInlet()
+      else if type == 'outlet'
+        $scope.addOutlet()
 
     $scope.addInlet = ->
       geo = Geometry.create(
@@ -31,6 +34,7 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
           attributes: {vx: 0, vy: 0, vz: 0}
         }
       )
+      $location.path("projects/"+$scope.activeProject.id+"/geometries/"+geo.id)
 
     $scope.addOutlet = ->
       geo = Geometry.create(

@@ -13,6 +13,10 @@ receta = angular.module('receta',[
   (str) ->
     str[0].toUpperCase() + str.slice(1)
 )
+.filter('pluralize', ->
+  (str) ->
+    pluralize(str)
+)
 
 
 receta.config([ '$routeProvider', 'flashProvider',
