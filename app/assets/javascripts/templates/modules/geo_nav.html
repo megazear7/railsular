@@ -13,6 +13,8 @@
       </div>
       <div ng-if="geo != geometry">
         <a ng-click="link('projects/'+activeProject.id+'/geometries/'+geo.id)">{{geo.name}}</a>
+      </div>
     </div>
+    <a ng-click="addGeometry()"><span class="glyphicon glyphicon-plus"></span></a>
   </div>
 </article>

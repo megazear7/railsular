@@ -1,18 +1,28 @@
 <article ng-if="geoSelected.selected" class="panel panel-info">
   <header class="panel-heading">
     <h1 ng-if="!geometry.editing">{{geometry.name}}</h1>
-    <h1 ng-if="geometry.editing"><input type="text" ng-model="geometry.name" class="form-control form-custom" /></h1>
+    <h1 ng-if="geometry.editing"><input type="text" ng-model="geometry.name" class="form-control form-custom form-header" /></h1>
     {{geometry.type}}
   </header>
   <div class="panel-body">
-    <a ng-if="!geometry.editing" ng-click="geometry.startEdit()" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
-    <a ng-if="geometry.editing" ng-click="geometry.stopEdit()" class="pull-right"><span class="glyphicon glyphicon-ok"></span></a>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="btn-group">
+          <a class="btn btn-default" ng-click="delete()"><span class="glyphicon glyphicon-trash"> Delete</span></a>
+          <a class="btn btn-default" ng-click="report()"><span class="glyphicon glyphicon-exclamation-sign"> Report</span></a>
+        </div>
+        <a ng-if="!geometry.editing" ng-click="geometry.startEdit()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
+        <a ng-if="geometry.editing" ng-click="geometry.stopEdit()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-ok"></span></a>
+      </div>
+    </div>
+
+    <br />
     <div ng-if="!geometry.editing">
-      <div>Description: {{geometry.description}}</div>
+      <div>{{geometry.description}}</div>
       <div ng-repeat="(attr,val) in geometry.attributes">{{attr}}: {{val}}</div>
     </div>
     <div ng-if="geometry.editing">
-      <p>Description: <input type="text" ng-model="geometry.description" class="form-control form-custom" /></p>
+      <p><textarea type="text" ng-model="geometry.description" class="form-control form-custom" /></p>
       <p ng-repeat="(attr,val) in geometry.attributes">{{attr}}: <input type="text" ng-model="geometry.attributes[attr]" class="form-control form-custom" /></p>
     </div>
   </div>

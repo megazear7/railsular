@@ -12,10 +12,7 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li ng-if="activeProject"><a ng-click="editProject(activeProject)">Edit Project</a></li>
-        <li ng-if="activeProject"><a ng-click="addSim(activeProject)">Add Simulation</a></li>
-        <li ng-if="activeProject"><a ng-click="addGeo(activeProject)">Add Geometry</a></li>
-        <li><a ng-click="addProject()">Add Project</a></li>
+        <li><a ng-click="addProject()"><span class="glyphicon glyphicon-plus"></span></a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a ng-click="link('projects')">My Projects</a></li>
