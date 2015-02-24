@@ -8,6 +8,8 @@
     "bootstrap-sass-official": "latest",
     "angular-flash": "latest",
     "jstree": "latest",
-    "pluralize": "latest"
+    "pluralize": "latest",
+    "slide-push-menu": "latest",
+    "classie": "latest"
   }
 }

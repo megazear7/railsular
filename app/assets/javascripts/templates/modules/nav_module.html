@@ -1,21 +1,23 @@
+<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1" style="z-index: 10001">
+  <a class="show-left-menu"><span class="glyphicon glyphicon-list"></span></a><h3>Projects</h3>
+  <span ng-repeat="project in projects" ng-if="!project.editing"><a ng-click="link('projects/' + project.id + '/simulations')">{{project.name}}</a></span>
+  <a ng-click="addProject()"><span class="glyphicon glyphicon-plus"></span></a>
+</nav>
+
 <nav class="navbar navbar-inverse navbar-static-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" ng-click="link('projects')" ng-if="!activeProject">No Project Selected</a>
-      <a class="navbar-brand" ng-click="link('projects/'+activeProject.id)" ng-if="activeProject">{{activeProject.name}}</a>
+      <ul class="nav navbar-nav">
+        <li><a class="show-left-menu"><span class="glyphicon glyphicon-list"></span></a></li>
+      </ul>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a ng-click="addProject()"><span class="glyphicon glyphicon-plus"></span></a></li>
+        <li><a class="navbar-brand" ng-click="link('projects')" ng-if="!activeProject">No Project Selected</a></li>
+        <li><a class="navbar-brand" ng-click="link('projects/'+activeProject.id)" ng-if="activeProject">{{activeProject.name}}</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a ng-click="link('projects')">My Projects</a></li>
+        <li><a ng-click="addProject()"><span class="glyphicon glyphicon-plus"></span></a></li>
       </ul>
     </div>
   </div>
