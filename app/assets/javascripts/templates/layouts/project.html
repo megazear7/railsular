@@ -1,0 +1,45 @@
+<div ng-controller="NavController">
+  <div ng-include="template.url">
+  </div>
+</div>
+<aside class="flash row">
+  <article flash-alert duration="0" active-class="alert" class="col-md-6 col-md-offset-3 col-sm-12">
+    {{flash.message}}
+  </article>
+</aside>
+<div class="container-fluid">
+  <section class="col-md-4">
+    <div ng-if="displaySimNav" ng-controller="SimNavController">
+      <div ng-include="template.url">
+      </div>
+    </div>
+    <div ng-if="displayGeoNav" ng-controller="GeoNavController">
+      <div ng-include="template.url">
+      </div>
+    </div>
+  </section>
+  <section class="col-md-8">
+    <article class="panel panel-info">
+      <header class="panel-heading">
+        <h1 ng-if="!activeProject.editing">{{activeProject.name}}</h1>
+        <h1 ng-if="activeProject.editing"><input type="text" ng-model="activeProject.name" class="form-control form-custom form-header" /></h1>
+      </header>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="btn-group">
+              <a class="btn btn-default" ng-click="delete()"><span class="glyphicon glyphicon-trash"> Delete</span></a>
+              <a class="btn btn-default" ng-click="report()"><span class="glyphicon glyphicon-exclamation-sign"> Report</span></a>
+            </div>
+            <a ng-if="!activeProject.editing" ng-click="activeProject.startEdit()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a ng-if="activeProject.editing" ng-click="activeProject.stopEdit()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-ok"></span></a>
+          </div>
+        </div>
+
+        <br />
+        <div ng-if="!activeProject.editing">{{activeProject.description}}</div>
+        <div ng-if="activeProject.editing"><textarea ng-model="activeProject.description" class="form-control" /></div>
+      </div>
+    </article>
+  </section>
+</div>

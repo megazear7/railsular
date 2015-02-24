@@ -1,9 +1,8 @@
 controllers = angular.module('controllers')
 controllers.controller("NavController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry',
   ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry)->
-    $scope.template = { url: "modules/nav_module.html" }
-    $scope.title = "Nav Module Controller"
     $scope.link = (url) -> $location.path("/#{url}")
+    $scope.template = { url: "modules/nav_module.html" }
 
     $scope.addSim = (project) ->
       sim = Simulation.create({ name: "Simulation Name", description: "Description", editing: true, status: "queued", project_id: $scope.activeProject.id})

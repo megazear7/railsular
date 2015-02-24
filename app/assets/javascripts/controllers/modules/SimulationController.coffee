@@ -1,7 +1,6 @@
 controllers = angular.module('controllers')
 controllers.controller("SimulationController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry'
   ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry)->
-    $scope.title = "Simulation"
     $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/simulation.html" }
 

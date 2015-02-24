@@ -1,9 +1,8 @@
 controllers = angular.module('controllers')
 controllers.controller("TreeController", [ '$scope', '$routeParams', '$location', '$resource',
   ($scope,$routeParams,$location,$resource)->
+    $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/tree.html" }
-    $scope.title = "Tree Controller"
-    $scope.message = "I am a module-level Angular controller. I am allowed to do client side page navigation, but I cannot expect to be dependent upon any url state information (such as route information or id's and such). That is only available to layout controllers, and I am only a module controller. However, I can be used on any page that wants to plug me in."
 ])
 
 
