@@ -10,14 +10,28 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
       alert("run")
 
     $scope.duplicate = ->
-      alert("duplicate")
+      sim = Simulation.create(
+        {
+          name: $scope.simulation.name
+          description: $scope.simulation.description
+          editing: true
+          project_id: $scope.simulation.project_id
+          status: $scope.simulation.status
+          measurement_scale: $scope.simulation.measurement_scale
+          fluid_type: $scope.simulation.fluid_type
+          kinematic_viscosity: $scope.simulation.kinematic_viscosity
+          density: $scope.simulation.density
+          steps: $scope.simulation.steps
+        }
+      )
+      $location.path("projects/"+$scope.activeProject.id+"/simulations/"+sim.id)
 
     $scope.delete = ->
       $scope.simulation.delete()
       $location.path("projects/"+$scope.activeProject.id+"/simulations/")
 
     $scope.report = ->
-      alert("report")
+      alert("Reporting Simulation...")
 
     $scope.startEdit = ->
       $scope.simulation.startEdit()

@@ -15,4 +15,11 @@ controllers.controller("ProjectController", [ '$scope', '$routeParams', '$locati
     if $scope.displaySimNav == $scope.displayGeoNav
       $scope.displaySimNav = true
       $scope.displayGeoNav = false
+
+    $scope.delete = ->
+      $scope.activeProject.delete()
+      $location.path("projects/")
+
+    $scope.report = ->
+      alert("Reporting project...")
 ])
