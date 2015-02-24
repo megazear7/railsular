@@ -32,7 +32,7 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
         geometry.stopEdit()
       )
 
-    $scope.add = (type) ->
+    $scope.addGeometry = (type) ->
       if type == 'inlet'
         $scope.addInlet()
       else if type == 'outlet'

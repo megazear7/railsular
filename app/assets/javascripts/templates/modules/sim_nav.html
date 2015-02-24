@@ -12,6 +12,8 @@
       </div>
       <div ng-if="sim != simulation">
         <a ng-click="link('projects/'+activeProject.id+'/simulations/'+sim.id)">{{sim.name}}</a>
+      </div>
     </div>
+    <a ng-click="addSimulation()"><span class="glyphicon glyphicon-plus"></span></a>
   </div>
 </article>
