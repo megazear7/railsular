@@ -2,11 +2,11 @@ angular.module('receta').factory('Simulation', (DataCache) ->
   addMethods = (simulation) ->
 
     simulation.save = ->
-      # todo use $http to save this to the rails API, in the error callback we might change the simulation back and alert user of the failed save
+      # todo use $http to save this to the rails API, in the error callback we might need to revert this change
       console.log("not yet implemented")
 
     simulation.delete = ->
-      # todo use $http to delete this from the rails API, in the error callback we might need to add the simulation back in and alert user of the failed delete
+      # todo use $http to save this to the rails API, in the error callback we might need to revert this change
       delete DataCache.simulations[simulation.id]
 
     simulation.startEdit = ->
@@ -35,6 +35,11 @@ angular.module('receta').factory('Simulation', (DataCache) ->
       else
         "Simulation with id #{simulation.id} does not have a geometry with id #{id}"
 
+    simulation.addGeometry = (geo_id) ->
+      # todo use $http to save this to the rails API, in the error callback we might need to revert this change
+      DataCache.geometries_simulations.push({simulation_id: simulation.id, geometry_id: geo_id})
+
+
     simulation.project = ->
       DataCache.projects[simulation.project_id]
 
@@ -48,7 +53,7 @@ angular.module('receta').factory('Simulation', (DataCache) ->
     find: (id) ->
       DataCache.simulations[id]
     create: (sim) ->
-      # todo use $http to save this to the rails API, in the error callback we might need to remove the simulation and alert user of the failed create
+      # todo use $http to save this to the rails API, in the error callback we might need to revert this change
       sim.id = 20
       DataCache.simulations[sim.id] = sim
       addMethods(sim)

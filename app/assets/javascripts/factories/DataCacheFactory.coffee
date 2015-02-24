@@ -12,8 +12,6 @@ angular.module('receta').factory('DataCache', ->
         {geometry_id: 3, simulation_id: 3}
         {geometry_id: 4, simulation_id: 5}
         {geometry_id: 5, simulation_id: 5}
-        {geometry_id: 1, simulation_id: 6}
-        {geometry_id: 3, simulation_id: 7}
       ]
     geometry_types:
       {
@@ -99,7 +97,7 @@ angular.module('receta').factory('DataCache', ->
           {
             name: "TestAgainSim"
             id: 4
-            project_id: 2
+            project_id: 1
             description: "blah blaj"
             status: "Queued"
             editing: false
@@ -113,7 +111,7 @@ angular.module('receta').factory('DataCache', ->
           {
             name: "SimCCC"
             id: 5
-            project_id: 2
+            project_id: 1
             description: "blah blah"
             status: "Queued"
             editing: false
@@ -199,7 +197,7 @@ angular.module('receta').factory('DataCache', ->
           {
             name: "GEO C"
             id: 3
-            project_id: 2
+            project_id: 1
             description: "blah"
             editing: false
             type: "outlet"
@@ -209,9 +207,9 @@ angular.module('receta').factory('DataCache', ->
           }
         4:
           {
-            name: "Geo Again"
+            name: "Another Geo"
             id: 4
-            project_id: 2
+            project_id: 1
             description: "blah"
             editing: false
             type: "inlet"
@@ -226,7 +224,7 @@ angular.module('receta').factory('DataCache', ->
           {
             name: "Geo Again"
             id: 5
-            project_id: 2
+            project_id: 1
             description: "blah"
             editing: false
             type: "inlet"

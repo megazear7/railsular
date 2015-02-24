@@ -45,11 +45,11 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
           description: "Description"
           editing: true
           project_id: $scope.activeProject.id
-          simulation_id: $scope.simulation.id
           type: "inlet",
           attributes: {vx: 0, vy: 0, vz: 0}
         }
       )
+      $scope.simulation.addGeometry(geo.id)
       $location.path("projects/"+$scope.activeProject.id+"/geometries/"+geo.id)
 
     $scope.addOutlet = ->
