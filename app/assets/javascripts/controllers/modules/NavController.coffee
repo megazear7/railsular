@@ -16,7 +16,7 @@ controllers.controller("NavController", [ '$scope', '$routeParams', '$location',
       angular.forEach($scope.projects, (value, key) ->
         value.editing = false
       )
-      Project.create({ name: "Project Name", description: "Description", editing: true})
+      proj = Project.create({ name: "Name", description: "Description", editing: true})
       $location.path("projects/")
 
     $scope.editProject = (project) ->
