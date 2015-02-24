@@ -5,6 +5,10 @@ angular.module('receta').factory('Project', (DataCache) ->
       # todo use $http to save to rails API
       console.log("not yet implemented")
 
+    project.delete = ->
+      # todo use $http to delete this from the rails API, in the error callback we might need to add the simulation back in and alert user of the failed delete
+      delete DataCache.projects[project.id]
+
     project.simulations = ->
       simList = {}
       angular.forEach(DataCache.simulations, (simulation, sim_id) ->
@@ -58,3 +62,4 @@ angular.module('receta').factory('Project', (DataCache) ->
       DataCache.projects[project.id]
   }
 )
+.run( (Project) -> console.log('Project service is ready') )

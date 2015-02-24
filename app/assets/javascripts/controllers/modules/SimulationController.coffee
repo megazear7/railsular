@@ -9,10 +9,14 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
 
     $scope.run = ->
       alert("run")
+
     $scope.duplicate = ->
       alert("duplicate")
+
     $scope.delete = ->
-      alert("delete")
+      $scope.simulation.delete()
+      $location.path("projects/"+$scope.activeProject.id+"/simulations/")
+
     $scope.report = ->
       alert("report")
 

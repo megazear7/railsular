@@ -5,6 +5,10 @@ angular.module('receta').factory('Geometry', (DataCache) ->
       # todo use $http to save to rails API
       console.log("not yet implemented")
 
+    geometry.delete = ->
+      # todo use $http to delete this from the rails API, in the error callback we might need to add the simulation back in and alert user of the failed delete
+      delete DataCache.geometries[geometry.id]
+
     geometry.startEdit = ->
       this.editing = true
 
@@ -47,3 +51,4 @@ angular.module('receta').factory('Geometry', (DataCache) ->
       DataCache.geometry_types
   }
 )
+.run( (Geometry) -> console.log('Geometry service is ready') )

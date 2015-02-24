@@ -2,8 +2,12 @@ angular.module('receta').factory('Simulation', (DataCache) ->
   addMethods = (simulation) ->
 
     simulation.save = ->
-      # todo use $http to save to rails API
+      # todo use $http to save this to the rails API, in the error callback we might change the simulation back and alert user of the failed save
       console.log("not yet implemented")
+
+    simulation.delete = ->
+      # todo use $http to delete this from the rails API, in the error callback we might need to add the simulation back in and alert user of the failed delete
+      delete DataCache.simulations[simulation.id]
 
     simulation.startEdit = ->
       this.editing = true
@@ -44,10 +48,11 @@ angular.module('receta').factory('Simulation', (DataCache) ->
     find: (id) ->
       DataCache.simulations[id]
     create: (sim) ->
-      # todo use $http to save to rails API
+      # todo use $http to save this to the rails API, in the error callback we might need to remove the simulation and alert user of the failed create
       sim.id = 20
       DataCache.simulations[sim.id] = sim
       addMethods(sim)
       DataCache.simulations[sim.id]
   }
 )
+.run( (Simulation) -> console.log('Simulation service is ready') )

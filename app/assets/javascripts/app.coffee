@@ -6,9 +6,6 @@ receta = angular.module('receta',[
   'angular-flash.service',
   'angular-flash.flash-alert-directive'
 ])
-.run( (Project) -> console.log('Project service is ready') )
-.run( (Simulation) -> console.log('Simulation service is ready') )
-.run( (Geometry) -> console.log('Geometry service is ready') )
 .filter('titlize', ->
   (str) ->
     str[0].toUpperCase() + str.slice(1)
