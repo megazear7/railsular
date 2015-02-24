@@ -19,8 +19,8 @@
           <a class="btn btn-default" ng-click="delete()"><span class="glyphicon glyphicon-trash"> Delete</span></a>
           <a class="btn btn-default" ng-click="report()"><span class="glyphicon glyphicon-exclamation-sign"> Report</span></a>
         </div>
-        <a ng-if="!simulation.editing" ng-click="simulation.startEdit()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
-        <a ng-if="simulation.editing" ng-click="simulation.stopEdit()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-ok"></span></a>
+        <a ng-if="!simulation.editing" ng-click="startEdit()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
+        <a ng-if="simulation.editing" ng-click="stopEdit()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-ok"></span></a>
       </div>
     </div>
 
@@ -47,7 +47,10 @@
               <tbody>
                 <tr ng-repeat="geo in simulation.geometries()">
                   <td ng-if="geo.type==geometry_type.name">{{geo.name}}</td>
-                  <td ng-if="geo.type==geometry_type.name" ng-repeat="attr in geo.attributes">{{attr}}</td>
+                  <td ng-if="geo.type==geometry_type.name && !geo.editing" ng-repeat="(name, val) in geo.attributes">{{val}}</td>
+                  <td ng-if="geo.type==geometry_type.name && geo.editing" ng-repeat="(name, val) in geo.attributes">
+                    <input type="text" ng-model="geo.attributes[name]" class="form-control" />
+                  </td>
                 </tr>
                 <tr><td><a ng-click="add(geometry_type.name)"><span class="glyphicon glyphicon-plus"></span></a></td></tr>
               </tbody>

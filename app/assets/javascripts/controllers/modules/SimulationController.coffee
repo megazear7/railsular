@@ -16,6 +16,18 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
     $scope.report = ->
       alert("report")
 
+    $scope.startEdit = ->
+      $scope.simulation.startEdit()
+      angular.forEach($scope.simulation.geometries(), (geometry, geo_id) ->
+        geometry.startEdit()
+      )
+
+    $scope.stopEdit = ->
+      $scope.simulation.stopEdit()
+      angular.forEach($scope.simulation.geometries(), (geometry, geo_id) ->
+        geometry.stopEdit()
+      )
+
     $scope.add = (type) ->
       if type == 'inlet'
         $scope.addInlet()
