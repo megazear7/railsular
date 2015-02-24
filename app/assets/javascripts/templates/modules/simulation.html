@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-6">
         <h1 ng-if="!simulation.editing">{{simulation.name}}</h1>
-        <h1 ng-if="simulation.editing"><input type="text" ng-model="simulation.name" class="form-control form-custom" /></h1>
+        <h1 ng-if="simulation.editing"><input type="text" ng-model="simulation.name" class="form-control form-custom form-header" /></h1>
       </div>
       <div class="col-md-6">
         <h3><div class="pull-right">{{simulation.status}}</div></h3>
@@ -13,18 +13,22 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-12">
-        <a ng-click="run()"><span class="glyphicon glyphicon-play"></span></a>
-        <a ng-click="duplicate()"><span class="glyphicon glyphicon-new-window"></span></a>
-        <a ng-click="delete()"><span class="glyphicon glyphicon-trash"></span></a>
-        <a ng-click="report()"><span class="glyphicon glyphicon-exclamation-sign"></span></a>
-        <a ng-if="!simulation.editing" ng-click="simulation.startEdit()" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
-        <a ng-if="simulation.editing" ng-click="simulation.stopEdit()" class="pull-right"><span class="glyphicon glyphicon-ok"></span></a>
+        <div class="btn-group">
+          <a class="btn btn-default" ng-click="run()"><span class="glyphicon glyphicon-play"> Run</span></a>
+          <a class="btn btn-default" ng-click="duplicate()"><span class="glyphicon glyphicon-new-window"> Duplicate</span></a>
+          <a class="btn btn-default" ng-click="delete()"><span class="glyphicon glyphicon-trash"> Delete</span></a>
+          <a class="btn btn-default" ng-click="report()"><span class="glyphicon glyphicon-exclamation-sign"> Report</span></a>
+        </div>
+        <a ng-if="!simulation.editing" ng-click="simulation.startEdit()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
+        <a ng-if="simulation.editing" ng-click="simulation.stopEdit()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-ok"></span></a>
       </div>
     </div>
+
+    <br />
     <div class="row">
       <div class="col-md-12">
         <p ng-if="!simulation.editing">{{simulation.description}}</p>
-        <p ng-if="simulation.editing"><input type="text" ng-model="simulation.description" class="form-control form-custom" /></p>
+        <p ng-if="simulation.editing"><textarea type="text" ng-model="simulation.description" class="form-control form-custom" /></p>
       </div>
     </div>
     <div class="row">
@@ -54,21 +58,25 @@
 
       <div class="col-md-6">
         <div class="row"><div class="col-md-12"><h3>Simulation Details:</h3></div></div>
-        <div ng-if="!simulation.editing">
-          <p>Measurement Scale: {{simulation.measurement_scale}}</p>
-          <p>Fluid Type: {{simulation.fluid_type}}</p>
-          <p>Kinematic Viscosity: {{simulation.kinematic_viscosity}}</p>
-          <p>Density: {{simulation.density}}</p>
-          <p>Steps: {{simulation.steps}}</p>
-        </div>
-        <div ng-if="simulation.editing">
-          <p>Measurement Scale: <input type="text" ng-model="simulation.measurement_scale" class="form-control form-custom" /></p>
-          <p>Fluid Type: <input type="text" ng-model="simulation.fluid_type" class="form-control form-custom" /></p>
-          <p>Kinematic Viscosity: <input type="text" ng-model="simulation.kinematic_viscosity" class="form-control form-custom" /></p>
-          <p>Density: <input type="text" ng-model="simulation.density" class="form-control form-custom" /></p>
-          <p>Steps: <input type="text" ng-model="simulation.steps" class="form-control form-custom" /></p>
+          <table class="table">
+            <tbody ng-if="!simulation.editing">
+              <tr><td class="col-md-6">Measurement Scale:</td><td class="col-md-6">{{simulation.measurement_scale}}</td></tr>
+              <tr><td class="col-md-6">Fluid Type:</td><td class="col-md-6">{{simulation.fluid_type}}</td></tr>
+              <tr><td class="col-md-6">Kinematic Viscosity:</td><td class="col-md-6">{{simulation.kinematic_viscosity}}</td></tr>
+              <tr><td class="col-md-6">Density:</td><td class="col-md-6">{{simulation.density}}</td></tr>
+              <tr><td class="col-md-6">Steps:</td><td class="col-md-6">{{simulation.steps}}</td></tr>
+            </tbody>
+            <tbody ng-if="simulation.editing">
+              <tr><td class="col-md-6">Measurement Scale:</td><td class="col-md-6"><input type="text" ng-model="simulation.measurement_scale" class="form-control form-custom" /></td></tr>
+              <tr><td class="col-md-6">Fluid Type:</td><td class="col-md-6"><input type="text" ng-model="simulation.fluid_type" class="form-control form-custom" /></td></tr>
+              <tr><td class="col-md-6">Kinematic Viscosity:</td><td class="col-md-6"><input type="text" ng-model="simulation.kinematic_viscosity" class="form-control form-custom" /></td></tr>
+              <tr><td class="col-md-6">Density:</td><td class="col-md-6"><input type="text" ng-model="simulation.density" class="form-control form-custom" /></td></tr>
+              <tr><td class="col-md-6">Steps:</td><td class="col-md-6"><input type="text" ng-model="simulation.steps" class="form-control form-custom" /></td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
+
     </div>
   </div>
 </article>
