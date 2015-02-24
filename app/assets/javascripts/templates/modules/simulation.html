@@ -6,14 +6,48 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-12">
+        <a ng-click="run()"><span class="glyphicon glyphicon-play"></span></a>
+        <a ng-click="duplicate()"><span class="glyphicon glyphicon-new-window"></span></a>
+        <a ng-click="delete()"><span class="glyphicon glyphicon-trash"></span></a>
+        <a ng-click="report()"><span class="glyphicon glyphicon-exclamation-sign"></span></a>
         <a ng-if="!simulation.editing" ng-click="simulation.startEdit()" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
         <a ng-if="simulation.editing" ng-click="simulation.stopEdit()" class="pull-right"><span class="glyphicon glyphicon-ok"></span></a>
       </div>
     </div>
     <div class="row">
+      <div class="col-md-12">
+        <p ng-if="!simulation.editing">{{simulation.description}}</p>
+        <p ng-if="simulation.editing"><input type="text" ng-model="simulation.description" class="form-control form-custom" /></p>
+      </div>
+    </div>
+    <div class="row">
+
       <div class="col-md-6">
+        <div class="row"><div class="col-md-12"><h3>Geometries:</h3></div></div>
+        <div class="row" ng-repeat="geometry_type in geometry_types">
+          <div class="col-md-12">
+            <table class="table table-hover table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>{{geometry_type.name | titlize}}</th>
+                  <th ng-repeat="attr in geometry_type.attributes">{{attr}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="geo in simulation.geometries()">
+                  <td ng-if="geo.type==geometry_type.name">{{geo.name}}</td>
+                  <td ng-if="geo.type==geometry_type.name" ng-repeat="attr in geo.attributes">{{attr}}</td>
+                </tr>
+                <tr><td><a ng-click="add(geometry_type.name)"><span class="glyphicon glyphicon-plus"></span></a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="row"><div class="col-md-12"><h3>Simulation Details:</h3></div></div>
         <div ng-if="!simulation.editing">
-          <p>Description: {{simulation.description}}</p>
           <p>Measurement Scale: {{simulation.measurement_scale}}</p>
           <p>Fluid Type: {{simulation.fluid_type}}</p>
           <p>Kinematic Viscosity: {{simulation.kinematic_viscosity}}</p>
@@ -21,7 +55,6 @@
           <p>Steps: {{simulation.steps}}</p>
         </div>
         <div ng-if="simulation.editing">
-          <p>Description: <input type="text" ng-model="simulation.description" class="form-control form-custom" /></p>
           <p>Measurement Scale: <input type="text" ng-model="simulation.measurement_scale" class="form-control form-custom" /></p>
           <p>Fluid Type: <input type="text" ng-model="simulation.fluid_type" class="form-control form-custom" /></p>
           <p>Kinematic Viscosity: <input type="text" ng-model="simulation.kinematic_viscosity" class="form-control form-custom" /></p>
@@ -29,20 +62,6 @@
           <p>Steps: <input type="text" ng-model="simulation.steps" class="form-control form-custom" /></p>
         </div>
         <div>Status: {{simulation.status}}</div>
-      </div>
-      <h3>Geometries:</h3>
-      <div class="col-md-6">
-        <div class="row"><h4>Outlets:</h4></div>
-        <div ng-repeat="geo in simulation.geometries()">
-          <div class="row" ng-if="geo.type=='outlet'">{{geo.name}}</div>
-        </div>
-        <div class="row"><a ng-click="addOutlet()">Add Outlet</a></div>
-        <br/>
-        <div class="row"><h4>Inlets:</h4></div>
-        <div ng-repeat="geo in simulation.geometries()">
-          <div class="row" ng-if="geo.type=='inlet'">{{geo.name}}</div>
-        </div>
-        <div class="row"><a ng-click="addInlet()">Add Inlet</a></div>
       </div>
     </div>
   </div>

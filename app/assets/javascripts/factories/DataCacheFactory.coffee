@@ -1,5 +1,18 @@
 angular.module('receta').factory('DataCache', ->
   {
+    geometry_types:
+      {
+        inlet:
+          {
+            name: "inlet"
+            attributes: ["vx", "vy", "vz"]
+          }
+        outlet:
+          {
+            name: "outlet"
+            attributes: []
+          }
+      }
     projects:
       {
         1:
