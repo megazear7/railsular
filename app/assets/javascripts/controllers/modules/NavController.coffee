@@ -1,6 +1,6 @@
 controllers = angular.module('controllers')
 controllers.controller("NavController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry',
-  ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry)->
+  ($scope,$routeParams,$location,$resource,$event,Project,Simulation,Geometry)->
     $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/nav_module.html" }
 
@@ -25,4 +25,15 @@ controllers.controller("NavController", [ '$scope', '$routeParams', '$location',
       )
       project.editing = true
       $location.path("projects")
+
+    $scope.openMenu = ($event) ->
+      menuLeft = document.getElementById('cbp-spmenu-s1')
+      classie.toggle($event.target, 'active')
+      classie.toggle(menuLeft, 'cbp-spmenu-open')
+
+    $scope.closeMenu = ($event) ->
+      menuLeft = document.getElementById('cbp-spmenu-s1')
+      classie.toggle($event.target, 'active')
+      classie.toggle(menuLeft, 'cbp-spmenu-open')
+
 ])

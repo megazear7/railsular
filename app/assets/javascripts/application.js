@@ -21,15 +21,3 @@
 //= require slide-push-menu/menu.js
 //= require classie/classie.js
 //= require_tree .
-
-$(document).ready(function(){
-  var menuLeft = document.getElementById('cbp-spmenu-s1');
-  var showLeftButtons = document.getElementsByClassName('show-left-menu');
-  $.each(showLeftButtons, function(index, showLeft) {
-    showLeft.onclick = function() {
-      classie.toggle(this, 'active');
-      classie.toggle(menuLeft, 'cbp-spmenu-open');
-    }
-  });
-});
-
