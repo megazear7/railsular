@@ -13,27 +13,37 @@ angular.module('receta').factory('Geometry', (DataCache) ->
       this.editing = false
 
     geometry.simulation = ->
-      DataCache["simulations"][geometry.simulation_id]
+      simIds = []
+      angular.forEach(DataCache.geometries_simulations, (val) ->
+        if val.geometry_id == geometry.id
+          simIds.push(val.simulation_id)
+      )
+      simList = {}
+      angular.forEach(simIds, (sim_id) ->
+        simList[sim_id] = DataCache.simulations[sim_id]
+      )
+      simList
+
 
     geometry.project = ->
-      DataCache["projects"][geometry.project_id]
+      DataCache.projects[geometry.project_id]
 
-  angular.forEach(DataCache["geometries"], (geometry, geo_id) ->
+  angular.forEach(DataCache.geometries, (geometry, geo_id) ->
     addMethods(geometry)
   )
 
   {
     all: ->
-      DataCache["geometries"]
+      DataCache.geometries
     find: (id) ->
-      DataCache["geometries"][id]
+      DataCache.geometries[id]
     create: (geo) ->
       # todo use $http to save to rails API
       geo.id = 20
-      DataCache["geometries"][geo.id] = geo
+      DataCache.geometries[geo.id] = geo
       addMethods(geo)
-      DataCache["geometries"][geo.id]
+      DataCache.geometries[geo.id]
     types: ->
-      DataCache["geometry_types"]
+      DataCache.geometry_types
   }
 )

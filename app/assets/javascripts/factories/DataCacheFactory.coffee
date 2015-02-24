@@ -1,5 +1,20 @@
 angular.module('receta').factory('DataCache', ->
   {
+    geometries_simulations:
+      [
+        {geometry_id: 1, simulation_id: 1}
+        {geometry_id: 2, simulation_id: 1}
+        {geometry_id: 3, simulation_id: 1}
+        {geometry_id: 4, simulation_id: 1}
+        {geometry_id: 5, simulation_id: 1}
+        {geometry_id: 1, simulation_id: 2}
+        {geometry_id: 2, simulation_id: 3}
+        {geometry_id: 3, simulation_id: 3}
+        {geometry_id: 4, simulation_id: 5}
+        {geometry_id: 5, simulation_id: 5}
+        {geometry_id: 1, simulation_id: 6}
+        {geometry_id: 3, simulation_id: 7}
+      ]
     geometry_types:
       {
         inlet:
@@ -52,10 +67,10 @@ angular.module('receta').factory('DataCache', ->
             density: 2.3
             steps: 120
           }
-        3:
+        2:
           {
             name: "SimB"
-            id: 3
+            id: 2
             project_id: 1
             description: "blah blah"
             status: "Queued"
@@ -66,10 +81,10 @@ angular.module('receta').factory('DataCache', ->
             density: 2.3
             steps: 120
           }
-        4:
+        3:
           {
             name: "AnotherSim"
-            id: 4
+            id: 3
             project_id: 1
             description: "blah"
             status: "Queued"
@@ -80,10 +95,10 @@ angular.module('receta').factory('DataCache', ->
             density: 2.3
             steps: 120
           }
-        2:
+        4:
           {
             name: "TestAgainSim"
-            id: 2
+            id: 4
             project_id: 2
             description: "blah blaj"
             status: "Queued"
@@ -122,10 +137,10 @@ angular.module('receta').factory('DataCache', ->
             density: 2.3
             steps: 120
           }
-        8:
+        7:
           {
             name: "Simulation Test"
-            id: 8
+            id: 7
             project_id: 2
             description: "blah"
             status: "Queued"
@@ -136,10 +151,10 @@ angular.module('receta').factory('DataCache', ->
             density: 2.3
             steps: 120
           }
-        11:
+        8:
           {
             name: "Sim Test"
-            id: 11
+            id: 8
             project_id: 2
             description: "blah"
             status: "Queued"
@@ -158,7 +173,6 @@ angular.module('receta').factory('DataCache', ->
             name: "GEO B"
             id: 1
             project_id: 1
-            simulation_id: 1
             description: "blah"
             editing: false
             type: "inlet"
@@ -174,7 +188,6 @@ angular.module('receta').factory('DataCache', ->
             name: "Geometry Again"
             id: 2
             project_id: 1
-            simulation_id: 1
             description: "blah"
             editing: false
             type: "outlet"
@@ -187,7 +200,6 @@ angular.module('receta').factory('DataCache', ->
             name: "GEO C"
             id: 3
             project_id: 2
-            simulation_id: 1
             description: "blah"
             editing: false
             type: "outlet"
@@ -200,7 +212,6 @@ angular.module('receta').factory('DataCache', ->
             name: "Geo Again"
             id: 4
             project_id: 2
-            simulation_id: 11
             description: "blah"
             editing: false
             type: "inlet"
@@ -216,7 +227,6 @@ angular.module('receta').factory('DataCache', ->
             name: "Geo Again"
             id: 5
             project_id: 2
-            simulation_id: 1
             description: "blah"
             editing: false
             type: "inlet"

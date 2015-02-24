@@ -7,7 +7,7 @@ angular.module('receta').factory('Project', (DataCache) ->
 
     project.simulations = ->
       simList = {}
-      angular.forEach(DataCache["simulations"], (simulation, sim_id) ->
+      angular.forEach(DataCache.simulations, (simulation, sim_id) ->
         if simulation.project_id == project.id
           simList[sim_id] = simulation
       )
@@ -22,7 +22,7 @@ angular.module('receta').factory('Project', (DataCache) ->
 
     project.geometries = ->
       geoList = {}
-      angular.forEach(DataCache["geometries"], (geometry, geo_id) ->
+      angular.forEach(DataCache.geometries, (geometry, geo_id) ->
         if geometry.project_id == project.id
           geoList[geo_id] = geometry
       )
@@ -41,20 +41,20 @@ angular.module('receta').factory('Project', (DataCache) ->
       project.save()
       this.editing = false
 
-  angular.forEach(DataCache["projects"], (project, proj_id) ->
+  angular.forEach(DataCache.projects, (project, proj_id) ->
     addMethods(project)
   )
 
   {
     all: ->
-      DataCache["projects"]
+      DataCache.projects
     find: (id) ->
-      DataCache["projects"][id]
+      DataCache.projects[id]
     create: (project) ->
       # todo use $http to save to rails API
       project.id = 20
-      DataCache["projects"][project.id] = project
+      DataCache.projects[project.id] = project
       addMethods(project)
-      DataCache["projects"][project.id]
+      DataCache.projects[project.id]
   }
 )

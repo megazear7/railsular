@@ -13,10 +13,14 @@ angular.module('receta').factory('Simulation', (DataCache) ->
       this.editing = false
 
     simulation.geometries = ->
+      geoIds = []
+      angular.forEach(DataCache.geometries_simulations, (val) ->
+        if val.simulation_id == simulation.id
+          geoIds.push(val.geometry_id)
+      )
       geoList = {}
-      angular.forEach(DataCache["geometries"], (geometry, geo_id) ->
-        if geometry.simulation_id == simulation.id
-          geoList[geo_id] = geometry
+      angular.forEach(geoIds, (geo_id) ->
+        geoList[geo_id] = DataCache.geometries[geo_id]
       )
       geoList
 
@@ -28,22 +32,22 @@ angular.module('receta').factory('Simulation', (DataCache) ->
         "Simulation with id #{simulation.id} does not have a geometry with id #{id}"
 
     simulation.project = ->
-      DataCache["projects"][simulation.project_id]
+      DataCache.projects[simulation.project_id]
 
-  angular.forEach(DataCache["simulations"], (simulation, sim_id) ->
+  angular.forEach(DataCache.simulations, (simulation, sim_id) ->
     addMethods(simulation)
   )
 
   {
     all: ->
-      DataCache["simulations"]
+      DataCache.simulations
     find: (id) ->
-      DataCache["simulations"][id]
+      DataCache.simulations[id]
     create: (sim) ->
       # todo use $http to save to rails API
       sim.id = 20
-      DataCache["simulations"][sim.id] = sim
+      DataCache.simulations[sim.id] = sim
       addMethods(sim)
-      DataCache["simulations"][sim.id]
+      DataCache.simulations[sim.id]
   }
 )
