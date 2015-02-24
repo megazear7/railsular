@@ -18,11 +18,14 @@ angular.module('receta').factory('Geometry', (DataCache) ->
 
     geometry.addSimulation = (sim_id) ->
       # todo use $http to save this to the rails API, in the error callback we might need to revert this change
-      DataCache.geometries_simulations.push({simulation_id: sim_id, geometry_id: geometry.id})
+      DataCache.geometries_simulations["#{geometry.id}_#{sim_id}"] = {simulation_id: sim_id, geometry_id: geometry.id}
+
+    geometry.specificAttributes = (sim_id) ->
+      DataCache.geometries_simulations["#{geometry.id}_#{sim_id}"].attributes
 
     geometry.simulations = ->
       simIds = []
-      angular.forEach(DataCache.geometries_simulations, (val) ->
+      angular.forEach(DataCache.geometries_simulations, (val, key) ->
         if val.geometry_id == geometry.id
           simIds.push(val.simulation_id)
       )

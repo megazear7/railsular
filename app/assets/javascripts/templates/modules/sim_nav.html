@@ -1,9 +1,10 @@
 <article class="panel panel-info">
   <ul class="nav nav-tabs">
-    <li role="presentation" class="active"><a>Simulations</a></li>
     <li role="presentation">
       <a ng-click="link('projects/'+activeProject.id+'/geometries')">Geometries</a>
     </li>
+    <li role="presentation" class="active"><a>Simulations</a></li>
+    <li role="presentation"><a>Results</a></li>
   </ul>
   <div class="panel-body">
     <div ng-repeat="sim in simulations">

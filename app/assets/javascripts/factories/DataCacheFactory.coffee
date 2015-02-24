@@ -1,18 +1,68 @@
 angular.module('receta').factory('DataCache', ->
   {
     geometries_simulations:
-      [
-        {geometry_id: 1, simulation_id: 1}
-        {geometry_id: 2, simulation_id: 1}
-        {geometry_id: 3, simulation_id: 1}
-        {geometry_id: 4, simulation_id: 1}
-        {geometry_id: 5, simulation_id: 1}
-        {geometry_id: 1, simulation_id: 2}
-        {geometry_id: 2, simulation_id: 3}
-        {geometry_id: 3, simulation_id: 3}
-        {geometry_id: 4, simulation_id: 5}
-        {geometry_id: 5, simulation_id: 5}
-      ]
+      {
+        "1_1":
+          {
+            geometry_id: 1
+            simulation_id: 1
+            attributes: { vx: 1.16, vy: 3.32, vz: 1.2 }
+          }
+        "2_1":
+          {
+            geometry_id: 2
+            simulation_id: 1
+            attributes: {}
+          }
+        "3_1":
+          {
+            geometry_id: 3
+            simulation_id: 1
+            attributes: {}
+          }
+        "4_1":
+          {
+            geometry_id: 4
+            simulation_id: 1
+            attributes: { vx: 3.67, vy: 1.65, vz: 2.3 }
+          }
+        "5_1":
+          {
+            geometry_id: 5
+            simulation_id: 1
+            attributes: { vx: 3.01, vy: 6.4, vz: 3.1 }
+          }
+        "1_2":
+          {
+            geometry_id: 1
+            simulation_id: 2
+            attributes: { vx: 8.3, vy: 1.65, vz: 2.3 }
+          }
+        "2_3":
+          {
+            geometry_id: 2
+            simulation_id: 3
+            attributes: {}
+          }
+        "3_3":
+          {
+            geometry_id: 3
+            simulation_id: 3
+            attributes: {}
+          }
+        "4_5":
+          {
+            geometry_id: 4
+            simulation_id: 5
+            attributes: { vx: 3.7, vy: 1.45, vz: 4.5 }
+          }
+        "5_5":
+          {
+            geometry_id: 5
+            simulation_id: 5
+            attributes: { vx: 3.6, vy: 1.01, vz: 72 }
+          }
+      }
     geometry_types:
       {
         inlet:
@@ -176,9 +226,6 @@ angular.module('receta').factory('DataCache', ->
             type: "inlet"
             attributes:
               {
-                vx: 1.24
-                vy: 2.45
-                vz: 1.9
               }
           }
         2:
@@ -215,9 +262,6 @@ angular.module('receta').factory('DataCache', ->
             type: "inlet"
             attributes:
               {
-                vx: 1.24
-                vy: 2.45
-                vz: 1.9
               }
           }
         5:
@@ -230,9 +274,6 @@ angular.module('receta').factory('DataCache', ->
             type: "inlet"
             attributes:
               {
-                vx: 3.67
-                vy: 1.65
-                vz: 3.1
               }
           }
       }

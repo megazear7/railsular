@@ -47,9 +47,9 @@
               <tbody>
                 <tr ng-repeat="geo in simulation.geometries()">
                   <td ng-if="geo.type==geometry_type.name">{{geo.name}}</td>
-                  <td ng-if="geo.type==geometry_type.name && !geo.editing" ng-repeat="(name, val) in geo.attributes">{{val}}</td>
-                  <td ng-if="geo.type==geometry_type.name && geo.editing" ng-repeat="(name, val) in geo.attributes">
-                    <input type="text" ng-model="geo.attributes[name]" class="form-control" />
+                  <td ng-if="geo.type==geometry_type.name && !geo.editing" ng-repeat="(name, val) in geo.specificAttributes(simulation.id)">{{val}}</td>
+                  <td ng-if="geo.type==geometry_type.name && geo.editing" ng-repeat="(name, val) in geo.specificAttributes(simulation.id)">
+                    <input type="text" ng-model="geo.specificAttributes(simulation.id)[name]" class="form-control" />
                   </td>
                 </tr>
                 <tr><td><a ng-click="addGeometry(geometry_type.name)"><span class="glyphicon glyphicon-plus"></span></a></td></tr>
