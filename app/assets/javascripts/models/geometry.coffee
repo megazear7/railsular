@@ -21,14 +21,6 @@ angular.module('receta').factory('Geometry', (DataCache) ->
       new_id = Math.floor((Math.random() * 10000) + 1)
       DataCache.assigned_geometries[new_id] = {id: new_id, simulation_id: sim_id, geometry_id: geometry.id, attributes: attr}
 
-    geometry.specificAttributes = (sim_id) ->
-      attrs = { }
-      angular.forEach(DataCache.assigned_geometries, (val, key) ->
-        if val.geometry_id == geometry.id && val.simulation_id == sim_id
-          attrs = val.attributes
-      )
-      attrs
-
     geometry.simulations = ->
       simIds = []
       angular.forEach(DataCache.assigned_geometries, (val, key) ->
@@ -43,6 +35,14 @@ angular.module('receta').factory('Geometry', (DataCache) ->
 
     geometry.project = ->
       DataCache.projects[geometry.project_id]
+
+    geometry.specificAttributes = (sim_id) ->
+      attrs = { }
+      angular.forEach(DataCache.assigned_geometries, (val, key) ->
+        if val.geometry_id == geometry.id && val.simulation_id == sim_id
+          attrs = val.attributes
+      )
+      attrs
 
   angular.forEach(DataCache.geometries, (geometry, geo_id) ->
     addMethods(geometry)

@@ -38,7 +38,6 @@ controllers.controller("AssignedGeometriesController", [ '$scope', '$routeParams
       (scope) ->
         scope.simulation.editing
       (newVal, oldVal) ->
-        console.log(oldVal + " ---> " + newVal)
         if newVal == false
           angular.forEach(addingGeometry, (val, name) ->
             $scope.stopAddingGeometry(name)
