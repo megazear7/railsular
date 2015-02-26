@@ -13,11 +13,4 @@
 
 ActiveRecord::Schema.define(version: 20140309184135) do
 
-  create_table "recipes", force: :cascade do |t|
-    t.string   "name"
-    t.text     "instructions"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
 end
