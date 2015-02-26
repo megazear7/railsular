@@ -34,6 +34,17 @@ controllers.controller("AssignedGeometriesController", [ '$scope', '$routeParams
       if assigned_geo
         assigned_geo.delete()
 
+    $scope.$watch(
+      (scope) ->
+        scope.simulation.editing
+      (newVal, oldVal) ->
+        console.log(oldVal + " ---> " + newVal)
+        if newVal == false
+          angular.forEach(addingGeometry, (val, name) ->
+            $scope.stopAddingGeometry(name)
+          )
+    )
+
     $scope.addGeometry = (geo) ->
       geo.editing = true
       attrs = { }
