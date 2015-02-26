@@ -1,63 +1,73 @@
 angular.module('receta').factory('DataCache', ->
   {
-    geometries_simulations:
+    transient_geometries:
       {
-        "1_1":
+        1:
           {
+            id: 1
             geometry_id: 1
             simulation_id: 1
             attributes: { vx: 1.16, vy: 3.32, vz: 1.2 }
           }
-        "2_1":
+        2:
           {
+            id: 2
             geometry_id: 2
             simulation_id: 1
             attributes: {}
           }
-        "3_1":
+        3:
           {
+            id: 3
             geometry_id: 3
             simulation_id: 1
             attributes: {}
           }
-        "4_1":
+        4:
           {
+            id: 4
             geometry_id: 4
             simulation_id: 1
             attributes: { vx: 3.67, vy: 1.65, vz: 2.3 }
           }
-        "5_1":
+        5:
           {
+            id: 5
             geometry_id: 5
             simulation_id: 1
             attributes: { vx: 3.01, vy: 6.4, vz: 3.1 }
           }
-        "1_2":
+        6:
           {
+            id: 6
             geometry_id: 1
             simulation_id: 2
             attributes: { vx: 8.3, vy: 1.65, vz: 2.3 }
           }
-        "2_3":
+        7:
           {
+            id: 7
             geometry_id: 2
             simulation_id: 3
             attributes: {}
           }
-        "3_3":
+        8:
           {
+            id: 8
             geometry_id: 3
             simulation_id: 3
             attributes: {}
           }
-        "4_5":
+        9:
           {
+            id: 9
             geometry_id: 4
             simulation_id: 5
             attributes: { vx: 3.7, vy: 1.45, vz: 4.5 }
           }
-        "5_5":
+        10:
           {
+            id: 10
             geometry_id: 5
             simulation_id: 5
             attributes: { vx: 3.6, vy: 1.01, vz: 72 }
@@ -89,7 +99,6 @@ angular.module('receta').factory('DataCache', ->
             id: 1
             description: "test project description"
             editing: false
-
           }
         2:
           {
@@ -106,7 +115,7 @@ angular.module('receta').factory('DataCache', ->
             name: "Test Sim"
             id: 1
             project_id: 1
-            description: "This is a description for the test sim simulation. These description look kind of bad when they are short. Should we think about the display of these descriptions?"
+            description: "These description look kind of bad when they are short. Should we think about the display of these descriptions?"
             status: "Queued"
             editing: false
             measurement_scale: "mm"
