@@ -72,8 +72,8 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
       addingGeometry[type] = false
 
     $scope.removeGeometry = (geo) ->
+      geo.editing = false
       assigned_geo = AssignedGeometry.find_by(geometry_id: geo.id, simulation_id: $scope.simulation.id)
-      console.log(assigned_geo)
       if assigned_geo
         assigned_geo.delete()
 
