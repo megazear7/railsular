@@ -1,4 +1,4 @@
-angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry) ->
+angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry,ModelFactory) ->
   addMethods = (simulation) ->
 
     simulation.save = ->
@@ -45,17 +45,6 @@ angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry) ->
     addMethods(simulation)
   )
 
-  {
-    all: ->
-      DataCache.simulations
-    find: (id) ->
-      DataCache.simulations[id]
-    create: (sim) ->
-      # todo use $http to save this to the rails API, in the error callback we might need to revert this change
-      sim.id = Math.floor((Math.random()*100000)+1)
-      DataCache.simulations[sim.id] = sim
-      addMethods(sim)
-      DataCache.simulations[sim.id]
-  }
+  ModelFactory("simulations", addMethods)
 )
 .run( (Simulation) -> console.log('Simulation service is ready') )

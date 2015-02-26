@@ -1,4 +1,4 @@
-angular.module('receta').factory('Project', (DataCache) ->
+angular.module('receta').factory('Project', (DataCache,ModelFactory) ->
   addMethods = (project) ->
 
     project.save = ->
@@ -49,17 +49,6 @@ angular.module('receta').factory('Project', (DataCache) ->
     addMethods(project)
   )
 
-  {
-    all: ->
-      DataCache.projects
-    find: (id) ->
-      DataCache.projects[id]
-    create: (project) ->
-      # todo use $http to save this to the rails API, in the error callback we might need to revert this change
-      project.id = Math.floor((Math.random()*100000)+1)
-      DataCache.projects[project.id] = project
-      addMethods(project)
-      DataCache.projects[project.id]
-  }
+  ModelFactory("projects", addMethods)
 )
 .run( (Project) -> console.log('Project service is ready') )

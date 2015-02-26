@@ -1,4 +1,4 @@
-angular.module('receta').factory('Geometry', (DataCache) ->
+angular.module('receta').factory('Geometry', (DataCache,ModelFactory) ->
   addMethods = (geometry) ->
 
     geometry.save = ->
@@ -48,26 +48,19 @@ angular.module('receta').factory('Geometry', (DataCache) ->
     addMethods(geometry)
   )
 
-  {
-    all: ->
-      DataCache.geometries
-    allByType: (type) ->
-      geoList = {}
-      angular.forEach(DataCache.geometries, (val, id) ->
-        if val.type == type
-          geoList[id] = val
-      )
-      geoList
-    find: (id) ->
-      DataCache.geometries[id]
-    create: (geo) ->
-      # todo use $http to save this to the rails API, in the error callback we might need to revert this change
-      geo.id = Math.floor((Math.random()*100000)+1)
-      DataCache.geometries[geo.id] = geo
-      addMethods(geo)
-      DataCache.geometries[geo.id]
-    types: ->
-      DataCache.geometry_types
-  }
+  modelMethods = ModelFactory("geometries", addMethods)
+
+  modelMethods["types"] = ->
+    DataCache.geometry_types
+
+  modelMethods["allByType"] = (type) ->
+    geoList = {}
+    angular.forEach(DataCache.geometries, (val, id) ->
+      if val.type == type
+        geoList[id] = val
+    )
+    geoList
+
+  modelMethods
 )
 .run( (Geometry) -> console.log('Geometry service is ready') )
