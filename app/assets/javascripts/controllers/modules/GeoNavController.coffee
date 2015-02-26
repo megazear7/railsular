@@ -4,10 +4,22 @@ controllers.controller("GeoNavController", [ '$scope', '$routeParams', '$locatio
     $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/geo_nav.html" }
 
-    $scope.addGeometry = ->
+    $scope.addingGeometry = false
+
+    $scope.geometry_types = Geometry.types()
+
+    $scope.startAddingGeometry = ->
+      $scope.addingGeometry = true
+
+    $scope.stopAddingGeometry = ->
+      $scope.addingGeometry = false
+
+    $scope.addGeometry = (type) ->
+      $scope.addingGeometry = false
       geo = Geometry.create(
         {
           name: "Name"
+          type: type
           description: "Description"
           editing: true
           project_id: $scope.activeProject.id

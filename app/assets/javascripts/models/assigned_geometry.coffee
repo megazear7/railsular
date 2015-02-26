@@ -1,4 +1,4 @@
-angular.module('receta').factory('TransientGeometry', (DataCache) ->
+angular.module('receta').factory('AssignedGeometry', (DataCache) ->
   addMethods = (assigned_geometry) ->
 
     assigned_geometry.save = ->

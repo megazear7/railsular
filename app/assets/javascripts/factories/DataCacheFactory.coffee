@@ -1,6 +1,6 @@
 angular.module('receta').factory('DataCache', ->
   {
-    transient_geometries:
+    assigned_geometries:
       {
         1:
           {
