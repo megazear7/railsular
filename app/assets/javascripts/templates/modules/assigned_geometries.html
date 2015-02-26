@@ -1,0 +1,29 @@
+<div class="row" ng-repeat="geometry_type in geometry_types">
+  <div class="col-md-12">
+    <table class="table table-hover table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>{{geometry_type.name | pluralize | titlize}}</th>
+          <th ng-repeat="attr in geometry_type.attributes">{{attr}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="geo in simulation.geometries()">
+          <td ng-if="geo.type==geometry_type.name">{{geo.name}}</td>
+          <td ng-if="geo.type==geometry_type.name && !geo.editing" ng-repeat="(name, val) in geo.specificAttributes(simulation.id)">{{val}}</td>
+          <td ng-if="geo.type==geometry_type.name && geo.editing" ng-repeat="(name, val) in geo.specificAttributes(simulation.id)">
+            <input type="text" ng-model="geo.specificAttributes(simulation.id)[name]" class="form-control" />
+          </td>
+          <td ng-if="geo.type==geometry_type.name && geo.editing"><a ng-click="removeGeometry(geo)"><span class="glyphicon glyphicon-log-out"></span></a></td>
+        </tr>
+        <tr ng-if="simulation.editing">
+          <td ng-if="!addingGeometry(geometry_type.name)"><a ng-click="startAddingGeometry(geometry_type.name)"><span class="glyphicon glyphicon-plus"></span></a></td>
+          <td ng-if="addingGeometry(geometry_type.name)"><a ng-click="stopAddingGeometry(geometry_type.name)"><span class="glyphicon glyphicon-ok"></span></a></td>
+        </tr>
+        <tr ng-if="addingGeometry(geometry_type.name)" ng-repeat="geo in geometryByType(geometry_type.name)">
+          <td><a ng-click="addGeometry(geo)"><span class="glyphicon glyphicon-plus"></span></a> {{geo.name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

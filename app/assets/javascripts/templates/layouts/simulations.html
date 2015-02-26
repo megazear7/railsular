@@ -1,7 +1,4 @@
-<div ng-controller="NavController">
-  <div ng-include="template.url">
-  </div>
-</div>
+<div ng-controller="NavController"><div ng-include="template.url"></div></div>
 <aside class="flash row">
   <article flash-alert duration="0" active-class="alert" class="col-md-6 col-md-offset-3 col-sm-12">
     {{flash.message}}
@@ -9,15 +6,9 @@
 </aside>
 <div class="container-fluid">
   <section class="col-md-4">
-    <div ng-controller="SimNavController">
-      <div ng-include="template.url">
-      </div>
-    </div>
+    <div ng-controller="SimNavController"><div ng-include="template.url"></div></div>
   </section>
   <section class="col-md-8">
-    <div ng-controller="SimulationController">
-      <div ng-include="template.url">
-      </div>
-    </div>
+    <div ng-controller="SimulationController"><div ng-include="template.url"></div></div>
   </section>
 </div>
