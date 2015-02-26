@@ -35,9 +35,9 @@ angular.module('receta').factory('Simulation', (DataCache) ->
       else
         "Simulation with id #{simulation.id} does not have a geometry with id #{id}"
 
-    simulation.addGeometry = (geo_id) ->
+    simulation.addGeometry = (geo_id, attr) ->
       # todo use $http to save this to the rails API, in the error callback we might need to revert this change
-      DataCache.geometries_simulations["#{geo_id}_#{simulation.id}"] = {simulation_id: simulation.id, geometry_id: geo_id}
+      DataCache.geometries_simulations["#{geo_id}_#{simulation.id}"] = {simulation_id: simulation.id, geometry_id: geo_id, attributes: attr}
 
 
     simulation.project = ->

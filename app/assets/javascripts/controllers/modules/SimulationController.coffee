@@ -4,6 +4,15 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
     $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/simulation.html" }
 
+    addingGeometry = {
+        inlet: false
+        outlet: false
+        wall: false
+      }
+
+    $scope.addingGeometry = (type) ->
+      addingGeometry[type]
+
     $scope.geometry_types = Geometry.types()
 
     $scope.run = ->
@@ -44,38 +53,28 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
       angular.forEach($scope.simulation.geometries(), (geometry, geo_id) ->
         geometry.stopEdit()
       )
-
-    $scope.addGeometry = (type) ->
-      if type == 'inlet'
-        $scope.addInlet()
-      else if type == 'outlet'
-        $scope.addOutlet()
-
-    $scope.addInlet = ->
-      geo = Geometry.create(
-        {
-          name: "Name"
-          description: "Description"
-          editing: true
-          project_id: $scope.activeProject.id
-          type: "inlet",
-          attributes: {vx: 0, vy: 0, vz: 0}
-        }
+      angular.forEach(addingGeometry, (val, id) ->
+        addingGeometry[id] = false
       )
-      $scope.simulation.addGeometry(geo.id)
-      $location.path("projects/"+$scope.activeProject.id+"/geometries/"+geo.id)
 
-    $scope.addOutlet = ->
-      geo = Geometry.create(
-        {
-          name: "Name"
-          description: "Description"
-          editing: true
-          project_id: $scope.activeProject.id
-          simulation_id: $scope.simulation.id
-          type: "outlet",
-          attributes: {}
-        }
+    $scope.geometryByType = (type) ->
+      geos = Geometry.allByType(type)
+      angular.forEach($scope.simulation.geometries(), (val, id) ->
+        if id of geos
+          delete geos[id]
       )
-      $location.path("projects/"+$scope.activeProject.id+"/geometries/"+geo.id)
+      geos
+
+    $scope.startAddingGeometry = (type) ->
+      addingGeometry[type] = true
+
+    $scope.stopAddingGeometry = (type) ->
+      addingGeometry[type] = false
+
+    $scope.addGeometry = (geo) ->
+      geo.editing = true
+      if geo.type == 'inlet'
+        $scope.simulation.addGeometry(geo.id, { vx: 0, vy: 0, vz: 0 })
+      else if geo.type == 'outlet'
+        $scope.simulation.addGeometry(geo.id, { })
 ])

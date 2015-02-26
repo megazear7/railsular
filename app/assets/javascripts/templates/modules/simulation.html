@@ -52,7 +52,13 @@
                     <input type="text" ng-model="geo.specificAttributes(simulation.id)[name]" class="form-control" />
                   </td>
                 </tr>
-                <tr><td><a ng-click="addGeometry(geometry_type.name)"><span class="glyphicon glyphicon-plus"></span></a></td></tr>
+                <tr ng-if="simulation.editing">
+                  <td ng-if="!addingGeometry(geometry_type.name)"><a ng-click="startAddingGeometry(geometry_type.name)"><span class="glyphicon glyphicon-plus"></span></a></td>
+                  <td ng-if="addingGeometry(geometry_type.name)"><a ng-click="stopAddingGeometry(geometry_type.name)"><span class="glyphicon glyphicon-ok"></span></a></td>
+                </tr>
+                <tr ng-if="addingGeometry(geometry_type.name)" ng-repeat="geo in geometryByType(geometry_type.name)">
+                  <td><a ng-click="addGeometry(geo)"><span class="glyphicon glyphicon-plus"></span></a> {{geo.name}}</td>
+                </tr>
               </tbody>
             </table>
           </div>
