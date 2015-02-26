@@ -1,0 +1,16 @@
+<table class="table">
+  <tbody ng-if="!simulation.editing">
+    <tr><td class="col-md-6">Measurement Scale:</td><td class="col-md-6">{{simulation.measurement_scale}}</td></tr>
+    <tr><td class="col-md-6">Fluid Type:</td><td class="col-md-6">{{simulation.fluid_type}}</td></tr>
+    <tr><td class="col-md-6">Kinematic Viscosity:</td><td class="col-md-6">{{simulation.kinematic_viscosity}}</td></tr>
+    <tr><td class="col-md-6">Density:</td><td class="col-md-6">{{simulation.density}}</td></tr>
+    <tr><td class="col-md-6">Steps:</td><td class="col-md-6">{{simulation.steps}}</td></tr>
+  </tbody>
+  <tbody ng-if="simulation.editing">
+    <tr><td class="col-md-6">Measurement Scale:</td><td class="col-md-6"><input type="text" ng-model="simulation.measurement_scale" class="form-control form-custom" /></td></tr>
+    <tr><td class="col-md-6">Fluid Type:</td><td class="col-md-6"><input type="text" ng-model="simulation.fluid_type" class="form-control form-custom" /></td></tr>
+    <tr><td class="col-md-6">Kinematic Viscosity:</td><td class="col-md-6"><input type="text" ng-model="simulation.kinematic_viscosity" class="form-control form-custom" /></td></tr>
+    <tr><td class="col-md-6">Density:</td><td class="col-md-6"><input type="text" ng-model="simulation.density" class="form-control form-custom" /></td></tr>
+    <tr><td class="col-md-6">Steps:</td><td class="col-md-6"><input type="text" ng-model="simulation.steps" class="form-control form-custom" /></td></tr>
+  </tbody>
+</table>

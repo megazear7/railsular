@@ -4,8 +4,6 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
     $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/simulation.html" }
 
-    $scope.geometry_types = Geometry.types()
-
     $scope.run = ->
       alert("run")
 

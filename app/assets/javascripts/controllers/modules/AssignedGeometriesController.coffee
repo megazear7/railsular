@@ -4,6 +4,8 @@ controllers.controller("AssignedGeometriesController", [ '$scope', '$routeParams
     $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/assigned_geometries.html" }
 
+    $scope.geometry_types = Geometry.types()
+
     addingGeometry = { }
     angular.forEach(Geometry.types(), (type, name) ->
       addingGeometry[name] = false
