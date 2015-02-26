@@ -4,11 +4,10 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
     $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/simulation.html" }
 
-    addingGeometry = {
-        inlet: false
-        outlet: false
-        wall: false
-      }
+    addingGeometry = { }
+    angular.forEach(Geometry.types(), (type, name) ->
+      addingGeometry[name] = false
+    )
 
     $scope.addingGeometry = (type) ->
       addingGeometry[type]
@@ -79,8 +78,9 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
 
     $scope.addGeometry = (geo) ->
       geo.editing = true
-      if geo.type == 'inlet'
-        $scope.simulation.addGeometry(geo.id, { vx: 0, vy: 0, vz: 0 })
-      else if geo.type == 'outlet'
-        $scope.simulation.addGeometry(geo.id, { })
+      attrs = { }
+      angular.forEach(Geometry.types()[geo.type].attributes, (attr) ->
+        attrs[attr] = 0
+      )
+      $scope.simulation.addGeometry(geo.id, attrs)
 ])
