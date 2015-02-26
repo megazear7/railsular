@@ -62,7 +62,7 @@ angular.module('receta').factory('Geometry', (DataCache) ->
       DataCache.geometries[id]
     create: (geo) ->
       # todo use $http to save this to the rails API, in the error callback we might need to revert this change
-      geo.id = 20
+      geo.id = Math.floor((Math.random()*100000)+1)
       DataCache.geometries[geo.id] = geo
       addMethods(geo)
       DataCache.geometries[geo.id]

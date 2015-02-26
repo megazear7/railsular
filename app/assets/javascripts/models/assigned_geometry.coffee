@@ -7,7 +7,7 @@ angular.module('receta').factory('AssignedGeometry', (DataCache) ->
 
     assigned_geometry.delete = ->
       # todo use $http to save this to the rails API, in the error callback we might need to revert this change
-      delete DataCache.geometries[assigned_geometry.id]
+      delete DataCache.assigned_geometries[assigned_geometry.id]
 
     assigned_geometry.startEdit = ->
       this.editing = true
@@ -16,7 +16,7 @@ angular.module('receta').factory('AssignedGeometry', (DataCache) ->
       assigned_geometry.save()
       this.editing = false
 
-  angular.forEach(DataCache.geometries, (assigned_geometry, geo_id) ->
+  angular.forEach(DataCache.assigned_geometries, (assigned_geometry, assigned_geo_id) ->
     addMethods(assigned_geometry)
   )
 
@@ -25,12 +25,28 @@ angular.module('receta').factory('AssignedGeometry', (DataCache) ->
       DataCache.assigned_geometries
     find: (id) ->
       DataCache.assigned_geometries[id]
-    create: (trans_geo) ->
+    find_by: (attrs) ->
+      assigned_geometry = false
+      angular.forEach(DataCache.assigned_geometries, (assigned_geo, assigned_geo_id) ->
+        isFound = true
+        angular.forEach(attrs, (val, attr) ->
+          if assigned_geo[attr] != val
+            isFound = false
+        )
+        if isFound
+          assigned_geometry = assigned_geo
+      )
+      if assigned_geometry
+        return assigned_geometry
+      else
+        return false
+
+    create: (assigned_geo) ->
       # todo use $http to save this to the rails API, in the error callback we might need to revert this change
-      trans_geo.id = 20
-      DataCache.assigned_geometries[trans_geo.id] = trans_geo
-      addMethods(trans_geo)
-      DataCache.assigned_geometries[trans_geo.id]
+      assigned_geo.id = Math.floor((Math.random()*100000)+1)
+      DataCache.assigned_geometries[assigned_geo.id] = assigned_geo
+      addMethods(assigned_geo)
+      DataCache.assigned_geometries[assigned_geo.id]
   }
 )
 .run( (AssignedGeometry) -> console.log('Transient Geometry service is ready') )

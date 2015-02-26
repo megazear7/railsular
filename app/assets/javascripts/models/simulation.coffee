@@ -1,4 +1,4 @@
-angular.module('receta').factory('Simulation', (DataCache) ->
+angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry) ->
   addMethods = (simulation) ->
 
     simulation.save = ->
@@ -36,9 +36,7 @@ angular.module('receta').factory('Simulation', (DataCache) ->
         "Simulation with id #{simulation.id} does not have a geometry with id #{id}"
 
     simulation.addGeometry = (geo_id, attr) ->
-      # todo use $http to save this to the rails API, in the error callback we might need to revert this change
-      new_id = Math.floor((Math.random() * 10000) + 1)
-      DataCache.assigned_geometries[new_id] = {id: new_id, simulation_id: simulation.id, geometry_id: geo_id, attributes: attr}
+      AssignedGeometry.create({simulation_id: simulation.id, geometry_id: geo_id, attributes: attr})
 
     simulation.project = ->
       DataCache.projects[simulation.project_id]
@@ -54,7 +52,7 @@ angular.module('receta').factory('Simulation', (DataCache) ->
       DataCache.simulations[id]
     create: (sim) ->
       # todo use $http to save this to the rails API, in the error callback we might need to revert this change
-      sim.id = 20
+      sim.id = Math.floor((Math.random()*100000)+1)
       DataCache.simulations[sim.id] = sim
       addMethods(sim)
       DataCache.simulations[sim.id]

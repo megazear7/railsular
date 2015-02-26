@@ -1,6 +1,6 @@
 controllers = angular.module('controllers')
-controllers.controller("SimulationController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry'
-  ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry)->
+controllers.controller("SimulationController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry'
+  ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry,AssignedGeometry)->
     $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/simulation.html" }
 
@@ -70,6 +70,12 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
 
     $scope.stopAddingGeometry = (type) ->
       addingGeometry[type] = false
+
+    $scope.removeGeometry = (geo) ->
+      assigned_geo = AssignedGeometry.find_by(geometry_id: geo.id, simulation_id: $scope.simulation.id)
+      console.log(assigned_geo)
+      if assigned_geo
+        assigned_geo.delete()
 
     $scope.addGeometry = (geo) ->
       geo.editing = true
