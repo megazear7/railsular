@@ -1,45 +1,27 @@
 Receta::Application.routes.draw do
-  get 'project/create'
 
-  get 'project/show'
+  get 'projects' => 'project#index'
+  get 'project/:id' => 'project#show'
+  post 'project/create' => 'project#create'
+  post 'project/:id/update' => 'project#update'
+  delete 'project/:id/delete' => 'project#delete'
 
-  get 'project/index'
+  get 'geometries' => 'geometry#index'
+  get 'geometry/:id' => 'geometry#show'
+  post 'geometry/create' => 'geometry#create'
+  post 'geometry/:id/update' => 'geometry#update'
+  delete 'geometry/:id/delete' => 'geometry#delete'
 
-  get 'project/update'
+  get 'assigned_geos' => 'assigned_geo#index'
+  get 'assigned_geo/:id' => 'assigned_geo#show'
+  post 'assigned_geo/create' => 'assigned_geo#create'
+  post 'assigned_geo/:id/update' => 'assigned_geo#update'
+  delete 'assigned_geo/:id/delete' => 'assigned_geo#delete'
 
-  get 'project/delete'
+  get 'simulations' => 'simulation#index'
+  get 'simulation/:id' => 'simulation#show'
+  post 'simulation/create' => 'simulation#create'
+  post 'simulation/:id/update' => 'simulation#update'
+  delete 'simulation/:id/delete' => 'simulation#delete'
 
-  get 'geometry/create'
-
-  get 'geometry/show'
-
-  get 'geometry/index'
-
-  get 'geometry/update'
-
-  get 'geometry/delete'
-
-  get 'assigned_geo/create'
-
-  get 'assigned_geo/show'
-
-  get 'assigned_geo/index'
-
-  get 'assigned_geo/update'
-
-  get 'assigned_geo/delete'
-
-  get 'simulation/create'
-
-  get 'simulation/show'
-
-  get 'simulation/index'
-
-  get 'simulation/update'
-
-  get 'simulation/delete'
-
-  root 'home#index'
-
-  resources :recipes, only: [:index, :show, :create, :update, :destroy]
 end
