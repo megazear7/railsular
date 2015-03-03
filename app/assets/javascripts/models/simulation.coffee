@@ -2,11 +2,12 @@ angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry,Model
   addMethods = (simulation) ->
 
     simulation.save = ->
-      # todo use $http to save this to the rails API, in the error callback we might need to revert this change
-      console.log("not yet implemented")
+      # todo if there is an error saving the simulation then revert the simulation to what the api returns
+      $http.post("/simulation/#{simulation.id}/update", simulation)
 
     simulation.delete = ->
-      # todo use $http to save this to the rails API, in the error callback we might need to revert this change
+      # todo, if it comes back that there was an error trying to delete the simulation then add the simulation back
+      $http.delete("/simulation/#{simulation.id}/delete")
       delete DataCache.simulations[simulation.id]
 
     simulation.startEdit = ->

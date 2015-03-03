@@ -1,4 +1,4 @@
-angular.module('receta').factory('ModelFactory', (DataCache) ->
+angular.module('receta').factory('ModelFactory', (DataCache,$http,$q) ->
   (table_name, addMethods) ->
     {
       all: ->
@@ -21,10 +21,15 @@ angular.module('receta').factory('ModelFactory', (DataCache) ->
         else
           return false
       create: (obj) ->
-        # todo use $http to save this to the rails API, in the error callback we might need to revert this change
-        obj.id = Math.floor((Math.random()*100000)+1)
-        DataCache[table_name][obj.id] = obj
-        addMethods(obj)
-        DataCache[table_name][obj.id]
+        # todo use reject inside of error so that the client of this create method can do something in the reject case
+        return $q( (resolve, reject) ->
+          $http.post("/#{pluralize(table_name, 1)}/create", obj)
+            .success (data, status, headers, config) ->
+              DataCache[table_name][data.geometry.id] = data.geometry
+              addMethods(data.geometry)
+              resolve(DataCache[table_name][data.geometry.id])
+            .error (data, status, headers, config) ->
+              console.log("error creating #{pluralize(table_name, 1)}")
+        )
     }
 )

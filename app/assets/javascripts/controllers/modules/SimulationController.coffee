@@ -8,7 +8,7 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
       alert("run")
 
     $scope.duplicate = ->
-      sim = Simulation.create(
+      promise = Simulation.create(
         {
           name: $scope.simulation.name
           description: $scope.simulation.description
@@ -22,7 +22,8 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
           steps: $scope.simulation.steps
         }
       )
-      $location.path("projects/"+$scope.activeProject.id+"/simulations/"+sim.id)
+      promise.then (sim) ->
+        $location.path("projects/"+$scope.activeProject.id+"/simulations/"+sim.id)
 
     $scope.delete = ->
       $scope.simulation.delete()

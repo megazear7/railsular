@@ -2,11 +2,12 @@ angular.module('receta').factory('Project', (DataCache,ModelFactory,$http) ->
   addMethods = (project) ->
 
     project.save = ->
-      # todo use $http to save this to the rails API, in the error callback we might need to revert this change
-      console.log("not yet implemented")
+      # todo if there is an error saving the project then revert the project to what the api returns
+      $http.post("/project/#{project.id}/update", project)
 
     project.delete = ->
-      # todo use $http to save this to the rails API, in the error callback we might need to revert this change
+      # todo, if it comes back that there was an error trying to delete the project then add the project back
+      $http.delete("/project/#{project.id}/delete")
       delete DataCache.projects[project.id]
 
     project.simulations = ->

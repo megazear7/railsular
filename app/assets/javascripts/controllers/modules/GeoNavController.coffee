@@ -16,14 +16,15 @@ controllers.controller("GeoNavController", [ '$scope', '$routeParams', '$locatio
 
     $scope.addGeometry = (geo_type) ->
       $scope.addingGeometry = false
-      geo = Geometry.create(
+      promise = Geometry.create(
         {
           name: "Name"
           geo_type: geo_type
           description: "Description"
-          editing: true
           project_id: $scope.activeProject.id
         }
       )
-      $location.path("projects/"+$scope.activeProject.id+"/geometries/"+geo.id)
+      promise.then (geo) ->
+        geo.startEdit()
+        $location.path("projects/"+$scope.activeProject.id+"/geometries/"+geo.id)
 ])

@@ -5,7 +5,7 @@ controllers.controller("SimNavController", [ '$scope', '$routeParams', '$locatio
     $scope.template = { url: "modules/sim_nav.html" }
 
     $scope.addSimulation = ->
-      sim = Simulation.create(
+      promise = Simulation.create(
         {
           name: "Name"
           description: "Description"
@@ -19,5 +19,6 @@ controllers.controller("SimNavController", [ '$scope', '$routeParams', '$locatio
           steps: 0
         }
       )
-      $location.path("projects/"+$scope.activeProject.id+"/simulations/"+sim.id)
+      promise.then (sim) ->
+        $location.path("projects/"+$scope.activeProject.id+"/simulations/"+sim.id)
 ])

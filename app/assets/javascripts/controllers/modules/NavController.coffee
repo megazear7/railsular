@@ -5,19 +5,23 @@ controllers.controller("NavController", [ '$scope', '$routeParams', '$location',
     $scope.template = { url: "modules/nav_module.html" }
 
     $scope.addSim = (project) ->
-      sim = Simulation.create({ name: "Simulation Name", description: "Description", editing: true, status: "queued", project_id: $scope.activeProject.id})
-      $location.path("projects/"+$scope.activeProject.id+"/simulations/"+sim.id)
+      promise = Simulation.create({ name: "Simulation Name", description: "Description", status: "queued", project_id: $scope.activeProject.id})
+      promise.then (sim) ->
+        sim.startEdit()
+        $location.path("projects/"+$scope.activeProject.id+"/simulations/"+sim.id)
 
     $scope.addGeo = (project) ->
-      geo = Geometry.create({ name: "Geometry Name", description: "Description", editing: true, project_id: $scope.activeProject.id})
-      $location.path("projects/"+$scope.activeProject.id+"/geometries/"+geo.id)
+      promise = Geometry.create({ name: "Geometry Name", description: "Description", project_id: $scope.activeProject.id})
+      promise.then (geo) ->
+        $location.path("projects/"+$scope.activeProject.id+"/geometries/"+geo.id)
 
     $scope.addProject = ->
       angular.forEach($scope.projects, (value, key) ->
         value.editing = false
       )
-      proj = Project.create({ name: "Name", description: "Description", editing: true})
-      $location.path("projects/")
+      promise = Project.create({ name: "Name", description: "Description", editing: true})
+      promise.then (project) ->
+        $location.path("projects/")
 
     $scope.editProject = (project) ->
       angular.forEach($scope.projects, (value, key) ->

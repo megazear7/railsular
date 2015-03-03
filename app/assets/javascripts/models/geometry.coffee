@@ -2,11 +2,12 @@ angular.module('receta').factory('Geometry', (DataCache,ModelFactory,$http) ->
   addMethods = (geometry) ->
 
     geometry.save = ->
-      # todo use $http to save this to the rails API, in the error callback we might need to revert this change
-      console.log("not yet implemented")
+      # todo if there is an error saving the geometry then revert the geometry to what the api returns
+      $http.post("/geometry/#{geometry.id}/update", geometry)
 
     geometry.delete = ->
-      # todo use $http to save this to the rails API, in the error callback we might need to revert this change
+      # todo, if it comes back that there was an error trying to delete the geometry then add the geometry back
+      $http.delete("/geometry/#{geometry.id}/delete")
       delete DataCache.geometries[geometry.id]
 
     geometry.startEdit = ->
@@ -26,9 +27,18 @@ angular.module('receta').factory('Geometry', (DataCache,ModelFactory,$http) ->
 
     # this is a custom method for quickly building assigned geometries
     geometry.addSimulation = (sim_id, attr) ->
-      # todo use $http to save this to the rails API, in the error callback we might need to revert this change
       new_id = Math.floor((Math.random() * 10000) + 1)
       DataCache.assigned_geometries[new_id] = {id: new_id, simulation_id: sim_id, geometry_id: geometry.id, attributes: attr}
+
+    geometry.addSimulation = (sim_id, attrs) ->
+      assigned_geo = {
+        simulation_id: geometry.id
+        geometry_id: sim_id
+      }
+      angular.forEach(attrs, (attr_val, attr_name) ->
+        assigned_geo[attr_name] = attr_val
+      )
+      AssignedGeometry.create(assigned_geo)
 
     # this is a custom method, it kind of represents "has_many :simulations, through: assigned_geometries"
     geometry.simulations = ->
