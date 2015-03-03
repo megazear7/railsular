@@ -16,6 +16,15 @@ angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry,Model
       simulation.save()
       this.editing = false
 
+    simulation.assigned_geos = ->
+      assigned_geos = {}
+      angular.forEach(DataCache.assigned_geometries, (assigned_geo, id) ->
+        if assigned_geo.simulation_id == simulation.id
+          assigned_geos[id] = assigned_geo
+      )
+      assigned_geos
+ 
+    # custom method to provide easy interace for getting geometry list, kind of like a "has_many :geometries through: assigned_geometries"
     simulation.geometries = ->
       geoIds = []
       angular.forEach(DataCache.assigned_geometries, (val, key) ->
@@ -28,6 +37,7 @@ angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry,Model
       )
       geoList
 
+    # TODO this should be deleted, you can just do simulation.geometries[id] instead
     simulation.geometry = (id) ->
       geos = simulation.geometries()
       if geos[id]
@@ -35,6 +45,7 @@ angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry,Model
       else
         "Simulation with id #{simulation.id} does not have a geometry with id #{id}"
 
+    # custom method to provide easy interace for creating assigned_geometries
     simulation.addGeometry = (geo_id, attrs) ->
       assigned_geo = {
         simulation_id: simulation.id
@@ -50,18 +61,21 @@ angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry,Model
     simulation.project = ->
       DataCache.projects[simulation.project_id]
 
-  $http.get('/simulations')
-    .success (data, status, headers, config) ->
-      angular.forEach(data.simulations, (simulation) ->
-        DataCache.simulations[simulation.id] = simulation
-        DataCache.simulations[simulation.id].editing = false
-      )
-      angular.forEach(DataCache.simulations, (simulation, sim_id) ->
-        addMethods(simulation)
-      )
-    .error (data, status, headers, config) ->
-      console.log('error loading simulations')
+  #$http.get('/simulations')
+  #  .success (data, status, headers, config) ->
+  #    angular.forEach(data.simulations, (simulation) ->
+  #      DataCache.simulations[simulation.id] = simulation
+  #      DataCache.simulations[simulation.id].editing = false
+  #    )
+  #    angular.forEach(DataCache.simulations, (simulation, sim_id) ->
+  #      addMethods(simulation)
+  #    )
+  #  .error (data, status, headers, config) ->
+  #    console.log('error loading simulations')
 
+  angular.forEach(DataCache.simulations, (simulation, sim_id) ->
+    addMethods(simulation)
+  )
 
   ModelFactory("simulations", addMethods)
 )

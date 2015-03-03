@@ -50,5 +50,6 @@ controllers.controller("AssignedGeometriesController", [ '$scope', '$routeParams
       angular.forEach(Geometry.geo_types()[geo.geo_type].attributes, (attr) ->
         attrs[attr] = 0
       )
-      $scope.simulation.addGeometry(geo.id, attrs)
+      assigned_geo = $scope.simulation.addGeometry(geo.id, attrs)
+      assigned_geo.editing = true
 ])

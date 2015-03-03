@@ -36,6 +36,9 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
       angular.forEach($scope.simulation.geometries(), (geometry, geo_id) ->
         geometry.startEdit()
       )
+      angular.forEach($scope.simulation.assigned_geos(), (assigned_geometry, id) ->
+        assigned_geometry.startEdit()
+      )
 
     $scope.stopEdit = ->
       $scope.simulation.stopEdit()
