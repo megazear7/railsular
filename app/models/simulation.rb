@@ -4,6 +4,16 @@ class Simulation < ActiveRecord::Base
   has_many :jobs
   has_many :simulation_attrs
 
+  def self.attribute_names
+    ["measurement_scale", "fluid_type", "kinematic_viscosity", "density", "steps"]
+  end
+
+  self.attribute_names.each do |name|
+    define_method name do
+      simulation_attrs.find_by(name: name).value
+    end
+  end
+
   def self.create simulation_params, params
     sim = super simulation_params
     Simulation.attribute_names.each do |name|
@@ -22,29 +32,4 @@ class Simulation < ActiveRecord::Base
       end
     end
   end
-
-  def self.attribute_names
-    ["measurement_scale", "fluid_type", "kinematic_viscosity", "density", "steps"]
-  end
-
-  def measurement_scale
-    simulation_attrs.find_by(name: "measurement_scale").value
-  end
-
-  def fluid_type
-    simulation_attrs.find_by(name: "fluid_type").value
-  end
-  
-  def kinematic_viscosity
-    simulation_attrs.find_by(name: "kinematic_viscosity").value
-  end
-  
-  def density
-    simulation_attrs.find_by(name: "density").value
-  end
-  
-  def steps
-    simulation_attrs.find_by(name: "steps").value
-  end
-
 end

@@ -14,6 +14,11 @@ gem 'paperclip', '~> 4.2'
 gem 'bower-rails'
 gem 'angular-rails-templates'
 
+group :production, :staging do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
+
 gem "foreman"
 group :production, :staging do
   gem "rails_12factor"
