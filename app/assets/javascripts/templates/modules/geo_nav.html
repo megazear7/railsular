@@ -18,7 +18,7 @@
     <a ng-if="!addingGeometry" ng-click="startAddingGeometry()"><span class="glyphicon glyphicon-plus"></span></a>
     <a ng-if="addingGeometry" ng-click="stopAddingGeometry()"><span class="glyphicon glyphicon-ok"></span></a>
     <div ng-if="addingGeometry">
-      <div ng-repeat="type in geometry_types"><a ng-click="addGeometry(type.name)"><span class="glyphicon glyphicon-plus"></span> {{type.name}}</a></div>
+      <div ng-repeat="geo_type in geometry_types"><a ng-click="addGeometry(geo_type.name)"><span class="glyphicon glyphicon-plus"></span> {{geo_type.name}}</a></div>
     </div>
   </div>
 </article>

@@ -24,12 +24,16 @@ class SimulationController < ApplicationController
   end
 
   def create
-    @simulation = Simulation.create(simulation_params, params)
     respond_to do |format|
-      if @simulation.save
-        format.json { render "simulation/show.json" }
+      if Project.exists?(params[:project_id])
+        @simulation = Simulation.create(simulation_params, params)
+        if @simulation.save
+          format.json { render "simulation/show.json" }
+        else
+          format.json { render json: { message: 'create failed' } }
+        end
       else
-        format.json { render json: { message: 'create failed' } }
+        format.json { render json: { message: 'project doesnt exist' } }
       end
     end
   end
@@ -63,6 +67,6 @@ class SimulationController < ApplicationController
     end
 
     def simulation_params
-      params.permit(:name, :description)
+      params.permit(:name, :description, :project_id)
     end
 end

@@ -1,4 +1,4 @@
-angular.module('receta').factory('Project', (DataCache,ModelFactory) ->
+angular.module('receta').factory('Project', (DataCache,ModelFactory,$http) ->
   addMethods = (project) ->
 
     project.save = ->
@@ -45,9 +45,17 @@ angular.module('receta').factory('Project', (DataCache,ModelFactory) ->
       project.save()
       this.editing = false
 
-  angular.forEach(DataCache.projects, (project, proj_id) ->
-    addMethods(project)
-  )
+  $http.get('/projects')
+    .success (data, status, headers, config) ->
+      angular.forEach(data.projects, (project) ->
+        DataCache.projects[project.id] = project
+        DataCache.projects[project.id].editing = false
+      )
+      angular.forEach(DataCache.projects, (project, proj_id) ->
+        addMethods(project)
+      )
+    .error (data, status, headers, config) ->
+      console.log('error loading projects')
 
   ModelFactory("projects", addMethods)
 )

@@ -6,7 +6,7 @@ controllers.controller("GeoNavController", [ '$scope', '$routeParams', '$locatio
 
     $scope.addingGeometry = false
 
-    $scope.geometry_types = Geometry.types()
+    $scope.geometry_types = Geometry.geo_types()
 
     $scope.startAddingGeometry = ->
       $scope.addingGeometry = true
@@ -14,12 +14,12 @@ controllers.controller("GeoNavController", [ '$scope', '$routeParams', '$locatio
     $scope.stopAddingGeometry = ->
       $scope.addingGeometry = false
 
-    $scope.addGeometry = (type) ->
+    $scope.addGeometry = (geo_type) ->
       $scope.addingGeometry = false
       geo = Geometry.create(
         {
           name: "Name"
-          type: type
+          geo_type: geo_type
           description: "Description"
           editing: true
           project_id: $scope.activeProject.id

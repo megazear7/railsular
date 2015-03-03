@@ -1,4 +1,4 @@
-angular.module('receta').factory('Geometry', (DataCache,ModelFactory) ->
+angular.module('receta').factory('Geometry', (DataCache,ModelFactory,$http) ->
   addMethods = (geometry) ->
 
     geometry.save = ->
@@ -40,23 +40,33 @@ angular.module('receta').factory('Geometry', (DataCache,ModelFactory) ->
       attrs = { }
       angular.forEach(DataCache.assigned_geometries, (val, key) ->
         if val.geometry_id == geometry.id && val.simulation_id == sim_id
-          attrs = val.attributes
+          angular.forEach(DataCache.geometry_types[val.geometry().geo_type].attributes, (attr_name) ->
+            attrs[attr_name] = val[attr_name]
+          )
       )
       attrs
 
-  angular.forEach(DataCache.geometries, (geometry, geo_id) ->
-    addMethods(geometry)
-  )
+  $http.get('/geometries')
+    .success (data, status, headers, config) ->
+      angular.forEach(data.geometries, (geometry) ->
+        DataCache.geometries[geometry.id] = geometry
+        DataCache.geometries[geometry.id].editing = false
+      )
+      angular.forEach(DataCache.geometries, (geometry, geo_id) ->
+        addMethods(geometry)
+      )
+    .error (data, status, headers, config) ->
+      console.log('error loading geometries')
 
   modelMethods = ModelFactory("geometries", addMethods)
 
-  modelMethods["types"] = ->
+  modelMethods["geo_types"] = ->
     DataCache.geometry_types
 
-  modelMethods["allByType"] = (type) ->
+  modelMethods["allByType"] = (geo_type) ->
     geoList = {}
     angular.forEach(DataCache.geometries, (val, id) ->
-      if val.type == type
+      if val.geo_type == geo_type
         geoList[id] = val
     )
     geoList

@@ -4,29 +4,29 @@ controllers.controller("AssignedGeometriesController", [ '$scope', '$routeParams
     $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/assigned_geometries.html" }
 
-    $scope.geometry_types = Geometry.types()
+    $scope.geometry_types = Geometry.geo_types()
 
     addingGeometry = { }
-    angular.forEach(Geometry.types(), (type, name) ->
+    angular.forEach(Geometry.geo_types(), (geo_type, name) ->
       addingGeometry[name] = false
     )
 
-    $scope.addingGeometry = (type) ->
-      addingGeometry[type]
+    $scope.addingGeometry = (geo_type) ->
+      addingGeometry[geo_type]
 
-    $scope.geometryByType = (type) ->
-      geos = Geometry.allByType(type)
+    $scope.geometryByType = (geo_type) ->
+      geos = Geometry.allByType(geo_type)
       angular.forEach($scope.simulation.geometries(), (val, id) ->
         if id of geos
           delete geos[id]
       )
       geos
 
-    $scope.startAddingGeometry = (type) ->
-      addingGeometry[type] = true
+    $scope.startAddingGeometry = (geo_type) ->
+      addingGeometry[geo_type] = true
 
-    $scope.stopAddingGeometry = (type) ->
-      addingGeometry[type] = false
+    $scope.stopAddingGeometry = (geo_type) ->
+      addingGeometry[geo_type] = false
 
     $scope.removeGeometry = (geo) ->
       geo.editing = false
@@ -47,7 +47,7 @@ controllers.controller("AssignedGeometriesController", [ '$scope', '$routeParams
     $scope.addGeometry = (geo) ->
       geo.editing = true
       attrs = { }
-      angular.forEach(Geometry.types()[geo.type].attributes, (attr) ->
+      angular.forEach(Geometry.geo_types()[geo.geo_type].attributes, (attr) ->
         attrs[attr] = 0
       )
       $scope.simulation.addGeometry(geo.id, attrs)

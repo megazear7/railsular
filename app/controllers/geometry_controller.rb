@@ -16,14 +16,18 @@ class GeometryController < ApplicationController
   end
 
   def create
-    @geometry = Geometry.create(geometry_params, params)
-    # if the geometries have pre proccessing that needs done
-    # create the job and then use machete to run the geometry job
     respond_to do |format|
-      if @geometry.save
-        format.json { render "geometry/show.json" }
+      if Project.exists?(params[:project_id])
+        @geometry = Geometry.create(geometry_params, params)
+        # if the geometries have pre proccessing that needs done
+        # create the job and then use machete to run the geometry job
+        if @geometry.save
+          format.json { render "geometry/show.json" }
+        else
+          format.json { render json: { message: 'create failed' } }
+        end
       else
-        format.json { render json: { message: 'create failed' } }
+        format.json { render json: { message: 'project doesnt exist' } }
       end
     end
   end
@@ -57,6 +61,6 @@ class GeometryController < ApplicationController
     end
 
     def geometry_params
-      params.permit(:name, :description, :geo_type)
+      params.permit(:name, :description, :geo_type, :project_id)
     end
 end

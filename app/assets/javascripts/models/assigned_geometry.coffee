@@ -1,4 +1,4 @@
-angular.module('receta').factory('AssignedGeometry', (DataCache, ModelFactory) ->
+angular.module('receta').factory('AssignedGeometry', (DataCache,ModelFactory,$http) ->
   addMethods = (assigned_geometry) ->
 
     assigned_geometry.save = ->
@@ -16,10 +16,26 @@ angular.module('receta').factory('AssignedGeometry', (DataCache, ModelFactory) -
       assigned_geometry.save()
       this.editing = false
 
-  angular.forEach(DataCache.assigned_geometries, (assigned_geometry, assigned_geo_id) ->
-    addMethods(assigned_geometry)
-  )
+    assigned_geometry.geometry = ->
+      DataCache.geometries[this.geometry_id]
+
+    assigned_geometry.simulation = ->
+      DataCache.simulations[this.simulation_id]
+
+
+  $http.get('/assigned_geos')
+    .success (data, status, headers, config) ->
+      angular.forEach(data.assigned_geos, (assigned_geo) ->
+        DataCache.assigned_geometries[assigned_geo.id] = assigned_geo
+        DataCache.assigned_geometries[assigned_geo.id].editing = false
+      )
+      angular.forEach(DataCache.assigned_geometries, (assigned_geometry, assigned_geo_id) ->
+        addMethods(assigned_geometry)
+      )
+    .error (data, status, headers, config) ->
+      console.log('error loading assigned_geos')
+ 
 
   ModelFactory("assigned_geometries", addMethods)
 )
-.run( (AssignedGeometry) -> console.log('Transient Geometry service is ready') )
+.run( (AssignedGeometry) -> console.log('Assigned Geometry service is ready') )

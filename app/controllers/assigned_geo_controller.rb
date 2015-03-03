@@ -18,7 +18,7 @@ class AssignedGeoController < ApplicationController
   def create
     respond_to do |format|
       if Simulation.exists?(params[:simulation_id]) and Geometry.exists?(params[:geometry_id])
-      @assigned_geo = AssignedGeometry.create(assigned_geo_params, params)
+        @assigned_geo = AssignedGeometry.create(assigned_geo_params, params)
         if @assigned_geo.save
           format.json { render "assigned_geo/show.json" }
         else
