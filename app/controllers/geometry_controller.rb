@@ -17,6 +17,8 @@ class GeometryController < ApplicationController
 
   def create
     @geometry = Geometry.create(geometry_params, params)
+    # if the geometries have pre proccessing that needs done
+    # create the job and then use machete to run the geometry job
     respond_to do |format|
       if @geometry.save
         format.json { render "geometry/show.json" }

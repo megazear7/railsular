@@ -23,6 +23,7 @@ Receta::Application.routes.draw do
   post 'simulation/create' => 'simulation#create', defaults: { format: 'json' }
   post 'simulation/:id/update' => 'simulation#update', defaults: { format: 'json' }
   delete 'simulation/:id/delete' => 'simulation#delete', defaults: { format: 'json' }
+  post 'simulation/:id/run' => 'simulation#run', defaults: { format: 'json' }
 
   root 'home#index'
 

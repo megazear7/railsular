@@ -1,6 +1,14 @@
 class SimulationController < ApplicationController
-  before_action :set_simulation, only: [:show, :update, :delete]
+  before_action :set_simulation, only: [:show, :update, :delete, :run]
   skip_before_action :verify_authenticity_token
+
+  def run
+    # create a job (or jobs) and associate them with this simulation
+    # then use machete to run the jobs
+    respond_to do |format|
+      format.json { render json: { message: 'not yet implemented' } }
+    end
+  end
 
   def index
     @simulations = Simulation.all
