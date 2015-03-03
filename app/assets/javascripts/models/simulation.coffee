@@ -51,31 +51,25 @@ angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry,Model
         simulation_id: simulation.id
         geometry_id: geo_id
       }
-      console.log(attrs)
       angular.forEach(attrs, (attr_val, attr_name) ->
         assigned_geo[attr_name] = attr_val
       )
-      console.log(DataCache)
       AssignedGeometry.create(assigned_geo)
 
     simulation.project = ->
       DataCache.projects[simulation.project_id]
 
-  #$http.get('/simulations')
-  #  .success (data, status, headers, config) ->
-  #    angular.forEach(data.simulations, (simulation) ->
-  #      DataCache.simulations[simulation.id] = simulation
-  #      DataCache.simulations[simulation.id].editing = false
-  #    )
-  #    angular.forEach(DataCache.simulations, (simulation, sim_id) ->
-  #      addMethods(simulation)
-  #    )
-  #  .error (data, status, headers, config) ->
-  #    console.log('error loading simulations')
-
-  angular.forEach(DataCache.simulations, (simulation, sim_id) ->
-    addMethods(simulation)
-  )
+  $http.get('/simulations')
+    .success (data, status, headers, config) ->
+      angular.forEach(data.simulations, (simulation) ->
+        DataCache.simulations[simulation.id] = simulation
+        DataCache.simulations[simulation.id].editing = false
+      )
+      angular.forEach(DataCache.simulations, (simulation, sim_id) ->
+        addMethods(simulation)
+      )
+    .error (data, status, headers, config) ->
+      console.log('error loading simulations')
 
   ModelFactory("simulations", addMethods)
 )

@@ -56,21 +56,17 @@ angular.module('receta').factory('Geometry', (DataCache,ModelFactory,$http) ->
       )
       attrs
 
-  #$http.get('/geometries')
-  #  .success (data, status, headers, config) ->
-  #    angular.forEach(data.geometries, (geometry) ->
-  #      DataCache.geometries[geometry.id] = geometry
-  #      DataCache.geometries[geometry.id].editing = false
-  #    )
-  #    angular.forEach(DataCache.geometries, (geometry, geo_id) ->
-  #      addMethods(geometry)
-  #    )
-  #  .error (data, status, headers, config) ->
-  #    console.log('error loading geometries')
-
-  angular.forEach(DataCache.geometries, (geometry, geo_id) ->
-    addMethods(geometry)
-  )
+  $http.get('/geometries')
+    .success (data, status, headers, config) ->
+      angular.forEach(data.geometries, (geometry) ->
+        DataCache.geometries[geometry.id] = geometry
+        DataCache.geometries[geometry.id].editing = false
+      )
+      angular.forEach(DataCache.geometries, (geometry, geo_id) ->
+        addMethods(geometry)
+      )
+    .error (data, status, headers, config) ->
+      console.log('error loading geometries')
 
   modelMethods = ModelFactory("geometries", addMethods)
 

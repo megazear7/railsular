@@ -26,21 +26,17 @@ angular.module('receta').factory('AssignedGeometry', (DataCache,ModelFactory,$ht
       DataCache.geometry_types[this.geometry().geo_type].attributes
 
 
-  #$http.get('/assigned_geos')
-  #  .success (data, status, headers, config) ->
-  #    angular.forEach(data.assigned_geos, (assigned_geo) ->
-  #      DataCache.assigned_geometries[assigned_geo.id] = assigned_geo
-  #      DataCache.assigned_geometries[assigned_geo.id].editing = false
-  #    )
-  #    angular.forEach(DataCache.assigned_geometries, (assigned_geometry, assigned_geo_id) ->
-  #      addMethods(assigned_geometry)
-  #    )
-  #  .error (data, status, headers, config) ->
-  #    console.log('error loading assigned_geos')
-
-  angular.forEach(DataCache.assigned_geometries, (assigned_geometry, assigned_geo_id) ->
-    addMethods(assigned_geometry)
-  )
+  $http.get('/assigned_geos')
+    .success (data, status, headers, config) ->
+      angular.forEach(data.assigned_geos, (assigned_geo) ->
+        DataCache.assigned_geometries[assigned_geo.id] = assigned_geo
+        DataCache.assigned_geometries[assigned_geo.id].editing = false
+      )
+      angular.forEach(DataCache.assigned_geometries, (assigned_geometry, assigned_geo_id) ->
+        addMethods(assigned_geometry)
+      )
+    .error (data, status, headers, config) ->
+      console.log('error loading assigned_geos')
 
   ModelFactory("assigned_geometries", addMethods)
 )
