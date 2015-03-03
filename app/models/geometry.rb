@@ -16,8 +16,8 @@ class Geometry < ActiveRecord::Base
     }[geo_type]
   end
 
-  self.geo_types.each do |type|
-    self.geo_attribute_names(type).each do |name|
+  self.geo_types.each do |geo_type|
+    self.geo_attribute_names(geo_type).each do |name|
       define_method name do
         if geometry_attrs.find_by(name: name)
           geometry_attrs.find_by(name: name).value
