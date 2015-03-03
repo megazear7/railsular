@@ -1,0 +1,60 @@
+class SimulationController < ApplicationController
+  before_action :set_simulation, only: [:show, :update, :delete]
+  skip_before_action :verify_authenticity_token
+
+  def index
+    @simulations = Simulation.all
+    respond_to do |format|
+      format.json
+    end
+  end
+
+  def show
+    respond_to do |format|
+      format.json
+    end
+  end
+
+  def create
+    @simulation = Simulation.create(simulation_params, params)
+    respond_to do |format|
+      if @simulation.save
+        format.json { render "simulation/show.json" }
+      else
+        format.json { render json: { message: 'create failed' } }
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @simulation.update(simulation_params, params)
+        @message = "update success"
+        format.json { render "simulation/show.json" }
+      else
+        @message = "update failed"
+        format.json { render "simulation/show.json" }
+      end
+    end
+  end
+
+  def delete
+    respond_to do |format|
+      if @simulation.destroy
+        format.json { render json: { message: "delete success" } }
+      else
+        @message = "delete failed"
+        format.json { render "simulation/show.json" }
+      end
+    end
+  end
+
+  private
+    def set_simulation
+      @simulation = Simulation.find(params[:id])
+    end
+
+    def simulation_params
+      params.permit(:name, :description)
+    end
+end

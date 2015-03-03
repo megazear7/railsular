@@ -9,6 +9,7 @@ gem 'uglifier'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jbuilder'
+gem 'paperclip', '~> 4.2'
 
 gem 'bower-rails'
 gem 'angular-rails-templates'
