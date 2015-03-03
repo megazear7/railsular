@@ -12,11 +12,11 @@ Receta::Application.routes.draw do
   post 'geometry/:id/update' => 'geometry#update', defaults: { format: 'json' }
   delete 'geometry/:id/delete' => 'geometry#delete', defaults: { format: 'json' }
 
-  get 'assigned_geos' => 'assigned_geo#index', defaults: { format: 'json' }
-  get 'assigned_geo/:id' => 'assigned_geo#show', defaults: { format: 'json' }
-  post 'assigned_geo/create' => 'assigned_geo#create', defaults: { format: 'json' }
-  post 'assigned_geo/:id/update' => 'assigned_geo#update', defaults: { format: 'json' }
-  delete 'assigned_geo/:id/delete' => 'assigned_geo#delete', defaults: { format: 'json' }
+  get 'assigned_geometries' => 'assigned_geo#index', defaults: { format: 'json' }
+  get 'assigned_geometry/:id' => 'assigned_geo#show', defaults: { format: 'json' }
+  post 'assigned_geometry/create' => 'assigned_geo#create', defaults: { format: 'json' }
+  post 'assigned_geometry/:id/update' => 'assigned_geo#update', defaults: { format: 'json' }
+  delete 'assigned_geometry/:id/delete' => 'assigned_geo#delete', defaults: { format: 'json' }
 
   get 'simulations' => 'simulation#index', defaults: { format: 'json' }
   get 'simulation/:id' => 'simulation#show', defaults: { format: 'json' }

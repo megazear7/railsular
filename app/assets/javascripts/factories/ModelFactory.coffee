@@ -25,10 +25,11 @@ angular.module('receta').factory('ModelFactory', (DataCache,$http,$q) ->
         return $q( (resolve, reject) ->
           $http.post("/#{pluralize(table_name, 1)}/create", obj)
             .success (data, status, headers, config) ->
-              DataCache[table_name][data.geometry.id] = data.geometry
-              addMethods(data.geometry)
-              resolve(DataCache[table_name][data.geometry.id])
+              DataCache[table_name][data[pluralize(table_name, 1)].id] = data[pluralize(table_name, 1)]
+              addMethods(data[pluralize(table_name, 1)])
+              resolve(DataCache[table_name][data[pluralize(table_name, 1)].id])
             .error (data, status, headers, config) ->
+              console.log(data)
               console.log("error creating #{pluralize(table_name, 1)}")
         )
     }

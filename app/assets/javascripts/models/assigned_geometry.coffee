@@ -2,11 +2,12 @@ angular.module('receta').factory('AssignedGeometry', (DataCache,ModelFactory,$ht
   addMethods = (assigned_geometry) ->
 
     assigned_geometry.save = ->
-      # todo use $http to save this to the rails API, in the error callback we might need to revert this change
-      console.log("not yet implemented")
+      # todo if there is an error saving the assigned_geometry then revert the assigned_geometry to what the api returns
+      $http.post("/assigned_geometry/#{assigned_geometry.id}/update", assigned_geometry)
 
     assigned_geometry.delete = ->
-      # todo use $http to save this to the rails API, in the error callback we might need to revert this change
+      # todo, if it comes back that there was an error trying to delete the asssigned_geometry then add the asssigned_geometry back
+      $http.delete("/assigned_geometry/#{assigned_geometry.id}/delete")
       delete DataCache.assigned_geometries[assigned_geometry.id]
 
     assigned_geometry.startEdit = ->
@@ -26,7 +27,7 @@ angular.module('receta').factory('AssignedGeometry', (DataCache,ModelFactory,$ht
       DataCache.geometry_types[this.geometry().geo_type].attributes
 
 
-  $http.get('/assigned_geos')
+  $http.get('/assigned_geometries')
     .success (data, status, headers, config) ->
       angular.forEach(data.assigned_geos, (assigned_geo) ->
         DataCache.assigned_geometries[assigned_geo.id] = assigned_geo
