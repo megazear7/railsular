@@ -5,27 +5,23 @@ class ProjectController < ApplicationController
   def index
     @projects = Project.all
     respond_to do |format|
-      format.json { render json: @projects }
-      format.html { render json: @projects }
+      format.json
     end
   end
 
   def show
     respond_to do |format|
-      format.json { render json: @project }
-      format.html { render json: @project }
+      format.json
     end
   end
 
   def create
-    @project = Project.new({name: params[:name], description: params[:description]})
+    @project = Project.new(project_params)
     respond_to do |format|
       if @project.save
-        format.json { render json: @project }
-        format.html { render json: @project }
+        format.json { render "project/show.json" }
       else
-        format.json { render json: "create failed" }
-        format.html { render json: "create failed" }
+        format.json { render json: { message: 'create failed' } }
       end
     end
   end
@@ -33,25 +29,22 @@ class ProjectController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.json { render json: { value: @project, status: "success" } }
-        format.html { render json: { value: @project, status: "success" } }
+        @message = "update success"
+        format.json { render "project/show.json" }
       else
-        format.json { render json: { value: @project, status: "failed" } }
-        format.html { render json: { value: @project, status: "failed" } }
+        @message = "update failed"
+        format.json { render "project/show.json" }
       end
     end
   end
 
   def delete
-    if @project.destroy
-      respond_to do |format|
-        format.json { render json: { status: "success" } }
-        format.html { render json: { status: "success" } }
-      end
-    else
-      respond_to do |format|
-        format.json { render json: { value: @project, status: "failed" } }
-        format.html { render json: { value: @project, status: "failed" } }
+    respond_to do |format|
+      if @project.destroy
+        format.json { render json: { status: "delete success" } }
+      else
+        @message = "delete failed"
+        format.json { render "project/show.json" }
       end
     end
   end
