@@ -1,4 +1,4 @@
 json.set! :simulations do
-  json.array! @simulations, :id, :project_id, :name, :description, :measurement_scale, :fluid_type, :kinematic_viscosity, :density, :steps, :created_at, :updated_at
+  json.array! @simulations, *([:id, :project_id, :name, :description, :created_at, :updated_at] + Simulation.attribute_names)
 end
 json.set! :message, @message
