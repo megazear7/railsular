@@ -21,7 +21,7 @@ class ProjectController < ApplicationController
       if @project.save
         format.json { render "project/show.json" }
       else
-        format.json { render json: { message: 'create failed' } }
+        format.json { render json: { message: 'create failed' }, status: :unprocessable_entity }
       end
     end
   end
@@ -33,7 +33,7 @@ class ProjectController < ApplicationController
         format.json { render "project/show.json" }
       else
         @message = "update failed"
-        format.json { render "project/show.json" }
+        format.json { render "project/show.json", status: :unprocessable_entity }
       end
     end
   end
@@ -44,7 +44,7 @@ class ProjectController < ApplicationController
         format.json { render json: { status: "delete success" } }
       else
         @message = "delete failed"
-        format.json { render "project/show.json" }
+        format.json { render "project/show.json", status: :unprocessable_entity }
       end
     end
   end

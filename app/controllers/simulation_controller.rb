@@ -30,10 +30,10 @@ class SimulationController < ApplicationController
         if @simulation.save
           format.json { render "simulation/show.json" }
         else
-          format.json { render json: { message: 'create failed' } }
+          format.json { render json: { message: 'create failed' }, status: :unprocessable_entity }
         end
       else
-        format.json { render json: { message: 'project doesnt exist' } }
+        format.json { render json: { message: 'project doesnt exist' }, status: :unprocessable_entity }
       end
     end
   end
@@ -45,7 +45,7 @@ class SimulationController < ApplicationController
         format.json { render "simulation/show.json" }
       else
         @message = "update failed"
-        format.json { render "simulation/show.json" }
+        format.json { render "simulation/show.json", status: :unprocessable_entity }
       end
     end
   end
@@ -56,7 +56,7 @@ class SimulationController < ApplicationController
         format.json { render json: { message: "delete success" } }
       else
         @message = "delete failed"
-        format.json { render "simulation/show.json" }
+        format.json { render "simulation/show.json", status: :unprocessable_entity }
       end
     end
   end

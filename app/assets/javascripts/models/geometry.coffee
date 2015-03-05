@@ -40,6 +40,9 @@ angular.module('receta').factory('Geometry', (DataCache,ModelFactory,$http) ->
       )
       AssignedGeometry.create(assigned_geo)
 
+    geometry.attributes = ->
+      DataCache.geometry_types[this.geo_type].attributes
+
     # this is a custom method, it kind of represents "has_many :simulations, through: assigned_geometries"
     geometry.simulations = ->
       simIds = []

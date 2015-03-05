@@ -25,11 +25,11 @@
     <br />
     <div ng-if="!geometry.editing">
       <div>{{geometry.description}}</div>
-      <div ng-repeat="(attr,val) in geometry.attributes">{{attr}}: {{val}}</div>
+      <div ng-repeat="(index, attr_name) in geometry.attributes()">{{attr_name}}: {{geometry[attr_name]}}</div>
     </div>
     <div ng-if="geometry.editing">
       <p><textarea type="text" ng-model="geometry.description" class="form-control form-custom" /></p>
-      <p ng-repeat="(attr,val) in geometry.attributes">{{attr}}: <input type="text" ng-model="geometry.attributes[attr]" class="form-control form-custom" /></p>
+      <p ng-repeat="(index, attr_name) in geometry.attributes()">{{attr_name}}: <input type="text" ng-model="geometry[attr_name]" class="form-control form-custom" /></p>
     </div>
   </div>
 </article>

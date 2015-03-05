@@ -22,10 +22,10 @@ class AssignedGeoController < ApplicationController
         if @assigned_geo.save
           format.json { render "assigned_geo/show.json" }
         else
-          format.json { render json: { message: 'create failed' } }
+          format.json { render json: { message: 'create failed' }, status: :unprocessable_entity }
         end
       else
-        format.json { render json: { message: 'simulation or geometry does not exist' } }
+        format.json { render json: { message: 'simulation or geometry does not exist' }, status: :unprocessable_entity }
       end
     end
   end
@@ -37,7 +37,7 @@ class AssignedGeoController < ApplicationController
         format.json { render "assigned_geo/show.json" }
       else
         @message = "update failed"
-        format.json { render "assigned_geo/show.json" }
+        format.json { render "assigned_geo/show.json", status: :unprocessable_entity }
       end
     end
   end
@@ -48,7 +48,7 @@ class AssignedGeoController < ApplicationController
         format.json { render json: { message: "delete success" } }
       else
         @message = "delete failed"
-        format.json { render "assigned_geo/show.json" }
+        format.json { render "assigned_geo/show.json", status: :unprocessable_entity }
       end
     end
   end
