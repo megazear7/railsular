@@ -10,17 +10,17 @@
       <tbody>
         <tr ng-repeat="assigned_geo in simulation.assigned_geos()">
           <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name">{{assigned_geo.geometry().name}}</td>
-          <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name && !assigned_geo.editing" ng-repeat="(index, attr_name) in assigned_geo.attributes()">{{assigned_geo[attr_name]}}</td>
-          <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name && assigned_geo.editing" ng-repeat="(index, attr_name) in assigned_geo.attributes()">
+          <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name && (!assigned_geo.editing || assigned_geo.simulation().final)" ng-repeat="(index, attr_name) in assigned_geo.attributes()">{{assigned_geo[attr_name]}}</td>
+          <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name && assigned_geo.editing && !assigned_geo.simulation().final" ng-repeat="(index, attr_name) in assigned_geo.attributes()">
             <input type="text" ng-model="assigned_geo[attr_name]" class="form-control" />
           </td>
-          <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name && assigned_geo.editing"><a ng-click="removeGeometry(assigned_geo.geometry())"><span class="glyphicon glyphicon-log-out"></span></a></td>
+          <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name && assigned_geo.editing && !assigned_geo.simulation().final"><a ng-click="removeGeometry(assigned_geo.geometry())"><span class="glyphicon glyphicon-log-out"></span></a></td>
         </tr>
-        <tr ng-if="simulation.editing">
+        <tr ng-if="simulation.editing && !simulation.final">
           <td ng-if="!addingGeometry(geometry_type.name)"><a ng-click="startAddingGeometry(geometry_type.name)"><span class="glyphicon glyphicon-plus"></span></a></td>
           <td ng-if="addingGeometry(geometry_type.name)"><a ng-click="stopAddingGeometry(geometry_type.name)"><span class="glyphicon glyphicon-ok"></span></a></td>
         </tr>
-        <tr ng-if="simulation.editing && addingGeometry(geometry_type.name)" ng-repeat="geo in geometryByType(geometry_type.name)">
+        <tr ng-if="simulation.editing && addingGeometry(geometry_type.name) && !simulation.final" ng-repeat="geo in geometryByType(geometry_type.name)">
           <td><a ng-click="addGeometry(geo)"><span class="glyphicon glyphicon-plus"></span></a> {{geo.name}}</td>
         </tr>
       </tbody>

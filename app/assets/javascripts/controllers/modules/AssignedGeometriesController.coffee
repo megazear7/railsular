@@ -16,8 +16,12 @@ controllers.controller("AssignedGeometriesController", [ '$scope', '$routeParams
 
     $scope.geometryByType = (geo_type) ->
       geos = $scope.activeProject.geometriesByType(geo_type)
-      angular.forEach($scope.simulation.geometries(), (val, id) ->
+      angular.forEach($scope.simulation.geometries(), (geometry, id) ->
         if id of geos
+          delete geos[id]
+      )
+      angular.forEach(geos, (geometry, id) ->
+        if not geometry.final
           delete geos[id]
       )
       geos

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150303155031) do
+ActiveRecord::Schema.define(version: 20150305210415) do
 
   create_table "assigned_geo_attrs", force: :cascade do |t|
     t.string   "value"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20150303155031) do
     t.integer  "geo_file_size"
     t.datetime "geo_updated_at"
     t.string   "geo_type"
+    t.boolean  "final"
   end
 
   add_index "geometries", ["project_id"], name: "index_geometries_on_project_id"
@@ -95,6 +96,7 @@ ActiveRecord::Schema.define(version: 20150303155031) do
     t.integer  "project_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.boolean  "final"
   end
 
   add_index "simulations", ["project_id"], name: "index_simulations_on_project_id"

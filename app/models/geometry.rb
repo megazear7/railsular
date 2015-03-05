@@ -48,12 +48,16 @@ class Geometry < ActiveRecord::Base
 
   def update geometry_params, params
     super geometry_params
-    Geometry.geo_attribute_names(self.geo_type).each do |name|
-      if params[name]
-        geo_attr = self.geometry_attrs.find_by(name: name)
-        geo_attr.value = params[name]
-        return false if not geo_attr.save
+    if not self.final
+      Geometry.geo_attribute_names(self.geo_type).each do |name|
+        if params[name]
+          geo_attr = self.geometry_attrs.find_by(name: name)
+          geo_attr.value = params[name]
+          return false if not geo_attr.save
+        end
       end
+    else
+      return true
     end
   end
 end

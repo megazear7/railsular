@@ -13,6 +13,7 @@ Receta::Application.routes.draw do
   delete 'geometry/:id/delete' => 'geometry#delete', defaults: { format: 'json' }
   get 'geometry_types' => 'geometry#types', defaults: { format: 'json' }
   get 'geometry_file_form/:id' => 'geometry#file_form'
+  post 'geometry/:id/run' => 'geometry#run', defaults: { format: 'json' }
 
   get 'assigned_geometries' => 'assigned_geo#index', defaults: { format: 'json' }
   get 'assigned_geometry/:id' => 'assigned_geo#show', defaults: { format: 'json' }

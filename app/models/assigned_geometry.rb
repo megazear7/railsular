@@ -42,12 +42,16 @@ class AssignedGeometry < ActiveRecord::Base
 
   def update assigned_geo_params, params
     # notice that we dont user super because we don't want simulation_id or geometry_id to change
-    AssignedGeometry.assigned_geo_attribute_names(self.geometry.geo_type).each do |name|
-      if params[name]
-        assigned_geo_attr = self.assigned_geo_attrs.find_by(name: name)
-        assigned_geo_attr.value = params[name]
-        return false if not assigned_geo_attr.save
+    if not self.geometry.final
+      AssignedGeometry.assigned_geo_attribute_names(self.geometry.geo_type).each do |name|
+        if params[name]
+          assigned_geo_attr = self.assigned_geo_attrs.find_by(name: name)
+          assigned_geo_attr.value = params[name]
+          return false if not assigned_geo_attr.save
+        end
       end
+    else
+      return false
     end
   end
 end

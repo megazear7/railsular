@@ -6,7 +6,7 @@ class SimulationController < ApplicationController
     # create a job (or jobs) and associate them with this simulation
     # then use machete to run the jobs
     respond_to do |format|
-      format.json { render json: { message: 'not yet implemented' } }
+      format.json { render json: { message: 'simulation/:id/run is not yet implemented' } }
     end
   end
 
@@ -67,6 +67,6 @@ class SimulationController < ApplicationController
     end
 
     def simulation_params
-      params.permit(:name, :description, :project_id)
+      params.permit(:name, :description, :project_id, :final)
     end
 end

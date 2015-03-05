@@ -1,11 +1,19 @@
 controllers = angular.module('controllers')
-controllers.controller("SimulationController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry'
-  ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry,AssignedGeometry)->
+controllers.controller("SimulationController", [ '$scope', '$routeParams', '$location', '$resource', '$http', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry'
+  ($scope,$routeParams,$location,$resource,$http,Project,Simulation,Geometry,AssignedGeometry)->
     $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/simulation.html" }
 
     $scope.run = ->
-      alert("run")
+      $scope.simulation.final = true
+      $scope.simulation.status = "Queued"
+      promise = $scope.simulation.save()
+      promise.then ->
+        $http.post("/simulation/#{$scope.simulation.id}/run")
+          .success (data) ->
+            console.log(data)
+          .error (data) ->
+            console.log("error running simulation")
 
     $scope.duplicate = ->
       promise = Simulation.create(

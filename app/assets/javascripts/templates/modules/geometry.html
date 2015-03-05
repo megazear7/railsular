@@ -10,6 +10,8 @@
         <div class="btn-group">
           <a class="btn btn-default" ng-click="delete()"><span class="glyphicon glyphicon-trash"> Delete</span></a>
           <a class="btn btn-default" ng-click="report()"><span class="glyphicon glyphicon-exclamation-sign"> Report</span></a>
+          <a class="btn btn-default" ng-click="finish()" ng-if="!geometry.final"><span class="glyphicon glyphicon-ok"> Finalize</span></a>
+          <a class="btn btn-default disabled" ng-if="geometry.final">Finalized</span></a>
         </div>
         <a ng-if="!geometry.editing" ng-click="geometry.startEdit()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
         <a ng-if="geometry.editing" ng-click="geometry.stopEdit()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-ok"></span></a>
@@ -29,6 +31,8 @@
     </div>
     <div ng-if="geometry.editing">
       <p><textarea type="text" ng-model="geometry.description" class="form-control form-custom" /></p>
+    </div>
+    <div ng-if="geometry.editing && !geometry.final">
       <p ng-repeat="(index, attr_name) in geometry.attributes()">{{attr_name}}: <input type="text" ng-model="geometry[attr_name]" class="form-control form-custom" /></p>
     </div>
   </div>

@@ -1,9 +1,17 @@
 class GeometryController < ApplicationController
-  before_action :set_geometry, only: [:show, :update, :delete, :file_form]
+  before_action :set_geometry, only: [:show, :update, :delete, :run, :file_form]
   skip_before_action :verify_authenticity_token
 
   def file_form
     render layout: false
+  end
+
+  def run
+    # create a job (or jobs) and associate them with this simulation
+    # then use machete to run the jobs
+    respond_to do |format|
+      format.json { render json: { message: 'geometry/:id/run is not yet implemented' } }
+    end
   end
 
   def types
@@ -37,8 +45,6 @@ class GeometryController < ApplicationController
     respond_to do |format|
       if Project.exists?(params[:project_id])
         @geometry = Geometry.create(geometry_params, params)
-        # if the geometries have pre proccessing that needs done
-        # create the job and then use machete to run the geometry job
         if @geometry.save
           format.json { render "geometry/show.json" }
         else
@@ -79,6 +85,6 @@ class GeometryController < ApplicationController
     end
 
     def geometry_params
-      params.permit(:name, :description, :geo_type, :project_id, :geo)
+      params.permit(:name, :description, :geo_type, :project_id, :geo, :final)
     end
 end
