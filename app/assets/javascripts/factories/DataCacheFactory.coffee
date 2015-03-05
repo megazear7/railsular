@@ -6,17 +6,20 @@ angular.module('receta').factory('DataCache', ($http) ->
         inlet:
           {
             name: "inlet"
-            attributes: ["vx", "vy", "vz"]
+            attributes: []
+            assigned_attributes: ["vx", "vy", "vz"]
           }
         outlet:
           {
             name: "outlet"
             attributes: []
+            assigned_attributes: []
           }
         wall:
           {
             name: "wall"
             attributes: []
+            assigned_attributes: []
           }
       }
     projects: { }

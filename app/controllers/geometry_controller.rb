@@ -2,6 +2,9 @@ class GeometryController < ApplicationController
   before_action :set_geometry, only: [:show, :update, :delete]
   skip_before_action :verify_authenticity_token
 
+  def types
+  end
+
   def index
     @geometries = Geometry.all
     respond_to do |format|

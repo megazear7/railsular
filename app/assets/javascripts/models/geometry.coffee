@@ -56,16 +56,6 @@ angular.module('receta').factory('Geometry', (DataCache,ModelFactory,$http) ->
     geometry.project = ->
       DataCache.projects[geometry.project_id]
 
-    geometry.specificAttributes = (sim_id) ->
-      attrs = { }
-      angular.forEach(DataCache.assigned_geometries, (assigned_geo, key) ->
-        if assigned_geo.geometry_id == geometry.id && assigned_geo.simulation_id == sim_id
-          angular.forEach(DataCache.geometry_types[assigned_geo.geometry().geo_type].attributes, (attr_name) ->
-            attrs[attr_name] = assigned_geo[attr_name]
-          )
-      )
-      attrs
-
   $http.get('/geometries')
     .success (data, status, headers, config) ->
       angular.forEach(data.geometries, (geometry) ->

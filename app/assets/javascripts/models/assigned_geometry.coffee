@@ -24,7 +24,7 @@ angular.module('receta').factory('AssignedGeometry', (DataCache,ModelFactory,$ht
       DataCache.simulations[this.simulation_id]
 
     assigned_geometry.attributes = ->
-      DataCache.geometry_types[this.geometry().geo_type].attributes
+      DataCache.geometry_types[this.geometry().geo_type].assigned_attributes
 
 
   $http.get('/assigned_geometries')

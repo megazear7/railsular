@@ -33,6 +33,17 @@ angular.module('receta').factory('Project', (DataCache,ModelFactory,$http) ->
       )
       geoList
 
+    project.geometriesByType = (geo_type) ->
+      geoList = {}
+      angular.forEach(project.geometries(), (geometry, id) ->
+        if geometry.geo_type == geo_type
+          geoList[id] = geometry
+      )
+      console.log(geo_type + " {")
+      console.log(geoList)
+      console.log("}")
+      geoList
+
     project.geometry = (id) ->
       geos = project.geometries()
       if geos[id]
