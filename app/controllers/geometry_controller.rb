@@ -1,6 +1,10 @@
 class GeometryController < ApplicationController
-  before_action :set_geometry, only: [:show, :update, :delete]
+  before_action :set_geometry, only: [:show, :update, :delete, :file_form]
   skip_before_action :verify_authenticity_token
+
+  def file_form
+    render layout: false
+  end
 
   def types
     @geometry_types = {}
@@ -75,6 +79,6 @@ class GeometryController < ApplicationController
     end
 
     def geometry_params
-      params.permit(:name, :description, :geo_type, :project_id)
+      params.permit(:name, :description, :geo_type, :project_id, :geo)
     end
 end
