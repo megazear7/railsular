@@ -56,6 +56,13 @@ angular.module('receta').factory('Geometry', (DataCache,ModelFactory,$http) ->
     geometry.project = ->
       DataCache.projects[geometry.project_id]
 
+  $http.get('/geometry_types')
+    .success (data, status, headers, config) ->
+      DataCache.geometry_types = data
+    .error (data, status, headers, config) ->
+      console.log('error loading geometry types')
+
+
   $http.get('/geometries')
     .success (data, status, headers, config) ->
       angular.forEach(data.geometries, (geometry) ->

@@ -3,6 +3,17 @@ class GeometryController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def types
+    @geometry_types = {}
+    Geometry.geo_types.each do |geo_type|
+      @geometry_types[geo_type] = {
+        name: geo_type,
+        attributes: Geometry.geo_attribute_names(geo_type),
+        assigned_attributes: AssignedGeometry.assigned_geo_attribute_names(geo_type),
+      }
+    end
+    respond_to do |format|
+      format.json { render json: @geometry_types }
+    end
   end
 
   def index

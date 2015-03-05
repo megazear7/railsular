@@ -39,9 +39,6 @@ angular.module('receta').factory('Project', (DataCache,ModelFactory,$http) ->
         if geometry.geo_type == geo_type
           geoList[id] = geometry
       )
-      console.log(geo_type + " {")
-      console.log(geoList)
-      console.log("}")
       geoList
 
     project.geometry = (id) ->
