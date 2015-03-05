@@ -54,7 +54,7 @@ angular.module('receta').factory('Project', (DataCache,ModelFactory,$http) ->
       project.save()
       this.editing = false
 
-  $http.get('/projects')
+  promise = $http.get('/projects')
     .success (data, status, headers, config) ->
       angular.forEach(data.projects, (project) ->
         DataCache.projects[project.id] = project
@@ -66,6 +66,10 @@ angular.module('receta').factory('Project', (DataCache,ModelFactory,$http) ->
     .error (data, status, headers, config) ->
       console.log('error loading projects')
 
-  ModelFactory("projects", addMethods)
+  modelMethods = ModelFactory("projects", addMethods)
+
+  modelMethods["promise"] = promise
+
+  modelMethods
 )
 .run( (Project) -> console.log('Project service is ready') )

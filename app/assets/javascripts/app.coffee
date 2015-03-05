@@ -19,24 +19,115 @@ receta.config([ '$routeProvider', 'flashProvider',
       .when('/',
         templateUrl: "layouts/projects.html"
         controller: 'ProjectsController'
+        resolve:
+          {
+            geometryData: (Geometry) ->
+              Geometry.promise
+            geometryTypeData: (Geometry) ->
+              Geometry.geometry_type_promise
+            smulationData: (Simulation) ->
+              Simulation.promise
+            projectData: (Project) ->
+              Project.promise
+            assignedGeometryData: (AssignedGeometry) ->
+              AssignedGeometry.promise
+          }
       ).when('/projects',
         templateUrl: "layouts/projects.html"
         controller: 'ProjectsController'
+        resolve:
+          {
+            geometryData: (Geometry) ->
+              Geometry.promise
+            geometryTypeData: (Geometry) ->
+              Geometry.geometry_type_promise
+            smulationData: (Simulation) ->
+              Simulation.promise
+            projectData: (Project) ->
+              Project.promise
+            assignedGeometryData: (AssignedGeometry) ->
+              AssignedGeometry.promise
+          }
       ).when('/projects/:project_id',
         templateUrl: "layouts/project.html"
         controller: 'ProjectController'
+        resolve:
+          {
+            geometryData: (Geometry) ->
+              Geometry.promise
+            geometryTypeData: (Geometry) ->
+              Geometry.geometry_type_promise
+            smulationData: (Simulation) ->
+              Simulation.promise
+            projectData: (Project) ->
+              Project.promise
+            assignedGeometryData: (AssignedGeometry) ->
+              AssignedGeometry.promise
+          }
       ).when('/projects/:project_id/simulations/:simulation_id',
         templateUrl: "layouts/simulations.html"
         controller: 'SimulationsController'
+        resolve:
+          {
+            geometryData: (Geometry) ->
+              Geometry.promise
+            geometryTypeData: (Geometry) ->
+              Geometry.geometry_type_promise
+            smulationData: (Simulation) ->
+              Simulation.promise
+            projectData: (Project) ->
+              Project.promise
+            assignedGeometryData: (AssignedGeometry) ->
+              AssignedGeometry.promise
+          }
       ).when('/projects/:project_id/simulations',
         templateUrl: "layouts/project.html"
         controller: 'ProjectController'
+        resolve:
+          {
+            geometryData: (Geometry) ->
+              Geometry.promise
+            geometryTypeData: (Geometry) ->
+              Geometry.geometry_type_promise
+            smulationData: (Simulation) ->
+              Simulation.promise
+            projectData: (Project) ->
+              Project.promise
+            assignedGeometryData: (AssignedGeometry) ->
+              AssignedGeometry.promise
+          }
       ).when('/projects/:project_id/geometries/:geometry_id',
         templateUrl: "layouts/geometries.html"
         controller: 'GeometriesController'
+        resolve:
+          {
+            geometryData: (Geometry) ->
+              Geometry.promise
+            geometryTypeData: (Geometry) ->
+              Geometry.geometry_type_promise
+            smulationData: (Simulation) ->
+              Simulation.promise
+            projectData: (Project) ->
+              Project.promise
+            assignedGeometryData: (AssignedGeometry) ->
+              AssignedGeometry.promise
+          }
       ).when('/projects/:project_id/geometries',
         templateUrl: "layouts/project.html"
         controller: 'ProjectController'
+        resolve:
+          {
+            geometryData: (Geometry) ->
+              Geometry.promise
+            geometryTypeData: (Geometry) ->
+              Geometry.geometry_type_promise
+            smulationData: (Simulation) ->
+              Simulation.promise
+            projectData: (Project) ->
+              Project.promise
+            assignedGeometryData: (AssignedGeometry) ->
+              AssignedGeometry.promise
+          }
       )
 ])
 

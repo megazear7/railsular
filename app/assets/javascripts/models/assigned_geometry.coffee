@@ -27,7 +27,7 @@ angular.module('receta').factory('AssignedGeometry', (DataCache,ModelFactory,$ht
       DataCache.geometry_types[this.geometry().geo_type].assigned_attributes
 
 
-  $http.get('/assigned_geometries')
+  promise = $http.get('/assigned_geometries')
     .success (data, status, headers, config) ->
       angular.forEach(data.assigned_geometries, (assigned_geo) ->
         DataCache.assigned_geometries[assigned_geo.id] = assigned_geo
@@ -39,6 +39,10 @@ angular.module('receta').factory('AssignedGeometry', (DataCache,ModelFactory,$ht
     .error (data, status, headers, config) ->
       console.log('error loading assigned_geos')
 
-  ModelFactory("assigned_geometries", addMethods)
+  modelMethods = ModelFactory("assigned_geometries", addMethods)
+
+  modelMethods["promise"] = promise
+
+  modelMethods
 )
 .run( (AssignedGeometry) -> console.log('Assigned Geometry service is ready') )

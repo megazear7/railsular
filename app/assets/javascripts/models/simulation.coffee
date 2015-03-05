@@ -60,7 +60,7 @@ angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry,Model
     simulation.project = ->
       DataCache.projects[simulation.project_id]
 
-  $http.get('/simulations')
+  promise = $http.get('/simulations')
     .success (data, status, headers, config) ->
       angular.forEach(data.simulations, (simulation) ->
         DataCache.simulations[simulation.id] = simulation
@@ -72,6 +72,10 @@ angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry,Model
     .error (data, status, headers, config) ->
       console.log('error loading simulations')
 
-  ModelFactory("simulations", addMethods)
+  modelMethods = ModelFactory("simulations", addMethods)
+
+  modelMethods["promise"] = promise
+
+  modelMethods
 )
 .run( (Simulation) -> console.log('Simulation service is ready') )
