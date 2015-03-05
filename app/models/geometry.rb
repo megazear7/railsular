@@ -16,6 +16,16 @@ class Geometry < ActiveRecord::Base
     }[geo_type]
   end
 
+  def self.all_attribute_names
+    full_list = []
+    Geometry.geo_types.each do |geo_type|
+      geo_attribute_names(geo_type).each do |attr|
+        full_list << attr
+      end
+    end
+    full_list
+  end
+
   self.geo_types.each do |geo_type|
     self.geo_attribute_names(geo_type).each do |name|
       define_method name do
