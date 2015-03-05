@@ -29,7 +29,7 @@ angular.module('receta').factory('AssignedGeometry', (DataCache,ModelFactory,$ht
 
   $http.get('/assigned_geometries')
     .success (data, status, headers, config) ->
-      angular.forEach(data.assigned_geos, (assigned_geo) ->
+      angular.forEach(data.assigned_geometries, (assigned_geo) ->
         DataCache.assigned_geometries[assigned_geo.id] = assigned_geo
         DataCache.assigned_geometries[assigned_geo.id].editing = false
       )

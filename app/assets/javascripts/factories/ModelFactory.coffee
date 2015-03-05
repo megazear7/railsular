@@ -29,7 +29,6 @@ angular.module('receta').factory('ModelFactory', (DataCache,$http,$q) ->
               addMethods(data[pluralize(table_name, 1)])
               resolve(DataCache[table_name][data[pluralize(table_name, 1)].id])
             .error (data, status, headers, config) ->
-              console.log(data)
               console.log("error creating #{pluralize(table_name, 1)}")
         )
     }

@@ -9,7 +9,6 @@ controllers.controller("SimNavController", [ '$scope', '$routeParams', '$locatio
         {
           name: "Name"
           description: "Description"
-          editing: true
           project_id: $scope.activeProject.id
           status: "New"
           measurement_scale: ""
@@ -20,5 +19,6 @@ controllers.controller("SimNavController", [ '$scope', '$routeParams', '$locatio
         }
       )
       promise.then (sim) ->
+        sim.startEdit()
         $location.path("projects/"+$scope.activeProject.id+"/simulations/"+sim.id)
 ])

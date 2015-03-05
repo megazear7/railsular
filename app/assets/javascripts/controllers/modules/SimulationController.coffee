@@ -12,7 +12,6 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
         {
           name: $scope.simulation.name
           description: $scope.simulation.description
-          editing: true
           project_id: $scope.simulation.project_id
           status: $scope.simulation.status
           measurement_scale: $scope.simulation.measurement_scale
@@ -23,6 +22,7 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
         }
       )
       promise.then (sim) ->
+        sim.startEdit()
         $location.path("projects/"+$scope.activeProject.id+"/simulations/"+sim.id)
 
     $scope.delete = ->

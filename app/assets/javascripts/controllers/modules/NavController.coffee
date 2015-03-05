@@ -1,6 +1,6 @@
 controllers = angular.module('controllers')
 controllers.controller("NavController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry',
-  ($scope,$routeParams,$location,$resource,$event,Project,Simulation,Geometry)->
+  ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry,$event)->
     $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/nav_module.html" }
 
@@ -17,10 +17,11 @@ controllers.controller("NavController", [ '$scope', '$routeParams', '$location',
 
     $scope.addProject = ->
       angular.forEach($scope.projects, (value, key) ->
-        value.editing = false
+        value.stopEdit()
       )
-      promise = Project.create({ name: "Name", description: "Description", editing: true})
+      promise = Project.create({name: "Name", description: "Description"})
       promise.then (project) ->
+        project.startEdit()
         $location.path("projects/")
 
     $scope.editProject = (project) ->

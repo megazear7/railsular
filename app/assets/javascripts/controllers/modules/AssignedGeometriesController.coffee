@@ -29,7 +29,7 @@ controllers.controller("AssignedGeometriesController", [ '$scope', '$routeParams
       addingGeometry[geo_type] = false
 
     $scope.removeGeometry = (geo) ->
-      geo.editing = false
+      geo.stopEdit()
       assigned_geo = AssignedGeometry.find_by(geometry_id: geo.id, simulation_id: $scope.simulation.id)
       if assigned_geo
         assigned_geo.delete()
@@ -45,11 +45,11 @@ controllers.controller("AssignedGeometriesController", [ '$scope', '$routeParams
     )
 
     $scope.addGeometry = (geo) ->
-      geo.editing = true
       attrs = { }
       angular.forEach(Geometry.geo_types()[geo.geo_type].attributes, (attr) ->
         attrs[attr] = 0
       )
-      assigned_geo = $scope.simulation.addGeometry(geo.id, attrs)
-      assigned_geo.editing = true
+      promise = $scope.simulation.addGeometry(geo.id, attrs)
+      promise.then (assigned_geo) ->
+        assigned_geo.startEdit()
 ])
