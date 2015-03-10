@@ -1,5 +1,5 @@
 class GeometryController < ApplicationController
-  before_action :set_geometry, only: [:show, :update, :delete, :run, :file_form]
+  before_action :set_geometry, only: [:show, :update, :delete, :run, :file_form, :update_file]
   skip_before_action :verify_authenticity_token
 
   def file_form
@@ -56,6 +56,18 @@ class GeometryController < ApplicationController
     end
   end
 
+  def update_file
+    respond_to do |format|
+      if @geometry.update(geometry_file_params, params)
+        @message = "update success"
+        format.json { render "geometry/show.json" }
+      else
+        @message = "update failed"
+        format.json { render "geometry/show.json", status: :unprocessable_entity }
+      end
+    end
+  end
+
   def update
     respond_to do |format|
       if @geometry.update(geometry_params, params)
@@ -84,7 +96,11 @@ class GeometryController < ApplicationController
       @geometry = Geometry.find(params[:id])
     end
 
+    def geometry_file_params
+      params.require(:geometry).permit(:geo)
+    end
+
     def geometry_params
-      params.permit(:name, :description, :geo_type, :project_id, :geo, :final)
+      params.permit(:name, :description, :geo_type, :project_id, :final)
     end
 end

@@ -15,8 +15,6 @@ gem 'bower-rails'
 gem 'angular-rails-templates'
 
 group :production, :staging do
-  gem 'better_errors'
-  gem 'binding_of_caller'
 end
 
 gem "foreman"
@@ -27,6 +25,8 @@ group :production, :staging do
 end
 
 group :test, :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem "rspec"
   gem "rspec-rails", "~> 2.0"
   gem "factory_girl_rails", "~> 4.0"

@@ -1,5 +1,6 @@
 class Geometry < ActiveRecord::Base
   has_attached_file :geo
+  do_not_validate_attachment_file_type :geo
   belongs_to :project
   has_many :assigned_geometries
   has_many :jobs
@@ -54,7 +55,7 @@ class Geometry < ActiveRecord::Base
   end
 
   def update geometry_params, params
-    super geometry_params
+    return false if not super geometry_params
     if not self.final
       Geometry.geo_attribute_names(self.geo_type).each do |name|
         if params[name]
