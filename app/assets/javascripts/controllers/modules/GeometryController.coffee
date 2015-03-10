@@ -10,17 +10,6 @@ controllers.controller("GeometryController", [ '$scope', '$routeParams', '$locat
       $scope.geometry.delete()
       $location.path("projects/"+$scope.activeProject.id+"/geometries/")
 
-    $scope.uploadFile = (files) ->
-      fd = new FormData()
-      #Take the first selected file
-      fd.append("geo", files[0])
-      $http.post("geometry/#{$scope.geometry.id}/update_file", fd, {
-        withCredentials: true,
-        headers: {'Content-Type': undefined },
-        transformRequest: angular.identity
-      }).success (data) ->
-        $scope.geometry.geo_file_name = data.geometry.geo_file_name
-
     $scope.finish = ->
       $scope.geometry.final = true
       promise = $scope.geometry.save()

@@ -21,21 +21,17 @@
     <div ng-if="!geometry.editing">
       <div>{{geometry.description}}</div>
     </div>
-    <br />
-    <div class="row">
-      <div class="col-md-12">
-        <span class="btn btn-default btn-file">
-          <span class="upload-file-text">
-            {{geometry.geo_file_name}}
-          </span>
-          <input type="file" name="geometry[geo]" onchange="angular.element(this).scope().uploadFile(this.files)"/>
-        </span>
-      </div>
-    </div>
-    <br />
     <div ng-if="geometry.editing">
       <p><textarea type="text" ng-model="geometry.description" class="form-control form-custom" /></p>
     </div>
+    <br />
+    <div class="row">
+      <div class="col-md-12">
+        <div ng-if="!(geometry.editing && !geometry.final)">{{geometry.geo_file_name}}</div>
+        <div ng-if="geometry.editing && !geometry.final"><sa-geometry-upload text="geometry.geo_file_name" id="geometry.id"></sa-geometry-upload></div>
+      </div>
+    </div>
+    <br />
     <div class="row">
       <div class="col-md-4">
         <table class="table table-hover table-striped">
