@@ -7,8 +7,8 @@ angular.module('receta').factory('Geometry', (DataCache,ModelFactory,$http) ->
 
     geometry.delete = ->
       # todo, if it comes back that there was an error trying to delete the geometry then add the geometry back
-      $http.delete("/geometry/#{geometry.id}/delete")
       delete DataCache.geometries[geometry.id]
+      $http.delete("/geometry/#{geometry.id}/delete")
 
     geometry.startEdit = ->
       this.editing = true
