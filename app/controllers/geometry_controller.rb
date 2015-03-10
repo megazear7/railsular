@@ -2,10 +2,6 @@ class GeometryController < ApplicationController
   before_action :set_geometry, only: [:show, :update, :delete, :run, :file_form, :update_file]
   skip_before_action :verify_authenticity_token
 
-  def file_form
-    render layout: false
-  end
-
   def run
     # create a job (or jobs) and associate them with this simulation
     # then use machete to run the jobs
@@ -97,7 +93,7 @@ class GeometryController < ApplicationController
     end
 
     def geometry_file_params
-      params.require(:geometry).permit(:geo)
+      params.permit(:geo)
     end
 
     def geometry_params

@@ -146,3 +146,16 @@ receta.config([ '$routeProvider', 'flashProvider',
 ])
 
 controllers = angular.module('controllers',[])
+
+# file upload button styling:
+$(document).on "change", ".btn-file :file", ->
+  input = $(this)
+  numFiles = (if input.get(0).files then input.get(0).files.length else 1)
+  label = input.val().replace(/\\/g, "/").replace(/.*\//, "")
+  input.trigger "fileselect", [
+    numFiles
+    label
+  ]
+$(document).ready ->
+  $(".btn-file :file").on "fileselect", (event, numFiles, label) ->
+    $(".upload-file-text").text label

@@ -24,7 +24,12 @@
     <br />
     <div class="row">
       <div class="col-md-12">
-        <p>File Upload</p>
+        <span class="btn btn-default btn-file">
+          <span class="upload-file-text">
+            {{geometry.geo_file_name}}
+          </span>
+          <input type="file" name="geometry[geo]" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+        </span>
       </div>
     </div>
     <br />
