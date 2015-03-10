@@ -22,6 +22,7 @@ Receta::Application.routes.draw do
   delete 'assigned_geometry/:id/delete' => 'assigned_geo#delete', defaults: { format: 'json' }
 
   get 'simulations' => 'simulation#index', defaults: { format: 'json' }
+  get 'simulations/attributes' => 'simulation#attributes', defaults: { format: 'json' }
   get 'simulation/:id' => 'simulation#show', defaults: { format: 'json' }
   post 'simulation/create' => 'simulation#create', defaults: { format: 'json' }
   post 'simulation/:id/update' => 'simulation#update', defaults: { format: 'json' }

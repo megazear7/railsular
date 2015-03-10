@@ -3,4 +3,6 @@ controllers.controller("SimulationDetailsController", [ '$scope', '$routeParams'
   ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry,AssignedGeometry)->
     $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/simulation_details.html" }
+
+    $scope.attributes = Simulation.attributes()
 ])

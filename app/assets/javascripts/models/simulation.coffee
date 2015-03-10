@@ -76,6 +76,15 @@ angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry,Model
 
   modelMethods["promise"] = promise
 
+  modelMethods["simulation_attributes_promise"] = $http.get('/simulations/attributes')
+    .success (data, status, headers, config) ->
+      DataCache.simulation_attributes = data.attributes
+    .error (data, status, headers, config) ->
+      console.log("error loading simulation attributes")
+
+  modelMethods["attributes"] = ->
+    DataCache.simulation_attributes
+
   modelMethods
 )
 .run( (Simulation) -> console.log('Simulation service is ready') )

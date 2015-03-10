@@ -31,6 +31,8 @@ receta.config([ '$routeProvider', 'flashProvider',
               Project.promise
             assignedGeometryData: (AssignedGeometry) ->
               AssignedGeometry.promise
+            simulationAttributesData: (Simulation) ->
+              Simulation.simulation_attributes_promise
           }
       ).when('/projects',
         templateUrl: "layouts/projects.html"
@@ -47,6 +49,8 @@ receta.config([ '$routeProvider', 'flashProvider',
               Project.promise
             assignedGeometryData: (AssignedGeometry) ->
               AssignedGeometry.promise
+            simulationAttributesData: (Simulation) ->
+              Simulation.simulation_attributes_promise
           }
       ).when('/projects/:project_id',
         templateUrl: "layouts/project.html"
@@ -63,6 +67,8 @@ receta.config([ '$routeProvider', 'flashProvider',
               Project.promise
             assignedGeometryData: (AssignedGeometry) ->
               AssignedGeometry.promise
+            simulationAttributesData: (Simulation) ->
+              Simulation.simulation_attributes_promise
           }
       ).when('/projects/:project_id/simulations/:simulation_id',
         templateUrl: "layouts/simulations.html"
@@ -79,6 +85,8 @@ receta.config([ '$routeProvider', 'flashProvider',
               Project.promise
             assignedGeometryData: (AssignedGeometry) ->
               AssignedGeometry.promise
+            simulationAttributesData: (Simulation) ->
+              Simulation.simulation_attributes_promise
           }
       ).when('/projects/:project_id/simulations',
         templateUrl: "layouts/project.html"
@@ -95,6 +103,8 @@ receta.config([ '$routeProvider', 'flashProvider',
               Project.promise
             assignedGeometryData: (AssignedGeometry) ->
               AssignedGeometry.promise
+            simulationAttributesData: (Simulation) ->
+              Simulation.simulation_attributes_promise
           }
       ).when('/projects/:project_id/geometries/:geometry_id',
         templateUrl: "layouts/geometries.html"
@@ -111,6 +121,8 @@ receta.config([ '$routeProvider', 'flashProvider',
               Project.promise
             assignedGeometryData: (AssignedGeometry) ->
               AssignedGeometry.promise
+            simulationAttributesData: (Simulation) ->
+              Simulation.simulation_attributes_promise
           }
       ).when('/projects/:project_id/geometries',
         templateUrl: "layouts/project.html"
@@ -127,6 +139,8 @@ receta.config([ '$routeProvider', 'flashProvider',
               Project.promise
             assignedGeometryData: (AssignedGeometry) ->
               AssignedGeometry.promise
+            simulationAttributesData: (Simulation) ->
+              Simulation.simulation_attributes_promise
           }
       )
 ])
