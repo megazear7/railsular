@@ -1,22 +1,11 @@
-angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry,ModelFactory,$http) ->
+angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry,ModelFactory,ObjectFactory,$http) ->
+
+  # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (simulation) ->
+    # Add the standard object methods
+    ObjectFactory("simulations", simulation)
 
-    simulation.save = ->
-      # todo if there is an error saving the simulation then revert the simulation to what the api returns
-      $http.post("/simulation/#{simulation.id}/update", simulation)
-
-    simulation.delete = ->
-      # todo, if it comes back that there was an error trying to delete the simulation then add the simulation back
-      $http.delete("/simulation/#{simulation.id}/delete")
-      delete DataCache.simulations[simulation.id]
-
-    simulation.startEdit = ->
-      this.editing = true
-
-    simulation.stopEdit = ->
-      simulation.save()
-      this.editing = false
-
+    # Add the custom object methods
     simulation.assigned_geos = ->
       assigned_geos = {}
       angular.forEach(DataCache.assigned_geometries, (assigned_geo, id) ->
@@ -25,7 +14,6 @@ angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry,Model
       )
       assigned_geos
  
-    # custom method to provide easy interace for getting geometry list, kind of like a "has_many :geometries through: assigned_geometries"
     simulation.geometries = ->
       geoIds = []
       angular.forEach(DataCache.assigned_geometries, (val, key) ->
@@ -46,7 +34,6 @@ angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry,Model
       else
         "Simulation with id #{simulation.id} does not have a geometry with id #{id}"
 
-    # custom method to provide easy interace for creating assigned_geometries
     simulation.addGeometry = (geo_id, attrs) ->
       assigned_geo = {
         simulation_id: simulation.id
@@ -60,7 +47,15 @@ angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry,Model
     simulation.project = ->
       DataCache.projects[simulation.project_id]
 
-  promise = $http.get('/simulations')
+  # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
+  modelMethods = ModelFactory("simulations", addMethods)
+
+  # create the custom model methods
+  modelMethods["attributes"] = ->
+    DataCache.simulation_attributes
+
+  # Create the promises for loading data
+  modelMethods["promise"] = $http.get('/simulations')
     .success (data, status, headers, config) ->
       angular.forEach(data.simulations, (simulation) ->
         DataCache.simulations[simulation.id] = simulation
@@ -72,19 +67,13 @@ angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry,Model
     .error (data, status, headers, config) ->
       console.log('error loading simulations')
 
-  modelMethods = ModelFactory("simulations", addMethods)
-
-  modelMethods["promise"] = promise
-
   modelMethods["simulation_attributes_promise"] = $http.get('/simulations/attributes')
     .success (data, status, headers, config) ->
       DataCache.simulation_attributes = data.attributes
     .error (data, status, headers, config) ->
       console.log("error loading simulation attributes")
 
-  modelMethods["attributes"] = ->
-    DataCache.simulation_attributes
-
+  # Return the model methods
   modelMethods
 )
 .run( (Simulation) -> console.log('Simulation service is ready') )

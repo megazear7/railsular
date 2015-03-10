@@ -1,22 +1,11 @@
-angular.module('receta').factory('Geometry', (DataCache,ModelFactory,$http) ->
+angular.module('receta').factory('Geometry', (DataCache,ModelFactory,ObjectFactory,$http) ->
+
+  # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (geometry) ->
+    # Add the standard object methods
+    ObjectFactory("geometries", geometry)
 
-    geometry.save = ->
-      # todo if there is an error saving the geometry then revert the geometry to what the api returns
-      $http.post("/geometry/#{geometry.id}/update", geometry)
-
-    geometry.delete = ->
-      # todo, if it comes back that there was an error trying to delete the geometry then add the geometry back
-      delete DataCache.geometries[geometry.id]
-      $http.delete("/geometry/#{geometry.id}/delete")
-
-    geometry.startEdit = ->
-      this.editing = true
-
-    geometry.stopEdit = ->
-      geometry.save()
-      this.editing = false
-
+    # Add the custom object methods
     geometry.assigned_geos = ->
       assigned_geos = {}
       angular.forEach(DataCache.assigned_geometries, (assigned_geo, id) ->
@@ -25,7 +14,6 @@ angular.module('receta').factory('Geometry', (DataCache,ModelFactory,$http) ->
       )
       assigned_geos
 
-    # this is a custom method for quickly building assigned geometries
     geometry.addSimulation = (sim_id, attr) ->
       new_id = Math.floor((Math.random() * 10000) + 1)
       DataCache.assigned_geometries[new_id] = {id: new_id, simulation_id: sim_id, geometry_id: geometry.id, attributes: attr}
@@ -43,7 +31,6 @@ angular.module('receta').factory('Geometry', (DataCache,ModelFactory,$http) ->
     geometry.attributes = ->
       DataCache.geometry_types[this.geo_type].attributes
 
-    # this is a custom method, it kind of represents "has_many :simulations, through: assigned_geometries"
     geometry.simulations = ->
       simIds = []
       angular.forEach(DataCache.assigned_geometries, (val, key) ->
@@ -59,29 +46,10 @@ angular.module('receta').factory('Geometry', (DataCache,ModelFactory,$http) ->
     geometry.project = ->
       DataCache.projects[geometry.project_id]
 
-  geometry_type_promise = $http.get('/geometry_types')
-    .success (data, status, headers, config) ->
-      DataCache.geometry_types = data
-    .error (data, status, headers, config) ->
-      console.log('error loading geometry types')
-
-  promise = $http.get('/geometries')
-    .success (data, status, headers, config) ->
-      angular.forEach(data.geometries, (geometry) ->
-        DataCache.geometries[geometry.id] = geometry
-        DataCache.geometries[geometry.id].editing = false
-      )
-      angular.forEach(DataCache.geometries, (geometry, geo_id) ->
-        addMethods(geometry)
-      )
-    .error (data, status, headers, config) ->
-      console.log('error loading geometries')
-
+  # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
   modelMethods = ModelFactory("geometries", addMethods)
 
-  modelMethods["promise"] = promise
-  modelMethods["geometry_type_promise"] = geometry_type_promise
-
+  # create the custom model methods
   modelMethods["geo_types"] = ->
     DataCache.geometry_types
 
@@ -93,6 +61,26 @@ angular.module('receta').factory('Geometry', (DataCache,ModelFactory,$http) ->
     )
     geoList
 
+  # Create the promises for loading data
+  modelMethods["geometry_type_promise"] = $http.get('/geometry_types')
+    .success (data, status, headers, config) ->
+      DataCache.geometry_types = data
+    .error (data, status, headers, config) ->
+      console.log('error loading geometry types')
+
+  modelMethods["promise"] = $http.get('/geometries')
+    .success (data, status, headers, config) ->
+      angular.forEach(data.geometries, (geometry) ->
+        DataCache.geometries[geometry.id] = geometry
+        DataCache.geometries[geometry.id].editing = false
+      )
+      angular.forEach(DataCache.geometries, (geometry, geo_id) ->
+        addMethods(geometry)
+      )
+    .error (data, status, headers, config) ->
+      console.log('error loading geometries')
+
+  # Return the model methods
   modelMethods
 )
 .run( (Geometry) -> console.log('Geometry service is ready') )

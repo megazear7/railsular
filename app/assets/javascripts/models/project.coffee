@@ -1,15 +1,11 @@
-angular.module('receta').factory('Project', (DataCache,ModelFactory,$http) ->
+angular.module('receta').factory('Project', (DataCache,ModelFactory,ObjectFactory,$http) ->
+
+  # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (project) ->
+    # Add the standard object methods
+    ObjectFactory("projects", project)
 
-    project.save = ->
-      # todo if there is an error saving the project then revert the project to what the api returns
-      $http.post("/project/#{project.id}/update", project)
-
-    project.delete = ->
-      # todo, if it comes back that there was an error trying to delete the project then add the project back
-      $http.delete("/project/#{project.id}/delete")
-      delete DataCache.projects[project.id]
-
+    # Add the custom object methods
     project.simulations = ->
       simList = {}
       angular.forEach(DataCache.simulations, (simulation, sim_id) ->
@@ -47,14 +43,15 @@ angular.module('receta').factory('Project', (DataCache,ModelFactory,$http) ->
         geos[id]
       else
         "Project with id #{project.id} does not have a geometry with id #{id}"
-    project.startEdit = ->
-      this.editing = true
 
-    project.stopEdit = ->
-      project.save()
-      this.editing = false
+  # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
+  modelMethods = ModelFactory("projects", addMethods)
 
-  promise = $http.get('/projects')
+  # create the custom model methods
+  # None
+
+  # Create the promises for loading data
+  modelMethods["promise"] = $http.get('/projects')
     .success (data, status, headers, config) ->
       angular.forEach(data.projects, (project) ->
         DataCache.projects[project.id] = project
@@ -66,10 +63,7 @@ angular.module('receta').factory('Project', (DataCache,ModelFactory,$http) ->
     .error (data, status, headers, config) ->
       console.log('error loading projects')
 
-  modelMethods = ModelFactory("projects", addMethods)
-
-  modelMethods["promise"] = promise
-
+  # Return the model methods
   modelMethods
 )
 .run( (Project) -> console.log('Project service is ready') )

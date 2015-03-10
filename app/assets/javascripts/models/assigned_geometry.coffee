@@ -1,22 +1,11 @@
-angular.module('receta').factory('AssignedGeometry', (DataCache,ModelFactory,$http) ->
+angular.module('receta').factory('AssignedGeometry', (DataCache,ModelFactory,ObjectFactory,$http) ->
+
+  # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (assigned_geometry) ->
+    # Add the standard object methods
+    ObjectFactory("assigned_geometries", assigned_geometry)
 
-    assigned_geometry.save = ->
-      # todo if there is an error saving the assigned_geometry then revert the assigned_geometry to what the api returns
-      $http.post("/assigned_geometry/#{assigned_geometry.id}/update", assigned_geometry)
-
-    assigned_geometry.delete = ->
-      # todo, if it comes back that there was an error trying to delete the asssigned_geometry then add the asssigned_geometry back
-      delete DataCache.assigned_geometries[assigned_geometry.id]
-      $http.delete("/assigned_geometry/#{assigned_geometry.id}/delete")
-
-    assigned_geometry.startEdit = ->
-      this.editing = true
-
-    assigned_geometry.stopEdit = ->
-      assigned_geometry.save()
-      this.editing = false
-
+    # Add the custom object methods
     assigned_geometry.geometry = ->
       DataCache.geometries[this.geometry_id]
 
@@ -27,7 +16,14 @@ angular.module('receta').factory('AssignedGeometry', (DataCache,ModelFactory,$ht
       DataCache.geometry_types[this.geometry().geo_type].assigned_attributes
 
 
-  promise = $http.get('/assigned_geometries')
+  # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
+  modelMethods = ModelFactory("assigned_geometries", addMethods)
+
+  # create the custom model methods
+  # None
+
+  # Create the promises for loading data
+  modelMethods["promise"] = $http.get('/assigned_geometries')
     .success (data, status, headers, config) ->
       angular.forEach(data.assigned_geometries, (assigned_geo) ->
         DataCache.assigned_geometries[assigned_geo.id] = assigned_geo
@@ -39,10 +35,7 @@ angular.module('receta').factory('AssignedGeometry', (DataCache,ModelFactory,$ht
     .error (data, status, headers, config) ->
       console.log('error loading assigned_geos')
 
-  modelMethods = ModelFactory("assigned_geometries", addMethods)
-
-  modelMethods["promise"] = promise
-
+  # Return the model methods
   modelMethods
 )
 .run( (AssignedGeometry) -> console.log('Assigned Geometry service is ready') )
