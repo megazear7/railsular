@@ -1,14 +1,18 @@
 <table class="table">
   <tbody ng-if="!simulation.editing || simulation.final">
-    <tr ng-repeat="attr in attributes">
+    <tr ng-repeat="(attr, type) in attributes">
       <td class="col-md-6">{{attr | humanize}}:</td>
       <td class="col-md-6">{{simulation[attr]}}</td>
     </tr>
   </tbody>
   <tbody ng-if="simulation.editing && !simulation.final">
-    <tr ng-repeat="attr in attributes">
+    <tr ng-repeat="(attr, type) in attributes">
       <td class="col-md-6">{{attr | humanize}}:</td>
-      <td class="col-md-6"><input type="text" ng-model="simulation[attr]" class="form-control form-custom" /></td>
+      <td class="col-md-6">
+        <input type="text" ng-if="type=='free-input'" ng-model="simulation[attr]" class="form-control form-custom" />
+        <select type="text" ng-if="type!='free-input'" ng-options="option as option for option in type" ng-model="simulation[attr]" class="form-control form-custom" />
+        </select>
+      </td>
     </tr>
   </tbody>
 </table>

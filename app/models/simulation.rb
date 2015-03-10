@@ -4,8 +4,18 @@ class Simulation < ActiveRecord::Base
   has_many :jobs
   has_many :simulation_attrs
 
+  def self.attribute_details
+    {
+      "measurement_scale" => ["mm", "cm", "inch"],
+      "fluid_type" => ["water", "honey"],
+      "kinematic_viscosity" => "free-input",
+      "density" => "free-input",
+      "steps" => "free-input"
+    }
+  end
+
   def self.attribute_names
-    ["measurement_scale", "fluid_type", "kinematic_viscosity", "density", "steps"]
+    self.attribute_details.keys
   end
 
   def status

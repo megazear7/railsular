@@ -4,7 +4,7 @@ class SimulationController < ApplicationController
 
   def attributes
     respond_to do |format|
-      format.json { render json: { attributes: Simulation.attribute_names } }
+      format.json { render json: { attributes: Simulation.attribute_details } }
     end
   end
 
