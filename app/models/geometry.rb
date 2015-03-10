@@ -5,15 +5,22 @@ class Geometry < ActiveRecord::Base
   has_many :jobs
   has_many :geometry_attrs
 
+  def self.geo_attributes
+    { "inlet"  => {
+      },
+      "outlet" => {
+      },
+      "wall"   => {
+      }
+    }
+  end
+
   def self.geo_types
-    ["inlet", "outlet", "wall"]
+    Geometry.geo_attributes.keys
   end
 
   def self.geo_attribute_names geo_type
-    { "inlet"  => [ ],
-      "outlet" => [ ],
-      "wall"   => [ ]
-    }[geo_type]
+    Geometry.geo_attributes[geo_type].keys
   end
 
   def self.all_attribute_names

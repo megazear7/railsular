@@ -4,14 +4,16 @@
       <thead>
         <tr>
           <th>{{geometry_type.name | pluralize | titlize}}</th>
-          <th ng-repeat="attr in geometry_type.assigned_attributes">{{attr}}</th>
+          <th ng-repeat="(attr_name, attr_type) in geometry_type.assigned_attributes">{{attr_name}}</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="assigned_geo in simulation.assigned_geos()">
           <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name">{{assigned_geo.geometry().name}}</td>
-          <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name && (!assigned_geo.editing || assigned_geo.simulation().final)" ng-repeat="(index, attr_name) in assigned_geo.attributes()">{{assigned_geo[attr_name]}}</td>
-          <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name && assigned_geo.editing && !assigned_geo.simulation().final" ng-repeat="(index, attr_name) in assigned_geo.attributes()">
+          <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name && (!assigned_geo.editing || assigned_geo.simulation().final)" ng-repeat="(attr_name, attr_type) in assigned_geo.attributes()">
+            {{assigned_geo[attr_name]}}
+          </td>
+          <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name && assigned_geo.editing && !assigned_geo.simulation().final" ng-repeat="(attr_name, attr_type) in assigned_geo.attributes()">
             <input type="text" ng-model="assigned_geo[attr_name]" class="form-control" />
           </td>
           <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name && assigned_geo.editing && !assigned_geo.simulation().final"><a ng-click="removeGeometry(assigned_geo.geometry())"><span class="glyphicon glyphicon-log-out"></span></a></td>

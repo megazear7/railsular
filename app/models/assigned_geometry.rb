@@ -3,11 +3,22 @@ class AssignedGeometry < ActiveRecord::Base
   belongs_to :geometry
   has_many :assigned_geo_attrs
 
+  def self.assigned_geo_attributes
+    # the only duplicated information is here in geo type names. The "inlet", "outlet", "wall" list is listed both here and in the geometry model
+    { "inlet"  => {
+        "vx" => "free-input", 
+        "vy" => "free-input", 
+        "vz" => "free-input"
+      },
+      "outlet" => {
+      },
+      "wall"   => {
+      }
+    }
+  end
+
   def self.assigned_geo_attribute_names geo_type
-    { "inlet"  => ["vx", "vy", "vz"],
-      "outlet" => [ ],
-      "wall"   => [ ]
-    }[geo_type]
+    AssignedGeometry.assigned_geo_attributes[geo_type].keys
   end
 
   def self.all_attribute_names

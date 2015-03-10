@@ -19,8 +19,8 @@ class GeometryController < ApplicationController
     Geometry.geo_types.each do |geo_type|
       @geometry_types[geo_type] = {
         name: geo_type,
-        attributes: Geometry.geo_attribute_names(geo_type),
-        assigned_attributes: AssignedGeometry.assigned_geo_attribute_names(geo_type),
+        attributes: Geometry.geo_attributes[geo_type],
+        assigned_attributes: AssignedGeometry.assigned_geo_attributes[geo_type]
       }
     end
     respond_to do |format|
