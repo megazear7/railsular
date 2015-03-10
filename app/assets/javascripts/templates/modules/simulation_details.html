@@ -10,8 +10,7 @@
       <td class="col-md-6">{{attr | humanize}}:</td>
       <td class="col-md-6">
         <input type="text" ng-if="type=='free-input'" ng-model="simulation[attr]" class="form-control form-custom" />
-        <select type="text" ng-if="type!='free-input'" ng-options="option as option for option in type" ng-model="simulation[attr]" class="form-control form-custom" />
-        </select>
+        <select type="text" ng-if="type!='free-input'" ng-options="option as option for option in type" ng-model="simulation[attr]" class="form-control form-custom" /></select>
       </td>
     </tr>
   </tbody>

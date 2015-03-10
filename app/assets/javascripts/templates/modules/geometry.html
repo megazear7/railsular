@@ -17,7 +17,10 @@
         <a ng-if="geometry.editing" ng-click="geometry.stopEdit()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-ok"></span></a>
       </div>
     </div>
-
+    <br />
+    <div ng-if="!geometry.editing">
+      <div>{{geometry.description}}</div>
+    </div>
     <br />
     <div class="row">
       <div class="col-md-12">
@@ -25,15 +28,24 @@
       </div>
     </div>
     <br />
-    <div ng-if="!geometry.editing">
-      <div>{{geometry.description}}</div>
-      <div ng-repeat="(attr_name, attr_type) in geometry.attributes()">{{attr_name}}: {{geometry[attr_name]}}</div>
-    </div>
     <div ng-if="geometry.editing">
       <p><textarea type="text" ng-model="geometry.description" class="form-control form-custom" /></p>
     </div>
-    <div ng-if="geometry.editing && !geometry.final">
-      <p ng-repeat="(attr_name, attr_type) in geometry.attributes()">{{attr_name}}: <input type="text" ng-model="geometry[attr_name]" class="form-control form-custom" /></p>
-    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <table class="table table-hover table-striped">
+          <tbody>
+            <tr ng-repeat="(attr_name, attr_type) in geometry.attributes()">
+              <td>{{attr_name}}</td>
+              <td ng-if="!(geometry.editing && !geometry.final)">{{geometry[attr_name]}}</td>
+              <td ng-if="geometry.editing && !geometry.final">
+                <input ng-if="attr_type=='free-input'" type="text" ng-model="geometry[attr_name]" class="form-control" />
+                <select ng-if="attr_type!='free-input'" type="text" ng-options="option as option for option in attr_type" ng-model="geometry[attr_name]" class="form-control form-custom" /></select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <div class="row">
   </div>
 </article>

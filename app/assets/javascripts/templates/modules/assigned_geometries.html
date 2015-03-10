@@ -14,7 +14,8 @@
             {{assigned_geo[attr_name]}}
           </td>
           <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name && assigned_geo.editing && !assigned_geo.simulation().final" ng-repeat="(attr_name, attr_type) in assigned_geo.attributes()">
-            <input type="text" ng-model="assigned_geo[attr_name]" class="form-control" />
+            <input ng-if="attr_type=='free-input'" type="text" ng-model="assigned_geo[attr_name]" class="form-control" />
+            <select type="text" ng-if="attr_type!='free-input'" ng-options="option as option for option in attr_type" ng-model="assigned_geo[attr_name]" class="form-control form-custom" /></select>
           </td>
           <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name && assigned_geo.editing && !assigned_geo.simulation().final"><a ng-click="removeGeometry(assigned_geo.geometry())"><span class="glyphicon glyphicon-log-out"></span></a></td>
         </tr>
