@@ -11,6 +11,4 @@ controllers.controller("SimulationsController", [ '$scope', '$routeParams', '$lo
     $scope.simulations = $scope.activeProject.simulations()
 
     $scope.simulation = $scope.simulations[$routeParams.simulation_id]
-
-    console.log(Geometry.find(1).simulations())
 ])

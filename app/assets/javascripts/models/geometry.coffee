@@ -11,9 +11,8 @@ angular.module('receta').factory('Geometry', (DataCache,ModelFactory,ObjectFacto
         simulation_id: geometry.id
         geometry_id: sim_id
       }
-      angular.forEach(attrs, (attr_val, attr_name) ->
+      angular.forEach attrs, (attr_val, attr_name) ->
         assigned_geo[attr_name] = attr_val
-      )
       AssignedGeometry.create(assigned_geo)
 
     geometry.attributes = ->
@@ -28,10 +27,9 @@ angular.module('receta').factory('Geometry', (DataCache,ModelFactory,ObjectFacto
 
   modelMethods["allByType"] = (geo_type) ->
     geoList = {}
-    angular.forEach(DataCache.geometries, (val, id) ->
+    angular.forEach DataCache.geometries, (val, id) ->
       if val.geo_type == geo_type
         geoList[id] = val
-    )
     geoList
 
   # Create the promises for loading data
@@ -43,13 +41,11 @@ angular.module('receta').factory('Geometry', (DataCache,ModelFactory,ObjectFacto
 
   modelMethods["promise"] = $http.get('/geometries')
     .success (data, status, headers, config) ->
-      angular.forEach(data.geometries, (geometry) ->
+      angular.forEach data.geometries, (geometry) ->
         DataCache.geometries[geometry.id] = geometry
         DataCache.geometries[geometry.id].editing = false
-      )
-      angular.forEach(DataCache.geometries, (geometry, geo_id) ->
+      angular.forEach DataCache.geometries, (geometry, geo_id) ->
         addMethods(geometry)
-      )
     .error (data, status, headers, config) ->
       console.log('error loading geometries')
 

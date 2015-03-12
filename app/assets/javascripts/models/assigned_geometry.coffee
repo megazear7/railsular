@@ -18,13 +18,11 @@ angular.module('receta').factory('AssignedGeometry', (DataCache,ModelFactory,Obj
   # Create the promises for loading data
   modelMethods["promise"] = $http.get('/assigned_geometries')
     .success (data, status, headers, config) ->
-      angular.forEach(data.assigned_geometries, (assigned_geo) ->
+      angular.forEach data.assigned_geometries, (assigned_geo) ->
         DataCache.assigned_geometries[assigned_geo.id] = assigned_geo
         DataCache.assigned_geometries[assigned_geo.id].editing = false
-      )
-      angular.forEach(DataCache.assigned_geometries, (assigned_geometry, assigned_geo_id) ->
+      angular.forEach DataCache.assigned_geometries, (assigned_geometry, assigned_geo_id) ->
         addMethods(assigned_geometry)
-      )
     .error (data, status, headers, config) ->
       console.log('error loading assigned_geometries')
 

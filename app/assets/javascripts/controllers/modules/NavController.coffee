@@ -16,18 +16,16 @@ controllers.controller("NavController", [ '$scope', '$routeParams', '$location',
         $location.path("projects/"+$scope.activeProject.id+"/geometries/"+geo.id)
 
     $scope.addProject = ->
-      angular.forEach($scope.projects, (value, key) ->
+      angular.forEach $scope.projects, (value, key) ->
         value.stopEdit()
-      )
       promise = Project.create({name: "Name", description: "Description"})
       promise.then (project) ->
         project.startEdit()
         $location.path("projects/")
 
     $scope.editProject = (project) ->
-      angular.forEach($scope.projects, (value, key) ->
+      angular.forEach $scope.projects, (value, key) ->
         value.editing = false
-      )
       project.editing = true
       $location.path("projects")
 

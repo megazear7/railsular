@@ -7,15 +7,13 @@ angular.module('receta').factory('ModelFactory', (DataCache,$http,$q) ->
         DataCache[table_name][id]
       find_by: (attrs) ->
         obj = false
-        angular.forEach(DataCache[table_name], (tmp_obj, tmp_obj_id) ->
+        angular.forEach DataCache[table_name], (tmp_obj, tmp_obj_id) ->
           isFound = true
-          angular.forEach(attrs, (val, attr) ->
+          angular.forEach attrs, (val, attr) ->
             if tmp_obj[attr] != val
               isFound = false
-          )
           if isFound
             obj = tmp_obj
-        )
         if obj
           return obj
         else

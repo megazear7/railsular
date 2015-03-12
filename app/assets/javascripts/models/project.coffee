@@ -8,26 +8,23 @@ angular.module('receta').factory('Project', (DataCache,ModelFactory,ObjectFactor
     # Add the custom object methods
     project.simulations = ->
       simList = {}
-      angular.forEach(DataCache.simulations, (simulation, sim_id) ->
+      angular.forEach DataCache.simulations, (simulation, sim_id) ->
         if simulation.project_id == project.id
           simList[sim_id] = simulation
-      )
       simList
 
     project.geometries = ->
       geoList = {}
-      angular.forEach(DataCache.geometries, (geometry, geo_id) ->
+      angular.forEach DataCache.geometries, (geometry, geo_id) ->
         if geometry.project_id == project.id
           geoList[geo_id] = geometry
-      )
       geoList
 
     project.geometriesByType = (geo_type) ->
       geoList = {}
-      angular.forEach(project.geometries(), (geometry, id) ->
+      angular.forEach project.geometries(), (geometry, id) ->
         if geometry.geo_type == geo_type
           geoList[id] = geometry
-      )
       geoList
 
   # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
@@ -39,13 +36,11 @@ angular.module('receta').factory('Project', (DataCache,ModelFactory,ObjectFactor
   # Create the promises for loading data
   modelMethods["promise"] = $http.get('/projects')
     .success (data, status, headers, config) ->
-      angular.forEach(data.projects, (project) ->
+      angular.forEach data.projects, (project) ->
         DataCache.projects[project.id] = project
         DataCache.projects[project.id].editing = false
-      )
-      angular.forEach(DataCache.projects, (project, proj_id) ->
+      angular.forEach DataCache.projects, (project, proj_id) ->
         addMethods(project)
-      )
     .error (data, status, headers, config) ->
       console.log('error loading projects')
 

@@ -7,23 +7,20 @@ controllers.controller("AssignedGeometriesController", [ '$scope', '$routeParams
     $scope.geometry_types = Geometry.geo_types()
 
     addingGeometry = { }
-    angular.forEach(Geometry.geo_types(), (geo_type, name) ->
+    angular.forEach Geometry.geo_types(), (geo_type, name) ->
       addingGeometry[name] = false
-    )
 
     $scope.addingGeometry = (geo_type) ->
       addingGeometry[geo_type]
 
     $scope.geometryByType = (geo_type) ->
       geos = $scope.activeProject.geometriesByType(geo_type)
-      angular.forEach($scope.simulation.geometries(), (geometry, id) ->
+      angular.forEach $scope.simulation.geometries(), (geometry, id) ->
         if id of geos
           delete geos[id]
-      )
-      angular.forEach(geos, (geometry, id) ->
+      angular.forEach geos, (geometry, id) ->
         if not geometry.final
           delete geos[id]
-      )
       geos
 
     $scope.startAddingGeometry = (geo_type) ->
@@ -43,16 +40,14 @@ controllers.controller("AssignedGeometriesController", [ '$scope', '$routeParams
         scope.simulation.editing
       (newVal, oldVal) ->
         if newVal == false
-          angular.forEach(addingGeometry, (val, name) ->
+          angular.forEach addingGeometry, (val, name) ->
             $scope.stopAddingGeometry(name)
-          )
     )
 
     $scope.addGeometry = (geo) ->
       attrs = { }
-      angular.forEach(Geometry.geo_types()[geo.geo_type].attributes, (attr) ->
+      angular.forEach Geometry.geo_types()[geo.geo_type].attributes, (attr) ->
         attrs[attr] = 0
-      )
       promise = $scope.simulation.addGeometry(geo.id, attrs)
       promise.then (assigned_geo) ->
         assigned_geo.startEdit()

@@ -7,6 +7,21 @@ receta = angular.module('receta',[
   'angular-flash.flash-alert-directive'
 ])
 
+standard_resolve = {
+    geometryData: (Geometry) ->
+      Geometry.promise
+    geometryTypeData: (Geometry) ->
+      Geometry.geometry_type_promise
+    smulationData: (Simulation) ->
+      Simulation.promise
+    projectData: (Project) ->
+      Project.promise
+    assignedGeometryData: (AssignedGeometry) ->
+      AssignedGeometry.promise
+    simulationAttributesData: (Simulation) ->
+      Simulation.simulation_attributes_promise
+  }
+
 receta.config([ '$routeProvider', 'flashProvider',
   ($routeProvider,flashProvider)->
 
@@ -19,143 +34,32 @@ receta.config([ '$routeProvider', 'flashProvider',
       .when('/',
         templateUrl: "layouts/projects.html"
         controller: 'ProjectsController'
-        resolve:
-          {
-            geometryData: (Geometry) ->
-              Geometry.promise
-            geometryTypeData: (Geometry) ->
-              Geometry.geometry_type_promise
-            smulationData: (Simulation) ->
-              Simulation.promise
-            projectData: (Project) ->
-              Project.promise
-            assignedGeometryData: (AssignedGeometry) ->
-              AssignedGeometry.promise
-            simulationAttributesData: (Simulation) ->
-              Simulation.simulation_attributes_promise
-          }
+        resolve: standard_resolve
       ).when('/projects',
         templateUrl: "layouts/projects.html"
         controller: 'ProjectsController'
-        resolve:
-          {
-            geometryData: (Geometry) ->
-              Geometry.promise
-            geometryTypeData: (Geometry) ->
-              Geometry.geometry_type_promise
-            smulationData: (Simulation) ->
-              Simulation.promise
-            projectData: (Project) ->
-              Project.promise
-            assignedGeometryData: (AssignedGeometry) ->
-              AssignedGeometry.promise
-            simulationAttributesData: (Simulation) ->
-              Simulation.simulation_attributes_promise
-          }
+        resolve: standard_resolve
       ).when('/projects/:project_id',
         templateUrl: "layouts/project.html"
         controller: 'ProjectController'
-        resolve:
-          {
-            geometryData: (Geometry) ->
-              Geometry.promise
-            geometryTypeData: (Geometry) ->
-              Geometry.geometry_type_promise
-            smulationData: (Simulation) ->
-              Simulation.promise
-            projectData: (Project) ->
-              Project.promise
-            assignedGeometryData: (AssignedGeometry) ->
-              AssignedGeometry.promise
-            simulationAttributesData: (Simulation) ->
-              Simulation.simulation_attributes_promise
-          }
+        resolve: standard_resolve
       ).when('/projects/:project_id/simulations/:simulation_id',
         templateUrl: "layouts/simulations.html"
         controller: 'SimulationsController'
-        resolve:
-          {
-            geometryData: (Geometry) ->
-              Geometry.promise
-            geometryTypeData: (Geometry) ->
-              Geometry.geometry_type_promise
-            smulationData: (Simulation) ->
-              Simulation.promise
-            projectData: (Project) ->
-              Project.promise
-            assignedGeometryData: (AssignedGeometry) ->
-              AssignedGeometry.promise
-            simulationAttributesData: (Simulation) ->
-              Simulation.simulation_attributes_promise
-          }
+        resolve: standard_resolve
       ).when('/projects/:project_id/simulations',
         templateUrl: "layouts/project.html"
         controller: 'ProjectController'
-        resolve:
-          {
-            geometryData: (Geometry) ->
-              Geometry.promise
-            geometryTypeData: (Geometry) ->
-              Geometry.geometry_type_promise
-            smulationData: (Simulation) ->
-              Simulation.promise
-            projectData: (Project) ->
-              Project.promise
-            assignedGeometryData: (AssignedGeometry) ->
-              AssignedGeometry.promise
-            simulationAttributesData: (Simulation) ->
-              Simulation.simulation_attributes_promise
-          }
+        resolve: standard_resolve
       ).when('/projects/:project_id/geometries/:geometry_id',
         templateUrl: "layouts/geometries.html"
         controller: 'GeometriesController'
-        resolve:
-          {
-            geometryData: (Geometry) ->
-              Geometry.promise
-            geometryTypeData: (Geometry) ->
-              Geometry.geometry_type_promise
-            smulationData: (Simulation) ->
-              Simulation.promise
-            projectData: (Project) ->
-              Project.promise
-            assignedGeometryData: (AssignedGeometry) ->
-              AssignedGeometry.promise
-            simulationAttributesData: (Simulation) ->
-              Simulation.simulation_attributes_promise
-          }
+        resolve: standard_resolve
       ).when('/projects/:project_id/geometries',
         templateUrl: "layouts/project.html"
         controller: 'ProjectController'
-        resolve:
-          {
-            geometryData: (Geometry) ->
-              Geometry.promise
-            geometryTypeData: (Geometry) ->
-              Geometry.geometry_type_promise
-            smulationData: (Simulation) ->
-              Simulation.promise
-            projectData: (Project) ->
-              Project.promise
-            assignedGeometryData: (AssignedGeometry) ->
-              AssignedGeometry.promise
-            simulationAttributesData: (Simulation) ->
-              Simulation.simulation_attributes_promise
-          }
+        resolve: standard_resolve
       )
 ])
 
 controllers = angular.module('controllers',[])
-
-# file upload button styling:
-$(document).on "change", ".btn-file :file", ->
-  input = $(this)
-  numFiles = (if input.get(0).files then input.get(0).files.length else 1)
-  label = input.val().replace(/\\/g, "/").replace(/.*\//, "")
-  input.trigger "fileselect", [
-    numFiles
-    label
-  ]
-$(document).ready ->
-  $(".btn-file :file").on "fileselect", (event, numFiles, label) ->
-    $(".upload-file-text").text label

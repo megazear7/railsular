@@ -11,9 +11,8 @@ angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry,Model
         simulation_id: simulation.id
         geometry_id: geo_id
       }
-      angular.forEach(attrs, (attr_val, attr_name) ->
+      angular.forEach attrs, (attr_val, attr_name) ->
         assigned_geo[attr_name] = attr_val
-      )
       AssignedGeometry.create(assigned_geo)
 
   # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
@@ -26,13 +25,11 @@ angular.module('receta').factory('Simulation', (DataCache,AssignedGeometry,Model
   # Create the promises for loading data
   modelMethods["promise"] = $http.get('/simulations')
     .success (data, status, headers, config) ->
-      angular.forEach(data.simulations, (simulation) ->
+      angular.forEach data.simulations, (simulation) ->
         DataCache.simulations[simulation.id] = simulation
         DataCache.simulations[simulation.id].editing = false
-      )
-      angular.forEach(DataCache.simulations, (simulation, sim_id) ->
+      angular.forEach DataCache.simulations, (simulation, sim_id) ->
         addMethods(simulation)
-      )
     .error (data, status, headers, config) ->
       console.log('error loading simulations')
 

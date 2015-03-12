@@ -11,5 +11,4 @@ controllers.controller("GeometriesController", [ '$scope', '$routeParams', '$loc
     $scope.geometries = $scope.activeProject.geometries()
 
     $scope.geometry = $scope.geometries[$routeParams.geometry_id]
-
 ])
