@@ -7,13 +7,22 @@ class Geometry < ActiveRecord::Base
   has_many :geometry_attrs
 
   def self.geo_attributes
-    { "inlet"  => {
-      },
-      "outlet" => {
-      },
-      "wall"   => {
-      }
-    }
+    ret = {}
+    GeometryType.all.each do |type|
+      ret[type.name] = {}
+      type.attribute_descriptors.where(usage: "geometry").each do |attr_desc|
+        ret[type.name][attr_desc.name] = {
+          "type" => attr_desc.attr_type,
+          "index" => attr_desc.display,
+          "validation" => attr_desc.validation,
+        }
+        ret[type.name][attr_desc.name]["values"] = []
+        attr_desc.attribute_descriptor_values.each do |val|
+          ret[type.name][attr_desc.name]["values"] << val.value
+        end
+      end
+    end
+    ret
   end
 
   def self.geo_types

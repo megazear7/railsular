@@ -4,7 +4,22 @@ class AssignedGeometry < ActiveRecord::Base
   has_many :assigned_geo_attrs
 
   def self.assigned_geo_attributes
-    # the only duplicated information is here in geo type names. The "inlet", "outlet", "wall" list is listed both here and in the geometry model
+    ret = {}
+    GeometryType.all.each do |type|
+      ret[type.name] = {}
+      type.attribute_descriptors.where(usage: "assigned_geometry").each do |attr_desc|
+        ret[type.name][attr_desc.name] = {
+          "type" => attr_desc.attr_type,
+          "index" => attr_desc.display,
+          "validation" => attr_desc.validation,
+        }
+        ret[type.name][attr_desc.name]["values"] = []
+        attr_desc.attribute_descriptor_values.each do |val|
+          ret[type.name][attr_desc.name]["values"] << val.value
+        end
+      end
+    end
+    ret
     { "inlet"  => {
         "vx" => {
           "type" => "text-input",
