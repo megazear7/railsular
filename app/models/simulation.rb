@@ -5,12 +5,36 @@ class Simulation < ActiveRecord::Base
   has_many :simulation_attrs
 
   def self.attribute_details
+    # the index field is simply to let the UI designer have some understanding of 
+    # how to display the fields. Low numbers are higher priority. sub values
+    # represent that they should be grouped together. So for example field with 
+    # index "1" should be its own group, fields with index's "2.1", "2.2" and "2.3" are goruped together
     {
-      "measurement_scale" => ["mm", "cm", "inch"],
-      "fluid_type" => ["water", "honey"],
-      "kinematic_viscosity" => "free-input",
-      "density" => "free-input",
-      "steps" => "free-input"
+      "measurement_scale" => {
+        "type" => "select",
+        "values" => ["mm", "cm", "inch"],
+        "index" => "1"
+      },
+      "fluid_type" => {
+        "type" => "select",
+        "values" => ["water", "honey"],
+        "index" => "2"
+      },
+      "kinematic_viscosity" => {
+        "type" => "text-input",
+        "values" => "", # todo maybe use a regex for this? or maybe just "integers" or "float" with a range?
+        "index" => "3"
+      },
+      "density" => {
+        "type" => "text-input",
+        "values" => "",
+        "index" => "4"
+      },
+      "steps" => {
+        "type" => "text-input",
+        "values" => "",
+        "index" => "5"
+      }
     }
   end
 
