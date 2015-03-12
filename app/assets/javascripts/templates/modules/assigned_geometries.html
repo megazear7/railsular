@@ -8,7 +8,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="assigned_geo in simulation.assigned_geos()">
+        <tr ng-repeat="assigned_geo in simulation.assigned_geometries()">
           <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name">{{assigned_geo.geometry().name}}</td>
           <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name && (!assigned_geo.editing || assigned_geo.simulation().final)" ng-repeat="(attr_name, attr_type) in assigned_geo.attributes()">
             {{assigned_geo[attr_name]}}

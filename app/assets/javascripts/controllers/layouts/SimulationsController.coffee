@@ -1,6 +1,6 @@
 controllers = angular.module('controllers')
-controllers.controller("SimulationsController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry'
-  ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry)->
+controllers.controller("SimulationsController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry'
+  ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry,AssignedGeometry)->
     $scope.title = "Simulations"
     $scope.message = "Hello this is the simulations controller"
     $scope.link = (url) -> $location.path("/#{url}")
@@ -11,4 +11,6 @@ controllers.controller("SimulationsController", [ '$scope', '$routeParams', '$lo
     $scope.simulations = $scope.activeProject.simulations()
 
     $scope.simulation = $scope.simulations[$routeParams.simulation_id]
+
+    console.log(Geometry.find(1).simulations())
 ])

@@ -3,21 +3,9 @@ angular.module('receta').factory('Geometry', (DataCache,ModelFactory,ObjectFacto
   # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (geometry) ->
     # Add the standard object methods
-    ObjectFactory("geometries", geometry)
+    ObjectFactory("geometries", geometry, [{belongs_to: "project"}, {has_many: "assigned_geometries"}, {has_many_through: {has_many: "simulations", through: "assigned_geometries"}}])
 
     # Add the custom object methods
-    geometry.assigned_geos = ->
-      assigned_geos = {}
-      angular.forEach(DataCache.assigned_geometries, (assigned_geo, id) ->
-        if assigned_geo.geometry_id == geometry.id
-          assigned_geos[id] = assigned_geo
-      )
-      assigned_geos
-
-    geometry.addSimulation = (sim_id, attr) ->
-      new_id = Math.floor((Math.random() * 10000) + 1)
-      DataCache.assigned_geometries[new_id] = {id: new_id, simulation_id: sim_id, geometry_id: geometry.id, attributes: attr}
-
     geometry.addSimulation = (sim_id, attrs) ->
       assigned_geo = {
         simulation_id: geometry.id
@@ -30,21 +18,6 @@ angular.module('receta').factory('Geometry', (DataCache,ModelFactory,ObjectFacto
 
     geometry.attributes = ->
       DataCache.geometry_types[this.geo_type].attributes
-
-    geometry.simulations = ->
-      simIds = []
-      angular.forEach(DataCache.assigned_geometries, (val, key) ->
-        if val.geometry_id == geometry.id
-          simIds.push(val.simulation_id)
-      )
-      simList = {}
-      angular.forEach(simIds, (sim_id) ->
-        simList[sim_id] = DataCache.simulations[sim_id]
-      )
-      simList
-
-    geometry.project = ->
-      DataCache.projects[geometry.project_id]
 
   # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
   modelMethods = ModelFactory("geometries", addMethods)

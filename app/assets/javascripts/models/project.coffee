@@ -14,13 +14,6 @@ angular.module('receta').factory('Project', (DataCache,ModelFactory,ObjectFactor
       )
       simList
 
-    project.simulation = (id) ->
-      sims = project.simulations()
-      if sims[id]
-        sims[id]
-      else
-        "Project with id #{project.id} does not have a simulation with id #{id}"
-
     project.geometries = ->
       geoList = {}
       angular.forEach(DataCache.geometries, (geometry, geo_id) ->
@@ -36,13 +29,6 @@ angular.module('receta').factory('Project', (DataCache,ModelFactory,ObjectFactor
           geoList[id] = geometry
       )
       geoList
-
-    project.geometry = (id) ->
-      geos = project.geometries()
-      if geos[id]
-        geos[id]
-      else
-        "Project with id #{project.id} does not have a geometry with id #{id}"
 
   # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
   modelMethods = ModelFactory("projects", addMethods)

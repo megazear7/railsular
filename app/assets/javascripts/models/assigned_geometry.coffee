@@ -3,18 +3,11 @@ angular.module('receta').factory('AssignedGeometry', (DataCache,ModelFactory,Obj
   # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (assigned_geometry) ->
     # Add the standard object methods
-    ObjectFactory("assigned_geometries", assigned_geometry)
+    ObjectFactory("assigned_geometries", assigned_geometry, [{belongs_to: "simulation"}, {belongs_to: "geometry"}])
 
     # Add the custom object methods
-    assigned_geometry.geometry = ->
-      DataCache.geometries[this.geometry_id]
-
-    assigned_geometry.simulation = ->
-      DataCache.simulations[this.simulation_id]
-
     assigned_geometry.attributes = ->
       DataCache.geometry_types[this.geometry().geo_type].assigned_attributes
-
 
   # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
   modelMethods = ModelFactory("assigned_geometries", addMethods)
@@ -33,7 +26,7 @@ angular.module('receta').factory('AssignedGeometry', (DataCache,ModelFactory,Obj
         addMethods(assigned_geometry)
       )
     .error (data, status, headers, config) ->
-      console.log('error loading assigned_geos')
+      console.log('error loading assigned_geometries')
 
   # Return the model methods
   modelMethods
