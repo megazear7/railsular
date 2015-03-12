@@ -3,6 +3,20 @@ class Simulation < ActiveRecord::Base
   has_many :assigned_geometries
   has_many :jobs
   has_many :simulation_attrs
+  after_initialize :add_attr_methods
+
+  def add_attr_methods
+    Simulation.attribute_names.each do |name|
+      self.class.send(:define_method, name) do
+        sim_attr = simulation_attrs.find_by(name: name)
+        if sim_attr
+          sim_attr.value
+        else
+          nil
+        end
+      end
+    end
+  end
 
   def self.attribute_details
     ret = {}
@@ -29,17 +43,6 @@ class Simulation < ActiveRecord::Base
     final ? "Queued" : "Not Submitted"
   end
 
-  self.attribute_names.each do |name|
-    define_method name do
-      sim_attr = simulation_attrs.find_by(name: name)
-      if sim_attr
-        sim_attr.value
-      else
-        nil
-      end
-    end
-  end
-
   def self.create simulation_params, params
     sim = super simulation_params
     Simulation.attribute_names.each do |name|
@@ -56,7 +59,7 @@ class Simulation < ActiveRecord::Base
           if sim_attr
             sim_attr.value = params[name]
           else
-            SimulationAttr.create(name: name, value: params[name], simulation_id: self.id)
+            sim_attr = SimulationAttr.create(name: name, value: params[name], simulation_id: self.id)
           end
           return false if not sim_attr.save
         end

@@ -2,6 +2,21 @@ class AssignedGeometry < ActiveRecord::Base
   belongs_to :simulation
   belongs_to :geometry
   has_many :assigned_geo_attrs
+  after_initialize :add_attr_methods
+
+  def add_attr_methods
+    Geometry.geo_types.each do |geo_type|
+      AssignedGeometry.assigned_geo_attribute_names(geo_type).each do |name|
+        self.class.send(:define_method, name) do
+          if assigned_geo_attrs.find_by(name: name)
+            assigned_geo_attrs.find_by(name: name).value
+          else
+            nil
+          end
+        end
+      end
+    end
+  end
 
   def self.assigned_geo_attributes
     ret = {}
@@ -20,32 +35,14 @@ class AssignedGeometry < ActiveRecord::Base
       end
     end
     ret
-    { "inlet"  => {
-        "vx" => {
-          "type" => "text-input",
-          "values" => "",
-          "index" => "1"
-        },
-        "vy" => {
-          "type" => "text-input", 
-          "values" => "",
-          "index" => "2"
-        },
-        "vz" => {
-          "type" => "text-input",
-          "values" => "",
-          "index" => "3"
-        }
-      },
-      "outlet" => {
-      },
-      "wall"   => {
-      }
-    }
   end
 
   def self.assigned_geo_attribute_names geo_type
-    AssignedGeometry.assigned_geo_attributes[geo_type].keys
+    if AssignedGeometry.assigned_geo_attributes[geo_type]
+      AssignedGeometry.assigned_geo_attributes[geo_type].keys
+    else
+      []
+    end
   end
 
   def self.all_attribute_names
@@ -56,18 +53,6 @@ class AssignedGeometry < ActiveRecord::Base
       end
     end
     full_list
-  end
-
-  Geometry.geo_types.each do |geo_type|
-    self.assigned_geo_attribute_names(geo_type).each do |name|
-      define_method name do
-        if assigned_geo_attrs.find_by(name: name)
-          assigned_geo_attrs.find_by(name: name).value
-        else
-          nil
-        end
-      end
-    end
   end
 
   def self.create assigned_geo_params, params
@@ -86,7 +71,7 @@ class AssignedGeometry < ActiveRecord::Base
         if assigned_geo_attr
           assigned_geo_attr.value = params[name]
         else
-          AssignedGeoAttr.create(name: name, value: params[name], assigned_geometry_id: self.id)
+          assigned_geo_attr = AssignedGeoAttr.create(name: name, value: params[name], assigned_geometry_id: self.id)
         end
         return false if not assigned_geo_attr.save
       end

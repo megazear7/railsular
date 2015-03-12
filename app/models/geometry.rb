@@ -5,6 +5,21 @@ class Geometry < ActiveRecord::Base
   has_many :assigned_geometries
   has_many :jobs
   has_many :geometry_attrs
+  after_initialize :add_attr_methods
+
+  def add_attr_methods
+    Geometry.geo_types.each do |geo_type|
+      Geometry.geo_attribute_names(geo_type).each do |name|
+        self.class.send(:define_method, name) do
+          if geometry_attrs.find_by(name: name)
+            geometry_attrs.find_by(name: name).value
+          else
+            nil
+          end
+        end
+      end
+    end
+  end
 
   def self.geo_attributes
     ret = {}
@@ -30,7 +45,11 @@ class Geometry < ActiveRecord::Base
   end
 
   def self.geo_attribute_names geo_type
-    Geometry.geo_attributes[geo_type].keys
+    if Geometry.geo_attributes[geo_type]
+      Geometry.geo_attributes[geo_type].keys
+    else
+      []
+    end
   end
 
   def self.all_attribute_names
@@ -41,18 +60,6 @@ class Geometry < ActiveRecord::Base
       end
     end
     full_list
-  end
-
-  self.geo_types.each do |geo_type|
-    self.geo_attribute_names(geo_type).each do |name|
-      define_method name do
-        if geometry_attrs.find_by(name: name)
-          geometry_attrs.find_by(name: name).value
-        else
-          nil
-        end
-      end
-    end
   end
 
   def self.create geometry_params, params

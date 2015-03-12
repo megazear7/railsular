@@ -54,7 +54,7 @@
               </td>
               <td>
                 <span ng-if="attribute_descriptor.attr_type=='select'">
-                  <span ng-if="!attribute_descriptor.editing" ng-repeat="val in attribute_descriptor.attribute_descriptor_values()">{{val.value}}</span>
+                  <span ng-if="!attribute_descriptor.editing" ng-repeat="val in attribute_descriptor.attribute_descriptor_values()">{{val.value}} - </span>
                   <span ng-if="attribute_descriptor.editing" ng-repeat="val in attribute_descriptor.attribute_descriptor_values()">
                     <input ng-model="val.value"></input>
                     <a ng-click="val.delete()"><span class="glyphicon glyphicon-trash"></span></a>
