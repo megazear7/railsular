@@ -1,6 +1,6 @@
 controllers = angular.module('controllers')
-controllers.controller("AdminController", [ '$scope', '$routeParams', '$location', '$resource', 'GeometryType', 'AttributeDescriptor'
-  ($scope,$routeParams,$location,$resource,GeometryType,AttributeDescriptor)->
+controllers.controller("AdminController", [ '$scope', '$routeParams', '$location', '$resource', 'GeometryType', 'AttributeDescriptor', 'AttributeDescriptorValue'
+  ($scope,$routeParams,$location,$resource,GeometryType,AttributeDescriptor,AttributeDescriptorValue)->
     $scope.link = (url) -> $location.path("/#{url}")
 
     $scope.geometry_types = GeometryType.all()
@@ -26,4 +26,14 @@ controllers.controller("AdminController", [ '$scope', '$routeParams', '$location
     $scope.delete_simulation_attribute = (attribute_descriptor) ->
       attribute_descriptor.delete()
       $scope.simulation_attribute_descriptors = AttributeDescriptor.simulation_attribute_descriptors()
+
+    $scope.addAttributeDescriptorValue = (attribute_descriptor) ->
+      promise = AttributeDescriptorValue.create({value: "Value", attribute_descriptor_id: attribute_descriptor.id})
+      promise.then (attribute_descriptor_value) ->
+        attribute_descriptor_value.startEdit()
+
+    $scope.stopEditing = (attribute_descriptor) ->
+      attribute_descriptor.stopEdit()
+      angular.forEach attribute_descriptor.attribute_descriptor_values(), (val, id) ->
+        val.stopEdit()
 ])

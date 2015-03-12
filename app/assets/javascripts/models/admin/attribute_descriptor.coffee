@@ -3,7 +3,7 @@ angular.module('receta').factory('AttributeDescriptor', (AdminDataCache,$http,Mo
   # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (attribute_descriptor) ->
     # Add the standard object methods
-    ObjectFactory("attribute_descriptors", attribute_descriptor, [{belongs_to: "geometry_type"}], AdminDataCache, "/admin")
+    ObjectFactory("attribute_descriptors", attribute_descriptor, [{belongs_to: "geometry_type"}, {has_many: "attribute_descriptor_values"}], AdminDataCache, "/admin")
 
     # Add the custom object methods
     # None

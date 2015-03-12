@@ -39,6 +39,8 @@ receta.config([ '$routeProvider', 'flashProvider',
             GeometryType.promise
           attributeDescriptorData: (AttributeDescriptor) ->
             AttributeDescriptor.promise
+          attributeDescriptorValueData: (AttributeDescriptorValue) ->
+            AttributeDescriptorValue.promise
         }
       ).when('/',
         templateUrl: "layouts/projects.html"
