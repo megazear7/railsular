@@ -68,7 +68,11 @@ class AssignedGeometry < ActiveRecord::Base
     AssignedGeometry.assigned_geo_attribute_names(self.geometry.geo_type).each do |name|
       if params[name]
         assigned_geo_attr = self.assigned_geo_attrs.find_by(name: name)
-        assigned_geo_attr.value = params[name]
+        if assigned_geo_attr
+          assigned_geo_attr.value = params[name]
+        else
+          AssignedGeoAttr.create(name: name, value: params[name], assigned_geometry_id: self.id)
+        end
         return false if not assigned_geo_attr.save
       end
     end

@@ -49,7 +49,12 @@ class Simulation < ActiveRecord::Base
 
   self.attribute_names.each do |name|
     define_method name do
-      simulation_attrs.find_by(name: name).value
+      sim_attr = simulation_attrs.find_by(name: name)
+      if sim_attr
+        sim_attr.value
+      else
+        nil
+      end
     end
   end
 
@@ -66,7 +71,11 @@ class Simulation < ActiveRecord::Base
       Simulation.attribute_names.each do |name|
         if params[name]
           sim_attr = self.simulation_attrs.find_by(name: name)
-          sim_attr.value = params[name]
+          if sim_attr
+            sim_attr.value = params[name]
+          else
+            SimulationAttr.create(name: name, value: params[name], simulation_id: self.id)
+          end
           return false if not sim_attr.save
         end
       end

@@ -60,7 +60,11 @@ class Geometry < ActiveRecord::Base
       Geometry.geo_attribute_names(self.geo_type).each do |name|
         if params[name]
           geo_attr = self.geometry_attrs.find_by(name: name)
-          geo_attr.value = params[name]
+          if geo_attr
+            geo_attr.value = params[name]
+          else
+            geo_attr = GeometryAttr.create(name: name, value: params[name], geometry_id: self.id)
+          end
           return false if not geo_attr.save
         end
       end
