@@ -3,13 +3,13 @@ angular.module('receta').factory('GeometryType', (AdminDataCache,$http,ModelFact
   # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (geometry_type) ->
     # Add the standard object methods
-    ObjectFactory("geometry_types", geometry_type, [{has_many: "attribute_descriptor"}])
+    ObjectFactory("geometry_types", geometry_type, [{has_many: "attribute_descriptor"}], AdminDataCache, "/admin")
 
     # Add the custom object methods
     # None
 
   # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
-  modelMethods = ModelFactory("geometry_types", addMethods)
+  modelMethods = ModelFactory("geometry_types", addMethods, AdminDataCache, "/admin")
 
   # create the custom model methods
   # None
@@ -28,4 +28,4 @@ angular.module('receta').factory('GeometryType', (AdminDataCache,$http,ModelFact
   # Return the model methods
   modelMethods
 )
-.run( (AssignedGeometry) -> console.log('Geometry Type service is ready') )
+.run( (GeometryType) -> console.log('Geometry Type service is ready') )

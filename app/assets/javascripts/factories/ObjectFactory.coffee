@@ -1,13 +1,13 @@
 angular.module('receta').factory 'ObjectFactory', (DataCache,$http,$q) ->
-  (table_name, object, relations) ->
+  (table_name, object, relations, cache = DataCache, url_prefix = "") ->
     object.save = ->
       # todo if there is an error saving the object then revert the object to what the api returns
-      $http.post("/#{pluralize(table_name, 1)}/#{object.id}/update", object)
+      $http.post("#{url_prefix}/#{pluralize(table_name, 1)}/#{object.id}/update", object)
 
     object.delete = ->
       # todo, if it comes back that there was an error trying to delete the object then add the object back
-      delete DataCache[table_name][object.id]
-      $http.delete("/#{pluralize(table_name, 1)}/#{object.id}/delete")
+      delete cache[table_name][object.id]
+      $http.delete("#{url_prefix}/#{pluralize(table_name, 1)}/#{object.id}/delete")
 
     object.startEdit = ->
       this.editing = true
@@ -20,12 +20,12 @@ angular.module('receta').factory 'ObjectFactory', (DataCache,$http,$q) ->
       if "belongs_to" of relation
         relation = relation.belongs_to
         object[relation] = ->
-          DataCache[pluralize(relation)][object["#{relation}_id"]]
+          cache[pluralize(relation)][object["#{relation}_id"]]
       else if "has_many" of relation
         relation = relation.has_many
         object[relation] = ->
           objects = {}
-          angular.forEach DataCache[relation], (obj, id) ->
+          angular.forEach cache[relation], (obj, id) ->
             if obj["#{pluralize(table_name,1)}_id"] == object.id
               objects[id] = obj
           objects
@@ -34,10 +34,10 @@ angular.module('receta').factory 'ObjectFactory', (DataCache,$http,$q) ->
         relation = relation.has_many_through.has_many
         object[relation] = ->
           object_ids = []
-          angular.forEach DataCache[through], (val, key) ->
+          angular.forEach cache[through], (val, key) ->
             if val["#{pluralize(table_name,1)}_id"] == object.id
               object_ids.push(val["#{pluralize(relation,1)}_id"])
           object_list = {}
           angular.forEach object_ids, (object_id) ->
-            object_list[object_id] = DataCache[relation][object_id]
+            object_list[object_id] = cache[relation][object_id]
           object_list

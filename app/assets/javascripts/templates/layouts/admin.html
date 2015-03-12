@@ -1,1 +1,25 @@
-Hello, World!
+<aside class="flash row">
+  <article flash-alert duration="0" active-class="alert" class="col-md-6 col-md-offset-3 col-sm-12">
+    {{flash.message}}
+  </article>
+</aside>
+<div class="container-fluid">
+  <section class="col-md-4">
+    <h3>Geometry Types:</h3>
+    <table class="table">
+      <tbody>
+        <tr ng-repeat="geometry_type in geometry_types">
+          <td ng-if="!geometry_type.editing">
+            <span>{{geometry_type.name}}</span>
+            <a ng-click="geometry_type.startEdit()"><span class="glyphicon glyphicon-pencil"></span></a>
+          </td>
+          <td ng-if="geometry_type.editing">
+            <input type="text" ng-model="geometry_type.name" class="form-control form-custom"></input>
+            <a ng-click="geometry_type.stopEdit()"><span class="glyphicon glyphicon-ok"></span></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <a ng-click="addGeometryType()"><span class="glyphicon glyphicon-plus"></span> Geometry Type</a>
+  </section>
+</div>
