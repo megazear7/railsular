@@ -31,7 +31,14 @@ receta.config([ '$routeProvider', 'flashProvider',
     flashProvider.successClassnames.push("alert-success")
 
     $routeProvider
-      .when('/',
+      .when('/admin',
+        templateUrl: "layouts/admin.html"
+        controller: 'AdminController'
+        resolve: {
+          geometryType: (GeometryType) ->
+            GeometryType.promise
+        }
+      ).when('/',
         templateUrl: "layouts/projects.html"
         controller: 'ProjectsController'
         resolve: standard_resolve

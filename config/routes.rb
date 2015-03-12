@@ -1,5 +1,25 @@
 Receta::Application.routes.draw do
 
+  scope 'admin' do
+    get 'attribute_descriptor_values' => 'attribute_descriptor_value#index', defaults: { format: 'json' }
+    get 'attribute_descriptor_value/:id' => 'attribute_descriptor_value#show', defaults: { format: 'json' }
+    post 'attribute_descriptor_value/create' => 'attribute_descriptor_value#create', defaults: { format: 'json' }
+    post 'attribute_descriptor_value/:id/update' => 'attribute_descriptor_value#update', defaults: { format: 'json' }
+    delete 'attribute_descriptor_value/:id/delete' => 'attribute_descriptor_value#delete', defaults: { format: 'json' }
+
+    get 'attribute_descriptors' => 'attribute_descriptor#index', defaults: { format: 'json' }
+    get 'attribute_descriptor/:id' => 'attribute_descriptor#show', defaults: { format: 'json' }
+    post 'attribute_descriptor/create' => 'attribute_descriptor#create', defaults: { format: 'json' }
+    post 'attribute_descriptor/:id/update' => 'attribute_descriptor#update', defaults: { format: 'json' }
+    delete 'attribute_descriptor/:id/delete' => 'attribute_descriptor#delete', defaults: { format: 'json' }
+
+    get 'geometry_types' => 'geometry_type#index', defaults: { format: 'json' }
+    get 'geometry_type/:id' => 'geometry_type#show', defaults: { format: 'json' }
+    post 'geometry_type/create' => 'geometry_type#create', defaults: { format: 'json' }
+    post 'geometry_type/:id/update' => 'geometry_type#update', defaults: { format: 'json' }
+    delete 'geometry_type/:id/delete' => 'geometry_type#delete', defaults: { format: 'json' }
+  end
+
   get 'projects' => 'project#index', defaults: { format: 'json' }
   get 'project/:id' => 'project#show', defaults: { format: 'json' }
   post 'project/create' => 'project#create', defaults: { format: 'json' }
