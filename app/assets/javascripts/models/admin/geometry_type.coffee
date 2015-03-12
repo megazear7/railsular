@@ -3,10 +3,15 @@ angular.module('receta').factory('GeometryType', (AdminDataCache,$http,ModelFact
   # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (geometry_type) ->
     # Add the standard object methods
-    ObjectFactory("geometry_types", geometry_type, [{has_many: "attribute_descriptor"}], AdminDataCache, "/admin")
+    ObjectFactory("geometry_types", geometry_type, [{has_many: "attribute_descriptors"}], AdminDataCache, "/admin")
 
     # Add the custom object methods
-    # None
+    geometry_type.assigned_attribute_descriptors = ->
+      ret = {}
+      angular.forEach geometry_type.attribute_descriptors(), (id, attr_desc) ->
+        if attr_desc.usage == "assigned_geometry"
+          ret[attr_desc.id] = attr_desc
+      ret
 
   # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
   modelMethods = ModelFactory("geometry_types", addMethods, AdminDataCache, "/admin")

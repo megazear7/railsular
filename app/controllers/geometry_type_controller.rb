@@ -15,7 +15,6 @@ class GeometryTypeController < ApplicationController
     end
   end
 
-
   def create
     respond_to do |format|
       @geometry_type = GeometryType.create(geometry_type_params)

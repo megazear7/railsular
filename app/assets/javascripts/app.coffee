@@ -35,8 +35,10 @@ receta.config([ '$routeProvider', 'flashProvider',
         templateUrl: "layouts/admin.html"
         controller: 'AdminController'
         resolve: {
-          geometryType: (GeometryType) ->
+          geometryTypeData: (GeometryType) ->
             GeometryType.promise
+          attributeDescriptorData: (AttributeDescriptor) ->
+            AttributeDescriptor.promise
         }
       ).when('/',
         templateUrl: "layouts/projects.html"

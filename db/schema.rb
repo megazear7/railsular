@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150312152359) do
+ActiveRecord::Schema.define(version: 20150312173601) do
 
   create_table "assigned_geo_attrs", force: :cascade do |t|
     t.string   "value"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20150312152359) do
     t.string   "usage"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.string   "name"
   end
 
   add_index "attribute_descriptors", ["geometry_type_id"], name: "index_attribute_descriptors_on_geometry_type_id"
