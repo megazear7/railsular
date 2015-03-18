@@ -4,7 +4,7 @@
       <thead>
         <tr>
           <th>{{geometry_type.name | pluralize | titlize}}</th>
-          <th ng-repeat="(attr, info) in geometry_type.assigned_attributes">{{attr}}</th>
+          <th ng-repeat="(attr, info) in geometry_type.assigned_attributes">{{attr | titlize}}</th>
         </tr>
       </thead>
       <tbody>

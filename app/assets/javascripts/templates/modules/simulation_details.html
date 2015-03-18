@@ -1,13 +1,13 @@
 <table class="table">
   <tbody ng-if="!simulation.editing || simulation.final">
     <tr ng-repeat="(attr, info) in attributes">
-      <td class="col-md-6">{{attr | humanize}}:</td>
+      <td class="col-md-6">{{attr | titlize}}:</td>
       <td class="col-md-6">{{simulation[attr]}}</td>
     </tr>
   </tbody>
   <tbody ng-if="simulation.editing && !simulation.final">
     <tr ng-repeat="(attr, info) in attributes">
-      <td class="col-md-6">{{attr | humanize}}:</td>
+      <td class="col-md-6">{{attr | titlize}}:</td>
       <td class="col-md-6">
         <input type="text" ng-if="info.type=='text-input'" ng-model="simulation[attr]" class="form-control form-custom" />
         <select type="text" ng-if="info.type=='select'" ng-options="option as option for option in info.values" ng-model="simulation[attr]" class="form-control form-custom" /></select>
