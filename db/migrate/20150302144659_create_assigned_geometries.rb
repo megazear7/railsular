@@ -6,7 +6,7 @@ class CreateAssignedGeometries < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :assigned_geometries, :simulations
-    add_foreign_key :assigned_geometries, :geometries
+    #add_foreign_key :assigned_geometries, :simulations
+    #add_foreign_key :assigned_geometries, :geometries
   end
 end

@@ -7,6 +7,6 @@ class CreateSimulationAttrs < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :simulation_attrs, :simulations
+    #add_foreign_key :simulation_attrs, :simulations
   end
 end

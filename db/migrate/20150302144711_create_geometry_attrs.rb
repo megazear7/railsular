@@ -7,6 +7,6 @@ class CreateGeometryAttrs < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :geometry_attrs, :geometries
+    #add_foreign_key :geometry_attrs, :geometries
   end
 end

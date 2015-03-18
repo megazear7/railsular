@@ -11,13 +11,13 @@ gem 'jquery-rails'
 gem 'jbuilder'
 gem 'paperclip', '~> 4.2'
 
+#gem 'therubyracer', platforms: :ruby
 gem 'bower-rails'
 gem 'angular-rails-templates'
 
 group :production, :staging do
 end
 
-gem "foreman"
 group :production, :staging do
   gem "rails_12factor"
   gem "rails_stdout_logging"
@@ -25,16 +25,16 @@ group :production, :staging do
 end
 
 group :test, :development do
-  gem 'better_errors'
-  gem 'binding_of_caller'
+  #gem 'better_errors'
+  #gem 'binding_of_caller'
   gem "rspec"
-  gem "rspec-rails", "~> 2.0"
-  gem "factory_girl_rails", "~> 4.0"
+  #gem "rspec-rails", "~> 2.0"
+  #gem "factory_girl_rails", "~> 4.0"
   gem "capybara"
-  gem "database_cleaner"
-  gem "selenium-webdriver"
-  gem 'teaspoon'
-  gem 'phantomjs'
+  #gem "database_cleaner"
+  #gem "selenium-webdriver"
+  #gem 'teaspoon'
+  #gem 'phantomjs'
 end
 
 group :doc do

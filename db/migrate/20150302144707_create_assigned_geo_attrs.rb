@@ -7,6 +7,6 @@ class CreateAssignedGeoAttrs < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :assigned_geo_attrs, :assigned_geometries
+    #add_foreign_key :assigned_geo_attrs, :assigned_geometries
   end
 end

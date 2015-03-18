@@ -10,7 +10,7 @@ class CreateJobs < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :jobs, :simulations
-    add_foreign_key :jobs, :geometries
+    #add_foreign_key :jobs, :simulations
+    #add_foreign_key :jobs, :geometries
   end
 end

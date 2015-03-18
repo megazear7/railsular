@@ -7,6 +7,6 @@ class CreateGeometries < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :geometries, :projects
+    #add_foreign_key :geometries, :projects
   end
 end
