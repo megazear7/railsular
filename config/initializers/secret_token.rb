@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Receta::Application.config.secret_key_base = 'b563f0b364f7a8fcf2354a892e234ff45b8be0404ef67ae069efd19bc903b284fe1723c22f651fe6fe7f2bef7da8402c6ebe5c68ecb3cd462bf40b18e340db29'
+SimApp::Application.config.secret_key_base = 'b563f0b364f7a8fcf2354a892e234ff45b8be0404ef67ae069efd19bc903b284fe1723c22f651fe6fe7f2bef7da8402c6ebe5c68ecb3cd462bf40b18e340db29'

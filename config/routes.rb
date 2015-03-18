@@ -1,4 +1,4 @@
-Receta::Application.routes.draw do
+SimApp::Application.routes.draw do
 
   scope 'admin' do
     get 'attribute_descriptor_values' => 'attribute_descriptor_value#index', defaults: { format: 'json' }
