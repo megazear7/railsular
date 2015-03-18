@@ -34,7 +34,7 @@ angular.module('simapp').factory('Project', (DataCache,ModelFactory,ObjectFactor
   # None
 
   # Create the promises for loading data
-  modelMethods["promise"] = $http.get('/projects')
+  modelMethods["promise"] = $http.get('projects')
     .success (data, status, headers, config) ->
       angular.forEach data.projects, (project) ->
         DataCache.projects[project.id] = project

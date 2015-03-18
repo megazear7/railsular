@@ -16,7 +16,7 @@ angular.module('simapp').factory('AssignedGeometry', (DataCache,ModelFactory,Obj
   # None
 
   # Create the promises for loading data
-  modelMethods["promise"] = $http.get('/assigned_geometries')
+  modelMethods["promise"] = $http.get('assigned_geometries')
     .success (data, status, headers, config) ->
       angular.forEach data.assigned_geometries, (assigned_geo) ->
         DataCache.assigned_geometries[assigned_geo.id] = assigned_geo

@@ -23,7 +23,7 @@ angular.module('simapp').factory('Simulation', (DataCache,AssignedGeometry,Model
     DataCache.simulation_attributes
 
   # Create the promises for loading data
-  modelMethods["promise"] = $http.get('/simulations')
+  modelMethods["promise"] = $http.get('simulations')
     .success (data, status, headers, config) ->
       angular.forEach data.simulations, (simulation) ->
         DataCache.simulations[simulation.id] = simulation
@@ -33,7 +33,7 @@ angular.module('simapp').factory('Simulation', (DataCache,AssignedGeometry,Model
     .error (data, status, headers, config) ->
       console.log('error loading simulations')
 
-  modelMethods["simulation_attributes_promise"] = $http.get('/simulations/attributes')
+  modelMethods["simulation_attributes_promise"] = $http.get('simulations/attributes')
     .success (data, status, headers, config) ->
       DataCache.simulation_attributes = data.attributes
     .error (data, status, headers, config) ->

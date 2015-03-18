@@ -20,7 +20,7 @@ angular.module('simapp').factory('GeometryType', (AdminDataCache,$http,ModelFact
   # None
 
   # Create the promises for loading data
-  modelMethods["promise"] = $http.get('/admin/geometry_types')
+  modelMethods["promise"] = $http.get('admin/geometry_types')
     .success (data, status, headers, config) ->
       angular.forEach data.geometry_types, (geometry_type) ->
         AdminDataCache.geometry_types[geometry_type.id] = geometry_type

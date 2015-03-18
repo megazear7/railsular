@@ -33,13 +33,13 @@ angular.module('simapp').factory('Geometry', (DataCache,ModelFactory,ObjectFacto
     geoList
 
   # Create the promises for loading data
-  modelMethods["geometry_type_promise"] = $http.get('/geometry_types')
+  modelMethods["geometry_type_promise"] = $http.get('geometry_types')
     .success (data, status, headers, config) ->
       DataCache.geometry_types = data
     .error (data, status, headers, config) ->
       console.log('error loading geometry types')
 
-  modelMethods["promise"] = $http.get('/geometries')
+  modelMethods["promise"] = $http.get('geometries')
     .success (data, status, headers, config) ->
       angular.forEach data.geometries, (geometry) ->
         DataCache.geometries[geometry.id] = geometry

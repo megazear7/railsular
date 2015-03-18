@@ -20,7 +20,7 @@ angular.module('simapp').factory('AttributeDescriptor', (AdminDataCache,$http,Mo
     ret
 
   # Create the promises for loading data
-  modelMethods["promise"] = $http.get('/admin/attribute_descriptors')
+  modelMethods["promise"] = $http.get('admin/attribute_descriptors')
     .success (data, status, headers, config) ->
       angular.forEach data.attribute_descriptors, (attribute_descriptor) ->
         AdminDataCache.attribute_descriptors[attribute_descriptor.id] = attribute_descriptor
