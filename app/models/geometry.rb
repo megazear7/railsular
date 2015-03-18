@@ -12,8 +12,9 @@ class Geometry < ActiveRecord::Base
     Geometry.geo_types.each do |geo_type|
       Geometry.geo_attribute_names(geo_type).each do |name|
         self.class.send(:define_method, name) do
-          if geometry_attrs.find_by(name: name)
-            geometry_attrs.find_by(name: name).value
+          geo_attr = geometry_attrs.find_by(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id)
+          if geo_attr
+            geo_attr.value
           else
             nil
           end
@@ -70,7 +71,7 @@ class Geometry < ActiveRecord::Base
   def self.create geometry_params, params
     geo = super geometry_params
     Geometry.geo_attribute_names(geo.geo_type).each do |name|
-      GeometryAttr.create(name: name, value: params[name], geometry_id: geo.id)
+      GeometryAttr.create(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id, value: params[name], geometry_id: geo.id)
     end
     geo
   end
@@ -80,11 +81,11 @@ class Geometry < ActiveRecord::Base
     if not self.final
       Geometry.geo_attribute_names(self.geo_type).each do |name|
         if params[name]
-          geo_attr = self.geometry_attrs.find_by(name: name)
+          geo_attr = self.geometry_attrs.find_by(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id)
           if geo_attr
             geo_attr.value = params[name]
           else
-            geo_attr = GeometryAttr.create(name: name, value: params[name], geometry_id: self.id)
+            geo_attr = GeometryAttr.create(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id, value: params[name], geometry_id: self.id)
           end
           return false if not geo_attr.save
         end

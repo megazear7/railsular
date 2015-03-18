@@ -8,7 +8,7 @@ class Simulation < ActiveRecord::Base
   def add_attr_methods
     Simulation.attribute_names.each do |name|
       self.class.send(:define_method, name) do
-        sim_attr = simulation_attrs.find_by(name: name)
+        sim_attr = simulation_attrs.find_by(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id)
         if sim_attr
           sim_attr.value
         else
@@ -46,7 +46,7 @@ class Simulation < ActiveRecord::Base
   def self.create simulation_params, params
     sim = super simulation_params
     Simulation.attribute_names.each do |name|
-      SimulationAttr.create(name: name, value: params[name], simulation_id: sim.id)
+      SimulationAttr.create(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id, value: params[name], simulation_id: sim.id)
     end
     sim
   end
@@ -55,11 +55,11 @@ class Simulation < ActiveRecord::Base
     if not self.final
       Simulation.attribute_names.each do |name|
         if params[name]
-          sim_attr = self.simulation_attrs.find_by(name: name)
+          sim_attr = self.simulation_attrs.find_by(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id)
           if sim_attr
             sim_attr.value = params[name]
           else
-            sim_attr = SimulationAttr.create(name: name, value: params[name], simulation_id: self.id)
+            sim_attr = SimulationAttr.create(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id, value: params[name], simulation_id: self.id)
           end
           return false if not sim_attr.save
         end

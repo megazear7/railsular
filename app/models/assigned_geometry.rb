@@ -8,8 +8,9 @@ class AssignedGeometry < ActiveRecord::Base
     Geometry.geo_types.each do |geo_type|
       AssignedGeometry.assigned_geo_attribute_names(geo_type).each do |name|
         self.class.send(:define_method, name) do
-          if assigned_geo_attrs.find_by(name: name)
-            assigned_geo_attrs.find_by(name: name).value
+          assigned_geo_attr = assigned_geo_attrs.find_by(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id)
+          if assigned_geo_attr
+            assigned_geo_attr.value
           else
             nil
           end
@@ -58,7 +59,7 @@ class AssignedGeometry < ActiveRecord::Base
   def self.create assigned_geo_params, params
     assigned_geo = super assigned_geo_params
     AssignedGeometry.assigned_geo_attribute_names(assigned_geo.geometry.geo_type).each do |name|
-      AssignedGeoAttr.create(name: name, value: params[name], assigned_geometry_id: assigned_geo.id)
+      AssignedGeoAttr.create(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id, value: params[name], assigned_geometry_id: assigned_geo.id)
     end
     assigned_geo
   end
@@ -67,11 +68,11 @@ class AssignedGeometry < ActiveRecord::Base
     # notice that we dont user super because we don't want simulation_id or geometry_id to change
     AssignedGeometry.assigned_geo_attribute_names(self.geometry.geo_type).each do |name|
       if params[name]
-        assigned_geo_attr = self.assigned_geo_attrs.find_by(name: name)
+        assigned_geo_attr = self.assigned_geo_attrs.find_by(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id)
         if assigned_geo_attr
           assigned_geo_attr.value = params[name]
         else
-          assigned_geo_attr = AssignedGeoAttr.create(name: name, value: params[name], assigned_geometry_id: self.id)
+          assigned_geo_attr = AssignedGeoAttr.create(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id, value: params[name], assigned_geometry_id: self.id)
         end
         return false if not assigned_geo_attr.save
       end

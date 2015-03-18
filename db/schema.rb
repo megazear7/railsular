@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318170208) do
+ActiveRecord::Schema.define(version: 20150318173008) do
 
   create_table "assigned_geo_attrs", force: true do |t|
     t.string   "value"
-    t.string   "name"
     t.integer  "assigned_geometry_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "attribute_descriptor_id"
   end
 
   add_index "assigned_geo_attrs", ["assigned_geometry_id"], name: "index_assigned_geo_attrs_on_assigned_geometry_id"
@@ -65,7 +65,6 @@ ActiveRecord::Schema.define(version: 20150318170208) do
     t.string   "geo_content_type"
     t.integer  "geo_file_size"
     t.datetime "geo_updated_at"
-    t.string   "geo_type"
     t.boolean  "final"
     t.integer  "geometry_type_id"
   end
@@ -74,10 +73,10 @@ ActiveRecord::Schema.define(version: 20150318170208) do
 
   create_table "geometry_attrs", force: true do |t|
     t.string   "value"
-    t.string   "name"
     t.integer  "geometry_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "attribute_descriptor_id"
   end
 
   add_index "geometry_attrs", ["geometry_id"], name: "index_geometry_attrs_on_geometry_id"
@@ -111,10 +110,10 @@ ActiveRecord::Schema.define(version: 20150318170208) do
 
   create_table "simulation_attrs", force: true do |t|
     t.string   "value"
-    t.string   "name"
     t.integer  "simulation_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "attribute_descriptor_id"
   end
 
   add_index "simulation_attrs", ["simulation_id"], name: "index_simulation_attrs_on_simulation_id"
