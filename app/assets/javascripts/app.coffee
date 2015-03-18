@@ -22,8 +22,18 @@ standard_resolve = {
       Simulation.simulation_attributes_promise
   }
 
-simapp.config([ '$routeProvider', 'flashProvider',
-  ($routeProvider,flashProvider)->
+simapp.config([ '$routeProvider', 'flashProvider', '$httpProvider',
+  ($routeProvider,flashProvider,$httpProvider)->
+
+    $httpProvider.interceptors.push ->
+      {
+        request: (config) ->
+          # if you want a url prefix to the http requests made by the $http service
+          # edit the prefix variable (don't put slashed at begining or end)
+          prefix = ""
+          config.url = prefix + config.url
+          return config
+      }
 
     flashProvider.errorClassnames.push("alert-danger")
     flashProvider.warnClassnames.push("alert-warning")
