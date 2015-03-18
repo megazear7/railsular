@@ -5,14 +5,17 @@ angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
       $http.post("#{url_prefix}#{pluralize(table_name, 1)}/#{object.id}/update", object)
         .error (data) ->
           obj = data[pluralize(table_name, 1)]
-          angular.forEach Object.keys(obj), (key) ->
-            cache[table_name][obj.id][key] = obj[key]
-          console.log(obj)
+          angular.forEach Object.keys(obj), (attr) ->
+            cache[table_name][obj.id][attr] = obj[attr]
 
     object.delete = ->
-      # todo, if it comes back that there was an error trying to delete the object then add the object back
       delete cache[table_name][object.id]
       $http.delete("#{url_prefix}#{pluralize(table_name, 1)}/#{object.id}/delete")
+        .error (data) ->
+          alert("could not delete #{pluralize(table_name, 1)} due to server error")
+          # todo you must change angular routes and come back to the page to see this get added back
+          # it should just show up right after the alert
+          cache[table_name][object.id] = object
 
     object.startEdit = ->
       this.editing = true
