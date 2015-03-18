@@ -2,7 +2,6 @@ controllers = angular.module('controllers')
 controllers.controller("ProjectController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry',
   ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry,AssignedGeometry)->
     $scope.link = (url) -> $location.path("/#{url}")
-    $scope.template = { url: "modules/project.html" }
 
     $scope.projects = Project.all()
 
