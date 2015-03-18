@@ -121,6 +121,7 @@
                   </span>
                   <a ng-if="attribute_descriptor.editing" ng-click="addAttributeDescriptorValue(attribute_descriptor)"><span class="glyphicon glyphicon-plus"></span></a>
                 </span>
+                <span ng-if="attribute_descriptor.attr_type!='select'">N/A</span>
               </td>
               <td ng-if="!attribute_descriptor.editing">
                 <a ng-click="attribute_descriptor.startEdit()"><span class="glyphicon glyphicon-pencil"></span></a>
