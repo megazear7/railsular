@@ -3,13 +3,13 @@ angular.module('simapp').factory('AttributeDescriptorValue', (AdminDataCache,$ht
   # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (attribute_descriptor_value) ->
     # Add the standard object methods
-    ObjectFactory("attribute_descriptor_values", attribute_descriptor_value, [{belongs_to: "attribute_descriptor"}], AdminDataCache, "/admin")
+    ObjectFactory("attribute_descriptor_values", attribute_descriptor_value, [{belongs_to: "attribute_descriptor"}], AdminDataCache, "admin/")
 
     # Add the custom object methods
     # None
 
   # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
-  modelMethods = ModelFactory("attribute_descriptor_values", addMethods, AdminDataCache, "/admin")
+  modelMethods = ModelFactory("attribute_descriptor_values", addMethods, AdminDataCache, "admin/")
 
   # create the custom model methods
   # None
