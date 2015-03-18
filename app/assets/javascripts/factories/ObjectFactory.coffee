@@ -3,6 +3,11 @@ angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
     object.save = ->
       # todo if there is an error saving the object then revert the object to what the api returns
       $http.post("#{url_prefix}#{pluralize(table_name, 1)}/#{object.id}/update", object)
+        .error (data) ->
+          obj = data[pluralize(table_name, 1)]
+          angular.forEach Object.keys(obj), (key) ->
+            cache[table_name][obj.id][key] = obj[key]
+          console.log(obj)
 
     object.delete = ->
       # todo, if it comes back that there was an error trying to delete the object then add the object back

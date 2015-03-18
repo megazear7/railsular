@@ -47,10 +47,8 @@ class SimulationController < ApplicationController
   def update
     respond_to do |format|
       if @simulation.update(simulation_params, params)
-        @message = "update success"
         format.json { render "simulation/show.json" }
       else
-        @message = "update failed"
         format.json { render "simulation/show.json", status: :unprocessable_entity }
       end
     end
@@ -61,7 +59,6 @@ class SimulationController < ApplicationController
       if @simulation.destroy
         format.json { render json: { message: "delete success" } }
       else
-        @message = "delete failed"
         format.json { render "simulation/show.json", status: :unprocessable_entity }
       end
     end

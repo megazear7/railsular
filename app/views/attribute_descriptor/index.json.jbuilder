@@ -3,4 +3,3 @@ json.set! :attribute_descriptors do
     json.extract! attribute_descriptor, *([:id, :name, :attr_type, :display, :validation, :usage, :geometry_type_id])
   end
 end
-json.set! :message, @message

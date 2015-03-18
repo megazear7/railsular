@@ -3,4 +3,3 @@ json.set! :attribute_descriptor_values do
     json.extract! attribute_descriptor_value, *([:id, :value, :attribute_descriptor_id])
   end
 end
-json.set! :message, @message

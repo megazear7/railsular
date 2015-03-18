@@ -56,10 +56,8 @@ class GeometryController < ApplicationController
   def update_file
     respond_to do |format|
       if @geometry.update(geometry_file_params, params)
-        @message = "update success"
         format.json { render "geometry/show.json" }
       else
-        @message = "update failed"
         format.json { render "geometry/show.json", status: :unprocessable_entity }
       end
     end
@@ -68,10 +66,8 @@ class GeometryController < ApplicationController
   def update
     respond_to do |format|
       if @geometry.update(geometry_params, params)
-        @message = "update success"
         format.json { render "geometry/show.json" }
       else
-        @message = "update failed"
         format.json { render "geometry/show.json", status: :unprocessable_entity }
       end
     end
@@ -82,7 +78,6 @@ class GeometryController < ApplicationController
       if @geometry.destroy
         format.json { render json: { message: "delete success" } }
       else
-        @message = "delete failed"
         format.json { render "geometry/show.json", status: :unprocessable_entity }
       end
     end

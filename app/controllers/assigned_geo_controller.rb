@@ -33,10 +33,8 @@ class AssignedGeoController < ApplicationController
   def update
     respond_to do |format|
       if @assigned_geo.update(assigned_geo_params, params)
-        @message = "update success"
         format.json { render "assigned_geo/show.json" }
       else
-        @message = "update failed"
         format.json { render "assigned_geo/show.json", status: :unprocessable_entity }
       end
     end
@@ -47,7 +45,6 @@ class AssignedGeoController < ApplicationController
       if @assigned_geo.destroy
         format.json { render json: { message: "delete success" } }
       else
-        @message = "delete failed"
         format.json { render "assigned_geo/show.json", status: :unprocessable_entity }
       end
     end

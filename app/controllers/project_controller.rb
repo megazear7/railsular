@@ -29,10 +29,8 @@ class ProjectController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        @message = "update success"
         format.json { render "project/show.json" }
       else
-        @message = "update failed"
         format.json { render "project/show.json", status: :unprocessable_entity }
       end
     end
@@ -43,7 +41,6 @@ class ProjectController < ApplicationController
       if @project.destroy
         format.json { render json: { status: "delete success" } }
       else
-        @message = "delete failed"
         format.json { render "project/show.json", status: :unprocessable_entity }
       end
     end
