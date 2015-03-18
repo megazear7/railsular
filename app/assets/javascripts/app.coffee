@@ -1,4 +1,4 @@
-receta = angular.module('receta',[
+simapp = angular.module('simapp',[
   'templates',
   'ngRoute',
   'ngResource',
@@ -22,7 +22,7 @@ standard_resolve = {
       Simulation.simulation_attributes_promise
   }
 
-receta.config([ '$routeProvider', 'flashProvider',
+simapp.config([ '$routeProvider', 'flashProvider',
   ($routeProvider,flashProvider)->
 
     flashProvider.errorClassnames.push("alert-danger")

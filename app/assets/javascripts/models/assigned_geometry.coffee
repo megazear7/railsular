@@ -1,4 +1,4 @@
-angular.module('receta').factory('AssignedGeometry', (DataCache,ModelFactory,ObjectFactory,$http) ->
+angular.module('simapp').factory('AssignedGeometry', (DataCache,ModelFactory,ObjectFactory,$http) ->
 
   # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (assigned_geometry) ->
@@ -29,4 +29,4 @@ angular.module('receta').factory('AssignedGeometry', (DataCache,ModelFactory,Obj
   # Return the model methods
   modelMethods
 )
-.run( (AssignedGeometry) -> console.log('Assigned Geometry service is ready') )
+.run()

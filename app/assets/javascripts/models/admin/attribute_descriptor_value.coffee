@@ -1,4 +1,4 @@
-angular.module('receta').factory('AttributeDescriptorValue', (AdminDataCache,$http,ModelFactory,ObjectFactory) ->
+angular.module('simapp').factory('AttributeDescriptorValue', (AdminDataCache,$http,ModelFactory,ObjectFactory) ->
 
   # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (attribute_descriptor_value) ->
@@ -28,4 +28,4 @@ angular.module('receta').factory('AttributeDescriptorValue', (AdminDataCache,$ht
   # Return the model methods
   modelMethods
 )
-.run( (AttributeDescriptorValue) -> console.log('Attribute Descriptor Value service is ready') )
+.run()

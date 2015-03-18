@@ -1,4 +1,4 @@
-angular.module('receta').factory 'ObjectFactory', (DataCache,$http,$q) ->
+angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
   (table_name, object, relations, cache = DataCache, url_prefix = "") ->
     object.save = ->
       # todo if there is an error saving the object then revert the object to what the api returns

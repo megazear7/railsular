@@ -1,4 +1,4 @@
-angular.module('receta').directive('saGeometryUpload', ->
+angular.module('simapp').directive('saGeometryUpload', ->
   {
     scope: {
       text: '='

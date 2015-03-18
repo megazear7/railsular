@@ -1,4 +1,4 @@
-angular.module('receta').factory('AdminDataCache', ->
+angular.module('simapp').factory('AdminDataCache', ->
   {
     geometry_types: { }
     attribute_descriptors: { }

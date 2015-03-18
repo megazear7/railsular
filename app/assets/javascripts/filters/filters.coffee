@@ -1,4 +1,4 @@
-angular.module('receta')
+angular.module('simapp')
 .filter('titlize', ->
   (str) ->
     str[0].toUpperCase() + str.slice(1)

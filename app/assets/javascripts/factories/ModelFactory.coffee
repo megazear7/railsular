@@ -1,4 +1,4 @@
-angular.module('receta').factory('ModelFactory', (DataCache,$http,$q) ->
+angular.module('simapp').factory('ModelFactory', (DataCache,$http,$q) ->
   (table_name, addMethods, cache = DataCache, url_prefix = "") ->
     {
       all: ->

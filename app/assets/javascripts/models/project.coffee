@@ -1,4 +1,4 @@
-angular.module('receta').factory('Project', (DataCache,ModelFactory,ObjectFactory,$http) ->
+angular.module('simapp').factory('Project', (DataCache,ModelFactory,ObjectFactory,$http) ->
 
   # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (project) ->
@@ -47,4 +47,4 @@ angular.module('receta').factory('Project', (DataCache,ModelFactory,ObjectFactor
   # Return the model methods
   modelMethods
 )
-.run( (Project) -> console.log('Project service is ready') )
+.run()

@@ -1,4 +1,4 @@
-angular.module('receta').factory('DataCache', ($http) ->
+angular.module('simapp').factory('DataCache', ($http) ->
   {
     assigned_geometries: { }
     geometry_types: { }
