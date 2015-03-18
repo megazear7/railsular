@@ -16,20 +16,28 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
             console.log("error running simulation")
 
     $scope.duplicate = ->
-      promise = Simulation.create(
-        {
-          name: $scope.simulation.name
-          description: $scope.simulation.description
-          project_id: $scope.simulation.project_id
-          status: $scope.simulation.status
-          measurement_scale: $scope.simulation.measurement_scale
-          fluid_type: $scope.simulation.fluid_type
-          kinematic_viscosity: $scope.simulation.kinematic_viscosity
-          density: $scope.simulation.density
-          steps: $scope.simulation.steps
-        }
-      )
-      promise.then (sim) ->
+      # add the normal attributes to the new simulation
+      sim = {
+        name: $scope.simulation.name
+        description: $scope.simulation.description
+        project_id: $scope.simulation.project_id
+        status: $scope.simulation.status
+      }
+      # add the simulation attributes to the new simulation
+      angular.forEach Simulation.attributes(), (attr_info, attr_name) ->
+        sim[attr_name] = $scope.simulation[attr_name]
+      # actual create the new simulation
+      Simulation.create(sim)
+      .then (sim) ->
+        # duplicate each assigned geometry in similiar fashion
+        angular.forEach $scope.simulation.assigned_geometries(), (assigned_geo) ->
+          new_assigned_geo = {
+            simulation_id: sim.id
+            geometry_id: assigned_geo.geometry_id
+          }
+          angular.forEach Geometry.geo_types()[assigned_geo.geometry().geo_type].assigned_attributes, (attr_info, attr_name) ->
+            new_assigned_geo[attr_name] = assigned_geo[attr_name]
+          AssignedGeometry.create(new_assigned_geo)
         sim.startEdit()
         $location.path("projects/"+$scope.activeProject.id+"/simulations/"+sim.id)
 
