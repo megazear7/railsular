@@ -22,11 +22,11 @@ angular.module('simapp').factory('ModelFactory', (DataCache,$http,$q) ->
         # todo use reject inside of error so that the client of this create method can do something in the reject case
         return $q( (resolve, reject) ->
           $http.post("#{url_prefix}#{pluralize(table_name, 1)}/create", obj)
-            .success (data, status, headers, config) ->
+            .success (data) ->
               cache[table_name][data[pluralize(table_name, 1)].id] = data[pluralize(table_name, 1)]
               addMethods(data[pluralize(table_name, 1)])
               resolve(cache[table_name][data[pluralize(table_name, 1)].id])
-            .error (data, status, headers, config) ->
+            .error ->
               alert("could not create #{pluralize(table_name, 1)} due to server error")
         )
     }
