@@ -15,6 +15,11 @@ angular.module('simapp').factory('Simulation', (DataCache,AssignedGeometry,Model
         assigned_geo[attr_name] = attr_val
       AssignedGeometry.create(assigned_geo)
 
+    simulation.refresh = ->
+      $http.get("simulation/#{simulation.id}")
+        .success (data) ->
+          DataCache.simulations[simulation.id].status = data.simulation.status
+
   # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
   modelMethods = ModelFactory("simulations", addMethods)
 

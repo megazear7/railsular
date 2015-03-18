@@ -1,8 +1,16 @@
 controllers = angular.module('controllers')
-controllers.controller("SimulationController", [ '$scope', '$routeParams', '$location', '$resource', '$http', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry'
-  ($scope,$routeParams,$location,$resource,$http,Project,Simulation,Geometry,AssignedGeometry)->
+controllers.controller("SimulationController", [ '$scope', '$routeParams', '$location', '$resource', '$http', '$interval', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry'
+  ($scope,$routeParams,$location,$resource,$http,$interval,Project,Simulation,Geometry,AssignedGeometry)->
     $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/simulation.html" }
+
+    refreshPromise = $interval ->
+        $scope.simulation.refresh()
+      60000
+
+    $scope.$on '$destroy', ->
+      if (refreshPromise)
+        $interval.cancel(refreshPromise)
 
     $scope.run = ->
       $scope.simulation.final = true
