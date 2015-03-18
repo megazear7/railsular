@@ -11,8 +11,8 @@ gem 'jquery-rails'
 gem 'jbuilder'
 gem 'paperclip', '~> 4.2'
 
-#gem 'therubyracer', platforms: :ruby
-gem 'bower-rails'
+gem 'therubyracer', platforms: :ruby
+#gem 'bower-rails'
 gem 'angular-rails-templates'
 
 group :production, :staging do
