@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150312173601) do
+ActiveRecord::Schema.define(version: 20150318170208) do
 
-  create_table "assigned_geo_attrs", force: :cascade do |t|
+  create_table "assigned_geo_attrs", force: true do |t|
     t.string   "value"
     t.string   "name"
     t.integer  "assigned_geometry_id"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20150312173601) do
 
   add_index "assigned_geo_attrs", ["assigned_geometry_id"], name: "index_assigned_geo_attrs_on_assigned_geometry_id"
 
-  create_table "assigned_geometries", force: :cascade do |t|
+  create_table "assigned_geometries", force: true do |t|
     t.integer  "simulation_id"
     t.integer  "geometry_id"
     t.datetime "created_at",    null: false
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20150312173601) do
   add_index "assigned_geometries", ["geometry_id"], name: "index_assigned_geometries_on_geometry_id"
   add_index "assigned_geometries", ["simulation_id"], name: "index_assigned_geometries_on_simulation_id"
 
-  create_table "attribute_descriptor_values", force: :cascade do |t|
+  create_table "attribute_descriptor_values", force: true do |t|
     t.integer  "attribute_descriptor_id"
     t.string   "value"
     t.datetime "created_at",              null: false
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20150312173601) do
 
   add_index "attribute_descriptor_values", ["attribute_descriptor_id"], name: "index_attribute_descriptor_values_on_attribute_descriptor_id"
 
-  create_table "attribute_descriptors", force: :cascade do |t|
+  create_table "attribute_descriptors", force: true do |t|
     t.integer  "geometry_type_id"
     t.string   "attr_type"
     t.string   "display"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20150312173601) do
 
   add_index "attribute_descriptors", ["geometry_type_id"], name: "index_attribute_descriptors_on_geometry_type_id"
 
-  create_table "geometries", force: :cascade do |t|
+  create_table "geometries", force: true do |t|
     t.string   "name"
     t.text     "description"
     t.integer  "project_id"
@@ -67,11 +67,12 @@ ActiveRecord::Schema.define(version: 20150312173601) do
     t.datetime "geo_updated_at"
     t.string   "geo_type"
     t.boolean  "final"
+    t.integer  "geometry_type_id"
   end
 
   add_index "geometries", ["project_id"], name: "index_geometries_on_project_id"
 
-  create_table "geometry_attrs", force: :cascade do |t|
+  create_table "geometry_attrs", force: true do |t|
     t.string   "value"
     t.string   "name"
     t.integer  "geometry_id"
@@ -81,13 +82,13 @@ ActiveRecord::Schema.define(version: 20150312173601) do
 
   add_index "geometry_attrs", ["geometry_id"], name: "index_geometry_attrs_on_geometry_id"
 
-  create_table "geometry_types", force: :cascade do |t|
+  create_table "geometry_types", force: true do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "jobs", force: :cascade do |t|
+  create_table "jobs", force: true do |t|
     t.string   "status"
     t.string   "pbsid"
     t.string   "job_path"
@@ -101,14 +102,14 @@ ActiveRecord::Schema.define(version: 20150312173601) do
   add_index "jobs", ["geometry_id"], name: "index_jobs_on_geometry_id"
   add_index "jobs", ["simulation_id"], name: "index_jobs_on_simulation_id"
 
-  create_table "projects", force: :cascade do |t|
+  create_table "projects", force: true do |t|
     t.string   "name"
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
-  create_table "simulation_attrs", force: :cascade do |t|
+  create_table "simulation_attrs", force: true do |t|
     t.string   "value"
     t.string   "name"
     t.integer  "simulation_id"
@@ -118,7 +119,7 @@ ActiveRecord::Schema.define(version: 20150312173601) do
 
   add_index "simulation_attrs", ["simulation_id"], name: "index_simulation_attrs_on_simulation_id"
 
-  create_table "simulations", force: :cascade do |t|
+  create_table "simulations", force: true do |t|
     t.string   "name"
     t.text     "description"
     t.integer  "project_id"

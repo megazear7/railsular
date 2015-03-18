@@ -9,7 +9,7 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
       $scope.simulation.status = "Queued"
       promise = $scope.simulation.save()
       promise.then ->
-        $http.post("/simulation/#{$scope.simulation.id}/run")
+        $http.post("simulation/#{$scope.simulation.id}/run")
           .success (data) ->
             console.log(data)
           .error (data) ->

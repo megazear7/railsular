@@ -15,6 +15,7 @@ class GeometryController < ApplicationController
     Geometry.geo_types.each do |geo_type|
       @geometry_types[geo_type] = {
         name: geo_type,
+        id: GeometryType.find_by(name: geo_type).id,
         attributes: Geometry.geo_attributes[geo_type],
         assigned_attributes: AssignedGeometry.assigned_geo_attributes[geo_type]
       }
@@ -97,6 +98,6 @@ class GeometryController < ApplicationController
     end
 
     def geometry_params
-      params.permit(:name, :description, :geo_type, :project_id, :final)
+      params.permit(:name, :description, :geometry_type_id, :project_id, :final)
     end
 end

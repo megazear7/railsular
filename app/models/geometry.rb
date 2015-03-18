@@ -2,6 +2,7 @@ class Geometry < ActiveRecord::Base
   has_attached_file :geo
   do_not_validate_attachment_file_type :geo
   belongs_to :project
+  belongs_to :geometry_type
   has_many :assigned_geometries
   has_many :jobs
   has_many :geometry_attrs
@@ -19,6 +20,10 @@ class Geometry < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def geo_type
+    geometry_type.name
   end
 
   def self.geo_attributes

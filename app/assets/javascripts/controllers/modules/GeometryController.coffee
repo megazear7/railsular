@@ -14,7 +14,7 @@ controllers.controller("GeometryController", [ '$scope', '$routeParams', '$locat
       $scope.geometry.final = true
       promise = $scope.geometry.save()
       promise.then ->
-        $http.post("/geometry/#{$scope.geometry.id}/run")
+        $http.post("geometry/#{$scope.geometry.id}/run")
           .success (data) ->
             console.log(data)
           .error (data) ->
