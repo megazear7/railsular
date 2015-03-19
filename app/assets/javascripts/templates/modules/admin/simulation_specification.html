@@ -10,7 +10,6 @@
           <th>Attribute Type</td>
           <th>Display Number</td>
           <th>Validation</td>
-          <th>Usage</td>
           <th>Values</td>
         </tr>
       </thead>
@@ -20,7 +19,6 @@
           <td ng-if="!attribute_descriptor.editing">{{attribute_descriptor.attr_type}}</td>
           <td ng-if="!attribute_descriptor.editing">{{attribute_descriptor.display}}</td>
           <td ng-if="!attribute_descriptor.editing">{{attribute_descriptor.validation}}</td>
-          <td ng-if="!attribute_descriptor.editing">{{attribute_descriptor.usage}}</td>
           <td ng-if="attribute_descriptor.editing"><input type="text" ng-model="attribute_descriptor.name" class="form-control form-custom"></input></td>
           <td ng-if="attribute_descriptor.editing">
             <select ng-options="option as option for option in ['text-input', 'select']" 
@@ -28,7 +26,6 @@
           </td>
           <td ng-if="attribute_descriptor.editing"><input type="text" ng-model="attribute_descriptor.display" class="form-control form-custom"></input></td>
           <td ng-if="attribute_descriptor.editing"><input type="text" ng-model="attribute_descriptor.validation" class="form-control form-custom"></input></td>
-          <td ng-if="attribute_descriptor.editing">{{attribute_descriptor.usage}}</td>
           <td>
             <span ng-if="attribute_descriptor.attr_type=='select'">
               <span ng-if="!attribute_descriptor.editing" ng-repeat="val in attribute_descriptor.attribute_descriptor_values()">{{val.value}} - </span>

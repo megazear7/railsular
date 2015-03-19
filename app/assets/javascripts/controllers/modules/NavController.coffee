@@ -1,8 +1,13 @@
 controllers = angular.module('controllers')
-controllers.controller("NavController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry',
-  ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry,$event)->
+controllers.controller("NavController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry', '$http'
+  ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry,$http,$event)->
     $scope.link = (url) -> $location.path("/#{url}")
-    $scope.template = { url: "modules/nav_module.html" }
+    $scope.template = { url: "modules/nav.html" }
+
+    $scope.app_name = ""
+    $http.get('admin/data/show')
+      .success (data) ->
+        $scope.app_name = data.name
 
     $scope.addSim = (project) ->
       promise = Simulation.create({ name: "Simulation Name", description: "Description", status: "queued", project_id: $scope.activeProject.id})
