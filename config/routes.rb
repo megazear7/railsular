@@ -18,6 +18,12 @@ SimApp::Application.routes.draw do
       post 'attribute_descriptor/:id/update' => 'attribute_descriptor#update', defaults: { format: 'json' }
       delete 'attribute_descriptor/:id/delete' => 'attribute_descriptor#delete', defaults: { format: 'json' }
 
+      get 'job_descriptors' => 'job_descriptor#index', defaults: { format: 'json' }
+      get 'job_descriptor/:id' => 'job_descriptor#show', defaults: { format: 'json' }
+      post 'job_descriptor/create' => 'job_descriptor#create', defaults: { format: 'json' }
+      post 'job_descriptor/:id/update' => 'job_descriptor#update', defaults: { format: 'json' }
+      delete 'job_descriptor/:id/delete' => 'job_descriptor#delete', defaults: { format: 'json' }
+
       get 'geometry_types' => 'geometry_type#index', defaults: { format: 'json' }
       get 'geometry_type/:id' => 'geometry_type#show', defaults: { format: 'json' }
       post 'geometry_type/create' => 'geometry_type#create', defaults: { format: 'json' }

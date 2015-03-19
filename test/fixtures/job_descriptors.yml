@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  job_type: MyString
+  script_number: 1
+  test_compute_resources: MyString
+  prod_compute_resources: MyString
+  test_walltime: MyString
+  prod_walltime: MyString
+
+two:
+  job_type: MyString
+  script_number: 1
+  test_compute_resources: MyString
+  prod_compute_resources: MyString
+  test_walltime: MyString
+  prod_walltime: MyString

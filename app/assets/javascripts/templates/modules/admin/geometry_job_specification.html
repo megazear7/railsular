@@ -3,5 +3,43 @@
     <h2>Geometry Jobs:</h2>
   </header>
   <div class="panel-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Script Number</td>
+          <th>Test Compute Resources</td>
+          <th>Prod Compute Resources</td>
+          <th>Test Walltime</td>
+          <th>Prod Walltime</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="job_descriptor in job_descriptors">
+          <td ng-if="!job_descriptor.editing">{{job_descriptor.script_number}}</td>
+          <td ng-if="!job_descriptor.editing">{{job_descriptor.test_compute_resources}}</td>
+          <td ng-if="!job_descriptor.editing">{{job_descriptor.prod_compute_resources}}</td>
+          <td ng-if="!job_descriptor.editing">{{job_descriptor.test_walltime}}</td>
+          <td ng-if="!job_descriptor.editing">{{job_descriptor.prod_walltime}}</td>
+          <td ng-if="job_descriptor.editing"><input type="text" ng-model="job_descriptor.script_number" class="form-control form-custom"></input></td>
+          <td ng-if="job_descriptor.editing"><input type="text" ng-model="job_descriptor.test_compute_resources" class="form-control form-custom"></input></td>
+          <td ng-if="job_descriptor.editing"><input type="text" ng-model="job_descriptor.prod_compute_resources" class="form-control form-custom"></input></td>
+          <td ng-if="job_descriptor.editing"><input type="text" ng-model="job_descriptor.test_walltime" class="form-control form-custom"></input></td>
+          <td ng-if="job_descriptor.editing"><input type="text" ng-model="job_descriptor.prod_walltime" class="form-control form-custom"></input></td>
+          <td ng-if="!job_descriptor.editing">
+            <a ng-click="job_descriptor.startEdit()"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a ng-click="delete(job_descriptor)"><span class="glyphicon glyphicon-trash"></span></a>
+          </td>
+          <td ng-if="job_descriptor.editing"><a ng-click="job_descriptor.stopEdit()"><span class="glyphicon glyphicon-ok"></span></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <table class="table">
+    <tr>
+      <td>
+        <a ng-click="create(job_descriptor)"><span class="glyphicon glyphicon-plus"></span> Job</a>
+      </td>
+    </tr>
+  </table>
   </div>
 </article>
