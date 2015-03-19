@@ -14,4 +14,5 @@ controllers.controller("GeometryJobSpecificationController", [ '$scope', '$route
       JobDescriptor.create({job_type: "geometry", script_number: 0})
         .then (job_descriptor) ->
           $scope.job_descriptors = JobDescriptor.geometry_job_descriptors()
+          job_descriptor.startEdit()
 ])
