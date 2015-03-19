@@ -5,6 +5,16 @@
 </aside>
 <div class="container-fluid">
   <section class="col-md-12">
+    <div class="row">
+      <div class="col-md-12">
+        <a ng-click="toggleHelp()" class="pull-right"><span class="glyphicon glyphicon-question-sign"></span></a>
+        <article ng-if="showingHelp" class="panel panel-info">
+          <div class="panel-body">
+            <p>All attributes and geometry type names should be lowercase, singular and have spaces between words.</p>
+          </div>
+        </article>
+      </div>
+    </div>
     <article ng-repeat="geometry_type in geometry_types" class="panel panel-info">
       <header class="panel-heading">
         <div ng-if="!geometry_type.editing">
@@ -78,7 +88,7 @@
       <header class="panel-heading">
         <a ng-click="addGeometryType()"><span class="glyphicon glyphicon-plus"></span> Geometry Type</a>
       </header>
-    </atricle>
+    </article>
   </section>
   <section class="col-md-12">
     <article class="panel panel-info">
@@ -139,6 +149,6 @@
           </td>
         </tr>
       </table>
-    </atricle>
+    </article>
   </section>
 </div>

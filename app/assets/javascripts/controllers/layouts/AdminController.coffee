@@ -6,6 +6,10 @@ controllers.controller("AdminController", [ '$scope', '$routeParams', '$location
     $scope.geometry_types = GeometryType.all()
     $scope.attribute_descriptors = AttributeDescriptor.all()
     $scope.simulation_attribute_descriptors = AttributeDescriptor.simulation_attribute_descriptors()
+    $scope.showingHelp = false
+
+    $scope.toggleHelp = ->
+      $scope.showingHelp = !$scope.showingHelp
 
     $scope.addGeometryType = ->
       promise = GeometryType.create({name: "Name"})
