@@ -9,8 +9,7 @@ class SimulationController < ApplicationController
   end
 
   def run
-    # create a job (or jobs) and associate them with this simulation
-    # then use machete to run the jobs
+    @simulation.submit
     respond_to do |format|
       format.json { render json: { message: 'simulation/:id/run is not yet implemented' } }
     end

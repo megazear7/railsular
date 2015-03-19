@@ -2,7 +2,7 @@
   <header class="panel-heading">
     <div ng-if="!geometry_type.editing">
       <h3>
-        {{geometry_type.name}}
+        {{geometry_type.name | titlize}}
       </h3>
       <a ng-click="geometry_type.startEdit()"><span class="glyphicon glyphicon-pencil"></span></a>
       <a ng-click="geometry_type.delete()"><span class="glyphicon glyphicon-trash"></span></a>
