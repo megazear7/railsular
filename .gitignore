@@ -15,3 +15,6 @@
 /log/*.log
 /tmp
 *.sw?
+
+# Ignfore the admin data for the app
+.admin_data
