@@ -2,6 +2,10 @@ SimApp::Application.routes.draw do
 
   scope 'simapp' do
     scope 'admin' do
+
+      get "data/show" => 'admin_data#show', defaults: { format: 'json' }
+      post "data/update" => 'admin_data#update', defaults: { format: 'json' }
+
       get 'attribute_descriptor_values' => 'attribute_descriptor_value#index', defaults: { format: 'json' }
       get 'attribute_descriptor_value/:id' => 'attribute_descriptor_value#show', defaults: { format: 'json' }
       post 'attribute_descriptor_value/create' => 'attribute_descriptor_value#create', defaults: { format: 'json' }

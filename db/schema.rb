@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318173008) do
+ActiveRecord::Schema.define(version: 20150319153911) do
+
+  create_table "apps", force: true do |t|
+    t.string   "name"
+    t.string   "app_hex_code"
+    t.boolean  "test"
+    t.string   "app_bin"
+    t.string   "batch_queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "assigned_geo_attrs", force: true do |t|
     t.string   "value"
