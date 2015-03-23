@@ -94,4 +94,100 @@ class Geometry < ActiveRecord::Base
       return true
     end
   end
+
+  def job_directory_name
+    # TODO replace user_id with the actual users id
+    "ts_app_"+App.find(1).app_hex_code+"_user_id_"+id.to_s
+  end
+
+  def job_directory_path
+    File.join(ENV['HOME'], "/crimson_files/", App.find(1).name.downcase.tr(' ', '_'), "preprocessing_jobs", job_directory_name)
+  end
+
+  def batch_file_path script_number
+    File.join(job_directory_path, "batch_"+script_number.to_s+".sh")
+  end
+
+  def config_file_path
+    File.join(job_directory_path, "config.json")
+  end
+
+  def batch_job_name script_number
+    job_directory_name+"_"+script_number.to_s
+  end
+
+  def template_file_path
+    File.join(Rails.root, "job_template.sh.mustache")
+  end
+
+  def add_batch_files
+    app = App.find(1)
+    test = app.test
+    app_bin = app.app_bin
+    batch_queue = app.batch_queue
+    
+    JobDescriptor.where(job_type: "geometry").each do |descr|
+      template_file = File.open(template_file_path)
+      tmp = Mustache.render(template_file.read,
+      {
+        batch_job_name: batch_job_name(descr.script_number),
+        test: test,
+        app_bin: app_bin,
+        batch_queue: batch_queue,
+        test_compute_resources: descr.test_compute_resources,
+        prod_compute_resources: descr.prod_compute_resources,
+        test_walltime: descr.test_walltime,
+        prod_walltime: descr.prod_walltime,
+        script_number: descr.script_number,
+        should_setup: descr.script_number==1
+      })
+      File.write(batch_file_path(descr.script_number), tmp)
+    end
+  end
+
+  def add_config_file
+    config = {
+      geometry_settings: {
+
+      }
+    }
+
+    geo = config[:geometry_settings]
+    geo[:type] = self.geometry_type.name
+    geo[:filename] = "geometry_#{self.id}.stl"
+    Geometry.geo_attribute_names(self.geometry_type.name).each do |attribute|
+      geo[attribute] = self.send(attribute)
+    end
+
+    File.write(config_file_path, config.to_json)
+  end
+
+  def add_geometry_files
+    Dir.mkdir(File.join(job_directory_path, "geometry"))
+
+    FileUtils.cp self.geo.path, File.join(job_directory_path, "geometry", "geometry_#{self.id}.stl")
+  end
+
+  def submit
+    Dir.mkdir(job_directory_path)
+    add_batch_files
+    add_config_file
+    add_geometry_files
+
+    jobs = []
+    JobDescriptor.where(job_type: "geometry").each_with_index do |descr, index|
+      jobs << OSC::Machete::Job.new(script: batch_file_path(descr.script_number))
+      jobs[index].afterany(jobs[index-1]) unless index == 0
+
+      self.jobs.create(pbsid: jobs[index].pbsid, job_path: jobs[index].path.to_s, script_name: jobs[index].script_name, status: jobs[index].status)
+
+      jobs[index].submit
+    end
+
+    jobs.each do |machete_job|
+      job = self.jobs.find_by(script_name: machete_job.script_name)
+      job.pbsid = machete_job.pbsid
+      job.save
+    end
+  end
 end

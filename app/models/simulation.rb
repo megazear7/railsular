@@ -85,6 +85,7 @@ class Simulation < ActiveRecord::Base
   end
 
   def job_directory_name
+    # TODO replace user_id with the actual users id
     "ts_app_"+App.find(1).app_hex_code+"_user_id_"+id.to_s
   end
 
@@ -143,7 +144,6 @@ class Simulation < ActiveRecord::Base
       }
     }
     Simulation.attribute_names.each do |attribute|
-      puts attribute
       config[:simulation_settings][attribute] = send(attribute)
     end
     assigned_geometries.each_with_index do |assigned_geo, index|
@@ -151,11 +151,9 @@ class Simulation < ActiveRecord::Base
       geo[:type] = assigned_geo.geometry.geometry_type.name
       geo[:filename] = "geometry_#{assigned_geo.geometry.id}.stl"
       AssignedGeometry.assigned_geo_attribute_names(assigned_geo.geometry.geometry_type.name).each do |attribute|
-        puts attribute
         geo[attribute] = assigned_geo.send(attribute)
       end
       Geometry.geo_attribute_names(assigned_geo.geometry.geometry_type.name).each do |attribute|
-        puts attribute
         geo[attribute] = assigned_geo.geometry.send(attribute)
       end
     end
@@ -176,8 +174,6 @@ class Simulation < ActiveRecord::Base
     add_config_file
     add_geometry_files
 
-    # TODO use machete to create a job object (saved in our jobs table) for each batch file in the /job directory
-    # with later jobs being dependent on earlier jobs
     jobs = []
     JobDescriptor.where(job_type: "simulation").each_with_index do |descr, index|
       jobs << OSC::Machete::Job.new(script: batch_file_path(descr.script_number))
