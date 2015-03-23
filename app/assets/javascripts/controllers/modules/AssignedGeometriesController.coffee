@@ -19,7 +19,7 @@ controllers.controller("AssignedGeometriesController", [ '$scope', '$routeParams
         if id of geos
           delete geos[id]
       angular.forEach geos, (geometry, id) ->
-        if not geometry.final
+        if not geometry.status == "Complete"
           delete geos[id]
       geos
 

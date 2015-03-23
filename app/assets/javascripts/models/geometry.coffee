@@ -15,6 +15,11 @@ angular.module('simapp').factory('Geometry', (DataCache,ModelFactory,ObjectFacto
         assigned_geo[attr_name] = attr_val
       AssignedGeometry.create(assigned_geo)
 
+    geometry.refreshStatus = ->
+      $http.get("geometry/#{geometry.id}")
+        .success (data) ->
+          DataCache.geometries[geometry.id].status = data.geometry.status
+
     geometry.attributes = ->
       DataCache.geometry_types[this.geo_type].attributes
 

@@ -6,7 +6,7 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
 
     refreshPromise = $interval(
       ->
-        $scope.simulation.refresh()
+        $scope.simulation.refreshStatus()
       30000
     )
 

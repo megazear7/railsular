@@ -1,8 +1,18 @@
 controllers = angular.module('controllers')
-controllers.controller("GeometryController", [ '$scope', '$routeParams', '$location', '$resource', '$http'
-  ($scope,$routeParams,$location,$resource,$http)->
+controllers.controller("GeometryController", [ '$scope', '$routeParams', '$location', '$resource', '$http', '$interval'
+  ($scope,$routeParams,$location,$resource,$http,$interval)->
     $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/geometry.html" }
+
+    refreshPromise = $interval(
+      ->
+        $scope.geometry.refreshStatus()
+      30000
+    )
+
+    $scope.$on '$destroy', ->
+      if (refreshPromise)
+        $interval.cancel(refreshPromise)
 
     $scope.action = "/geometry/#{$scope.geometry.id}/update_file"
 

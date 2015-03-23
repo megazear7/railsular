@@ -95,6 +95,28 @@ class Geometry < ActiveRecord::Base
     end
   end
 
+  def status
+    if final
+      ret = "Queued"
+      ret = "Running" if self.jobs.where(status: "R").exists?
+      ret = "Running" if self.jobs.where(status: "C").exists?
+
+      if JobDescriptor.where(job_type: "geometry").count == self.jobs.count
+        all_complete = true
+        self.jobs.each do |job|
+          all_complete = false if job.status != "C"
+        end
+        ret = "Complete" if all_complete
+      end
+
+      ret = "Complete" if JobDescriptor.where(job_type: "geometry").count == 0
+
+      return ret
+    else
+      "Not Submitted"
+    end
+  end
+
   def job_directory_name
     # TODO replace user_id with the actual users id
     "ts_app_"+App.find(1).app_hex_code+"_user_id_"+id.to_s

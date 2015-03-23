@@ -3,10 +3,9 @@ class GeometryController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def run
-    # create a job (or jobs) and associate them with this simulation
-    # then use machete to run the jobs
+    @geometry.submit
     respond_to do |format|
-      format.json { render json: { message: 'geometry/:id/run is not yet implemented' } }
+      format.json { render json: { message: 'geometry job has been submitted' } }
     end
   end
 

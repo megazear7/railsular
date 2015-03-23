@@ -15,7 +15,7 @@ angular.module('simapp').factory('Simulation', (DataCache,AssignedGeometry,Model
         assigned_geo[attr_name] = attr_val
       AssignedGeometry.create(assigned_geo)
 
-    simulation.refresh = ->
+    simulation.refreshStatus = ->
       $http.get("simulation/#{simulation.id}")
         .success (data) ->
           DataCache.simulations[simulation.id].status = data.simulation.status

@@ -53,6 +53,8 @@ class Simulation < ActiveRecord::Base
         ret = "Complete" if all_complete
       end
 
+      ret = "Complete" if JobDescriptor.where(job_type: "simulation").count == 0
+
       return ret
     else
       "Not Submitted"
