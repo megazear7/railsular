@@ -11,7 +11,7 @@ class SimulationController < ApplicationController
   def run
     @simulation.submit
     respond_to do |format|
-      format.json { render json: { message: 'simulation/:id/run is not yet implemented' } }
+      format.json { render json: { message: 'simulation status wont update yet' } }
     end
   end
 

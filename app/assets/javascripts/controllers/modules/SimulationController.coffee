@@ -4,9 +4,11 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
     $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/simulation.html" }
 
-    refreshPromise = $interval ->
+    refreshPromise = $interval(
+      ->
         $scope.simulation.refresh()
-      60000
+      30000
+    )
 
     $scope.$on '$destroy', ->
       if (refreshPromise)

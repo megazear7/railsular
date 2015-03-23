@@ -40,8 +40,23 @@ class Simulation < ActiveRecord::Base
   end
 
   def status
-    # TODO calculate this based off of the has_many jobs relationship
-    final ? "Queued" : "Not Submitted"
+    if final
+      ret = "Queued"
+      ret = "Running" if self.jobs.where(status: "R").exists?
+      ret = "Running" if self.jobs.where(status: "C").exists?
+
+      if JobDescriptor.where(job_type: "simulation").count == self.jobs.count
+        all_complete = true
+        self.jobs.each do |job|
+          all_complete = false if job.status != "C"
+        end
+        ret = "Complete" if all_complete
+      end
+
+      return ret
+    else
+      "Not Submitted"
+    end
   end
 
   def self.create simulation_params, params
@@ -93,25 +108,7 @@ class Simulation < ActiveRecord::Base
     File.join(Rails.root, "job_template.sh.mustache")
   end
 
-  def test
-    template_file = File.open(template_file_path)
-    Mustache.render(template_file.read,
-    {
-      batch_job_name: "my job name",
-      test: true,
-      app_bin: "/path/to/bin",
-      batch_queue: "@oak",
-      test_compute_resources: "aaaa",
-      prod_compute_resources: "bbbb",
-      test_walltime: "cccc",
-      prod_walltime: "dddd",
-      script_number: "1"
-    })
-  end
-
-  def submit
-    Dir.mkdir(job_directory_path)
-
+  def add_batch_files
     app = App.find(1)
     test = app.test
     app_bin = app.app_bin
@@ -134,7 +131,9 @@ class Simulation < ActiveRecord::Base
       })
       File.write(batch_file_path(descr.script_number), tmp)
     end
+  end
 
+  def add_config_file
     config = {
       name: name,
       geometry_settings: [
@@ -161,12 +160,21 @@ class Simulation < ActiveRecord::Base
       end
     end
     File.write(config_file_path, config.to_json)
-    
+  end
+
+  def add_geometry_files
     Dir.mkdir(File.join(job_directory_path, "geometry"))
 
     self.geometries.each do |geometry|
       FileUtils.cp geometry.geo.path, File.join(job_directory_path, "geometry", "geometry_#{geometry.id}.stl")
     end
+  end
+
+  def submit
+    Dir.mkdir(job_directory_path)
+    add_batch_files
+    add_config_file
+    add_geometry_files
 
     # TODO use machete to create a job object (saved in our jobs table) for each batch file in the /job directory
     # with later jobs being dependent on earlier jobs
@@ -174,8 +182,16 @@ class Simulation < ActiveRecord::Base
     JobDescriptor.where(job_type: "simulation").each_with_index do |descr, index|
       jobs << OSC::Machete::Job.new(script: batch_file_path(descr.script_number))
       jobs[index].afterany(jobs[index-1]) unless index == 0
+
+      self.jobs.create(pbsid: jobs[index].pbsid, job_path: jobs[index].path.to_s, script_name: jobs[index].script_name, status: jobs[index].status)
+
+      jobs[index].submit
     end
 
-    jobs[0].submit
+    jobs.each do |machete_job|
+      job = self.jobs.find_by(script_name: machete_job.script_name)
+      job.pbsid = machete_job.pbsid
+      job.save
+    end
   end
 end
