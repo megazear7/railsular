@@ -1,6 +1,6 @@
 controllers = angular.module('controllers')
-controllers.controller("SimulationSpecificationController", [ '$scope', '$routeParams', '$location', '$resource', 'AttributeDescriptor'
-  ($scope,$routeParams,$location,$resource,AttributeDescriptor)->
+controllers.controller("SimulationSpecificationController", [ '$scope', '$routeParams', '$location', '$resource', 'AttributeDescriptor', 'AttributeDescriptorValue'
+  ($scope,$routeParams,$location,$resource,AttributeDescriptor,AttributeDescriptorValue)->
     $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/admin/simulation_specification.html" }
 
@@ -20,6 +20,4 @@ controllers.controller("SimulationSpecificationController", [ '$scope', '$routeP
       promise = AttributeDescriptorValue.create({value: "Value", attribute_descriptor_id: attribute_descriptor.id})
       promise.then (attribute_descriptor_value) ->
         attribute_descriptor_value.startEdit()
-
-
 ])
