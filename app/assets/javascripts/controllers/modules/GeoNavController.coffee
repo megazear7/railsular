@@ -17,7 +17,6 @@ controllers.controller("GeoNavController", [ '$scope', '$routeParams', '$locatio
       $scope.addingGeometry = false
       promise = Geometry.create(
         {
-          name: "Name"
           geometry_type_id: geo_type_id
           description: "Description"
           project_id: $scope.activeProject.id

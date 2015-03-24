@@ -9,7 +9,7 @@
       </thead>
       <tbody>
         <tr ng-repeat="assigned_geo in simulation.assigned_geometries()">
-          <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name">{{assigned_geo.geometry().name}}</td>
+          <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name">{{assigned_geo.geometry().geo_file_name | filename}}</td>
           <td ng-if="assigned_geo.geometry().geo_type==geometry_type.name && (!assigned_geo.editing || assigned_geo.simulation().final)" ng-repeat="(attr, info) in assigned_geo.attributes()">
             {{assigned_geo[attr]}}
           </td>
@@ -24,7 +24,7 @@
           <td ng-if="addingGeometry(geometry_type.name)"><a ng-click="stopAddingGeometry(geometry_type.name)"><span class="glyphicon glyphicon-ok"></span></a></td>
         </tr>
         <tr ng-if="simulation.editing && addingGeometry(geometry_type.name) && !simulation.final" ng-repeat="geo in geometryByType(geometry_type.name)">
-          <td><a ng-click="addGeometry(geo)"><span class="glyphicon glyphicon-plus"></span></a> {{geo.name}}</td>
+          <td><a ng-click="addGeometry(geo)"><span class="glyphicon glyphicon-plus"></span></a> {{geo.geo_file_name | filename}}</td>
         </tr>
       </tbody>
     </table>

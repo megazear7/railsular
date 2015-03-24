@@ -15,14 +15,14 @@ controllers.controller("NavController", [ '$scope', '$routeParams', '$location',
         $location.path("projects/"+$scope.activeProject.id+"/simulations/"+sim.id)
 
     $scope.addGeo = (project) ->
-      promise = Geometry.create({ name: "Geometry Name", description: "Description", project_id: $scope.activeProject.id})
+      promise = Geometry.create({description: "Description", project_id: $scope.activeProject.id})
       promise.then (geo) ->
         $location.path("projects/"+$scope.activeProject.id+"/geometries/"+geo.id)
 
     $scope.addProject = ->
       angular.forEach $scope.projects, (value, key) ->
         value.stopEdit()
-      promise = Project.create({name: "Name", description: "Description"})
+      promise = Project.create({name: "Project Name", description: "Description"})
       promise.then (project) ->
         project.startEdit()
         $location.path("projects/")

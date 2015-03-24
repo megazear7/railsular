@@ -8,6 +8,21 @@ class Geometry < ActiveRecord::Base
   has_many :geometry_attrs
   after_initialize :add_attr_methods
 
+  validate :file_name_is_unique
+
+  def file_name_is_unique
+    if geo_file_name
+      geos = Geometry.where(geo_file_name: geo_file_name, project_id: project_id)
+      if geos.count >= 2
+        errors.add :geo_file_name, "file with name of #{geo_file_name} already exists"
+      elsif geos.count == 1 and not id
+        errors.add :geo_file_name, "file with name of #{geo_file_name} already exists"
+      elsif geos.count == 1 and id and geos.first.id != id
+        errors.add :geo_file_name, "file with name of #{geo_file_name} already exists"
+      end
+    end
+  end
+
   def add_attr_methods
     Geometry.geo_types.each do |geo_type|
       Geometry.geo_attribute_names(geo_type).each do |name|
@@ -92,6 +107,14 @@ class Geometry < ActiveRecord::Base
       end
     else
       return true
+    end
+  end
+
+  def name
+    if geo_file_name
+      File.basename(geo_file_name, File.extname(geo_file_name))
+    else
+      "No File Uploaded"
     end
   end
 

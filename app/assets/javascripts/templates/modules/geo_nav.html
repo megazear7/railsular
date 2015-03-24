@@ -9,10 +9,10 @@
   <div class="panel-body">
     <div ng-repeat="geo in geometries">
       <div ng-if="geo == geometry">
-        <span style="color:red">{{geo.name}}</span>
+        <span style="color:red">{{geo.geo_file_name | filename}}</span>
       </div>
       <div ng-if="geo != geometry">
-        <a ng-click="link('projects/'+activeProject.id+'/geometries/'+geo.id)">{{geo.name}}</a>
+        <a ng-click="link('projects/'+activeProject.id+'/geometries/'+geo.id)">{{geo.geo_file_name | filename}}</a>
       </div>
     </div>
     <a ng-if="!addingGeometry" ng-click="startAddingGeometry()"><span class="glyphicon glyphicon-plus"></span></a>

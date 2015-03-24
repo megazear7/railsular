@@ -17,3 +17,10 @@ angular.module('simapp')
       txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
     )
 )
+.filter('filename', ->
+  (str) ->
+    if str
+      str.replace(/\.[^/.]+$/, "")
+    else
+      "No File Selected"
+)

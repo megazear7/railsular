@@ -7,7 +7,6 @@ angular.module('simapp').directive('saGeometryUpload', ->
     controller: ['$scope', '$http', ($scope, $http) ->
       $scope.text = "Select File" if $scope.text == "" or $scope.text == null
       $scope.uploadFile = (files) ->
-
         # file upload button styling:
         $(document).on "change", ".btn-file :file", ->
           input = $(this)
@@ -30,7 +29,9 @@ angular.module('simapp').directive('saGeometryUpload', ->
         .success (data) ->
           $scope.text = data.geometry.geo_file_name
         .error ->
-          console.log('error uploading')
+          console.log('error uploading geometry file')
+          alert("Uploaded file must have unique names.")
+          $scope.text = "Select File"
     ]
     restrict: 'E',
     template: '

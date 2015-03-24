@@ -92,6 +92,6 @@ class GeometryController < ApplicationController
     end
 
     def geometry_params
-      params.permit(:name, :description, :geometry_type_id, :project_id, :final)
+      params.permit(:description, :geometry_type_id, :project_id, :final)
     end
 end
