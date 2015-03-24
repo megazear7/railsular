@@ -87,4 +87,11 @@ simapp.config([ '$routeProvider', 'flashProvider', '$httpProvider',
       )
 ])
 
+# Keep the connection to OSC alive
+setInterval(
+  ->
+    $.get('projects?open_identifier='+window.user_auth_token)
+  120000
+)
+
 controllers = angular.module('controllers',[])

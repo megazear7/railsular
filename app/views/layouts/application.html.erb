@@ -13,6 +13,10 @@
 </head>
 <body>
 
+<%= javascript_tag do %>
+  window.user_auth_token = '<%= ENV["AUTH_TOKEN"] %>'
+<% end %>
+
 <%= yield %>
 
 </body>
