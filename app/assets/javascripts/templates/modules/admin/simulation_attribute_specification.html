@@ -1,0 +1,51 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</td>
+      <th>Attribute Type</td>
+      <th>Display Number</td>
+      <th>Validation</td>
+      <th>Values</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="attribute_descriptor in simulation_attribute_descriptors">
+      <td ng-if="!attribute_descriptor.editing">{{attribute_descriptor.name}}</td>
+      <td ng-if="!attribute_descriptor.editing">{{attribute_descriptor.attr_type}}</td>
+      <td ng-if="!attribute_descriptor.editing">{{attribute_descriptor.display}}</td>
+      <td ng-if="!attribute_descriptor.editing">{{attribute_descriptor.validation}}</td>
+      <td ng-if="attribute_descriptor.editing"><input type="text" ng-model="attribute_descriptor.name" class="form-control form-custom"></input></td>
+      <td ng-if="attribute_descriptor.editing">
+        <select ng-options="option as option for option in ['text-input', 'select']" 
+                ng-model="attribute_descriptor.attr_type" class="form-control form-custom" /></select>
+      </td>
+      <td ng-if="attribute_descriptor.editing"><input type="text" ng-model="attribute_descriptor.display" class="form-control form-custom"></input></td>
+      <td ng-if="attribute_descriptor.editing"><input type="text" ng-model="attribute_descriptor.validation" class="form-control form-custom"></input></td>
+      <td>
+        <span ng-if="attribute_descriptor.attr_type=='select'">
+          <span ng-if="!attribute_descriptor.editing" ng-repeat="val in attribute_descriptor.attribute_descriptor_values()">{{val.value}} - </span>
+          <span ng-if="attribute_descriptor.editing" ng-repeat="val in attribute_descriptor.attribute_descriptor_values()">
+            <input ng-model="val.value"></input>
+            <a ng-click="val.delete()"><span class="glyphicon glyphicon-trash"></span></a>
+          </span>
+          <a ng-if="attribute_descriptor.editing" ng-click="addAttributeDescriptorValue(attribute_descriptor)"><span class="glyphicon glyphicon-plus"></span></a>
+        </span>
+        <span ng-if="attribute_descriptor.attr_type!='select'">N/A</span>
+      </td>
+      <td ng-if="!attribute_descriptor.editing">
+        <a ng-click="attribute_descriptor.startEdit()"><span class="glyphicon glyphicon-pencil"></span></a>
+        <a ng-click="delete_simulation_attribute(attribute_descriptor)"><span class="glyphicon glyphicon-trash"></span></a>
+      </td>
+      <td ng-if="attribute_descriptor.editing"><a ng-click="stopEditing(attribute_descriptor)"><span class="glyphicon glyphicon-ok"></span></a></td>
+    </tr>
+  </tbody>
+</table>
+<table class="table">
+  <tr>
+    <td>
+      <a ng-click="add_simulation_attribute()"><span class="glyphicon glyphicon-plus"></span> Simulation Attribute</a>
+    </td>
+  </tr>
+</table>
+
+
