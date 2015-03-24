@@ -6,15 +6,6 @@ angular.module('simapp').factory('Geometry', (DataCache,ModelFactory,ObjectFacto
     ObjectFactory("geometries", geometry, [{belongs_to: "geometry_type"},{belongs_to: "project"}, {has_many: "assigned_geometries"}, {has_many_through: {has_many: "simulations", through: "assigned_geometries"}}])
 
     # Add the custom object methods
-    geometry.addSimulation = (sim_id, attrs) ->
-      assigned_geo = {
-        simulation_id: geometry.id
-        geometry_id: sim_id
-      }
-      angular.forEach attrs, (attr_val, attr_name) ->
-        assigned_geo[attr_name] = attr_val
-      AssignedGeometry.create(assigned_geo)
-
     geometry.refreshStatus = ->
       $http.get("geometry/#{geometry.id}")
         .success (data) ->
