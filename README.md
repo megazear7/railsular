@@ -6,9 +6,9 @@ cd ~/awesim_dev/
 git clone git@bitbucket.org:megazear7/container-sim
 mv container-sim rails1 # or rails[1-10]
 ```
-* Then  go to https://apps.awesim.org/devapps/ and restart apache
-* Finally go to https://websvcs02.osc.edu/awesim_dev/rails1/simapp/#/admin
-* Create the app on this page and go to https://websvcs02.osc.edu/awesim_dev/rails1/simapp/#/ to use the app.
+* Then  go to https://apps.awesim.org/devapps/ and restart Apache.
+* Next go to https://websvcs02.osc.edu/awesim_dev/rails1/simapp/#/admin and create the app.
+* Finally, go to https://websvcs02.osc.edu/awesim_dev/rails1/simapp/#/ and use the app.
 
 ### JavaScript Overview ###
 
