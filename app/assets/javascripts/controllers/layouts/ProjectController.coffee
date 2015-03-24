@@ -4,9 +4,7 @@ controllers.controller("ProjectController", [ '$scope', '$routeParams', '$locati
     $scope.link = (url) -> $location.path("/#{url}")
 
     $scope.projects = Project.all()
-
     $scope.activeProject = Project.find($routeParams.project_id)
-
     $scope.simulations = $scope.activeProject.simulations()
     $scope.geometries = $scope.activeProject.geometries()
  

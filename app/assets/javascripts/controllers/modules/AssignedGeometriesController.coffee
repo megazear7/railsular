@@ -1,7 +1,6 @@
 controllers = angular.module('controllers')
 controllers.controller("AssignedGeometriesController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry'
   ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry,AssignedGeometry)->
-    $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/assigned_geometries.html" }
 
     $scope.geometry_types = Geometry.geo_types()
@@ -14,12 +13,12 @@ controllers.controller("AssignedGeometriesController", [ '$scope', '$routeParams
       addingGeometry[geo_type]
 
     $scope.geometryByType = (geo_type) ->
-      geos = $scope.activeProject.geometriesByType(geo_type)
+      geos = $scope.activeProject.geometries_where(geo_type: geo_type)
       angular.forEach $scope.simulation.geometries(), (geometry, id) ->
         if id of geos
           delete geos[id]
       angular.forEach geos, (geometry, id) ->
-        if not geometry.status == "Complete"
+        if geometry.status != "Complete"
           delete geos[id]
       geos
 

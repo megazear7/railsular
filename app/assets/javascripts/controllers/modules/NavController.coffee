@@ -1,7 +1,6 @@
 controllers = angular.module('controllers')
 controllers.controller("NavController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry', '$http'
   ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry,$http,$event)->
-    $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/nav.html" }
 
     $scope.app_name = ""

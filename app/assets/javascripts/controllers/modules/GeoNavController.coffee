@@ -1,7 +1,6 @@
 controllers = angular.module('controllers')
 controllers.controller("GeoNavController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry',
   ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry)->
-    $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/geo_nav.html" }
 
     $scope.addingGeometry = false

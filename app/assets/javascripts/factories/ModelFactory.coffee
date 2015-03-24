@@ -3,6 +3,16 @@ angular.module('simapp').factory('ModelFactory', (DataCache,$http,$q) ->
     {
       all: ->
         cache[table_name]
+      where: (attrs) ->
+        objs = {}
+        angular.forEach cache[table_name], (obj, obj_id) ->
+          add_obj_to_objs = true
+          angular.forEach attrs, (val, attr) ->
+            if obj[attr] != val
+              add_obj_to_objs = false
+          if add_obj_to_objs
+            objs[obj.id] = obj
+        objs
       find: (id) ->
         cache[table_name][id]
       find_by: (attrs) ->

@@ -1,7 +1,6 @@
 controllers = angular.module('controllers')
 controllers.controller("SimNavController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry',
   ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry)->
-    $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/sim_nav.html" }
 
     $scope.addSimulation = ->

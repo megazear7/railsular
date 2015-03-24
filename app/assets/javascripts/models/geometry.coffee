@@ -30,13 +30,6 @@ angular.module('simapp').factory('Geometry', (DataCache,ModelFactory,ObjectFacto
   modelMethods["geo_types"] = ->
     DataCache.geometry_types
 
-  modelMethods["allByType"] = (geo_type) ->
-    geoList = {}
-    angular.forEach DataCache.geometries, (val, id) ->
-      if val.geo_type == geo_type
-        geoList[id] = val
-    geoList
-
   # Create the promises for loading data
   modelMethods["geometry_type_promise"] = $http.get('geometry_types')
     .success (data, status, headers, config) ->

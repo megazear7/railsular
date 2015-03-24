@@ -3,29 +3,10 @@ angular.module('simapp').factory('Project', (DataCache,ModelFactory,ObjectFactor
   # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (project) ->
     # Add the standard object methods
-    ObjectFactory("projects", project)
+    ObjectFactory("projects", project, [{has_many: "geometries"}, {has_many: "simulations"}])
 
     # Add the custom object methods
-    project.simulations = ->
-      simList = {}
-      angular.forEach DataCache.simulations, (simulation, sim_id) ->
-        if simulation.project_id == project.id
-          simList[sim_id] = simulation
-      simList
-
-    project.geometries = ->
-      geoList = {}
-      angular.forEach DataCache.geometries, (geometry, geo_id) ->
-        if geometry.project_id == project.id
-          geoList[geo_id] = geometry
-      geoList
-
-    project.geometriesByType = (geo_type) ->
-      geoList = {}
-      angular.forEach project.geometries(), (geometry, id) ->
-        if geometry.geo_type == geo_type
-          geoList[id] = geometry
-      geoList
+    # None
 
   # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
   modelMethods = ModelFactory("projects", addMethods)

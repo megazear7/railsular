@@ -1,7 +1,6 @@
 controllers = angular.module('controllers')
 controllers.controller("GeometryController", [ '$scope', '$routeParams', '$location', '$resource', '$http', '$interval'
   ($scope,$routeParams,$location,$resource,$http,$interval)->
-    $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/geometry.html" }
 
     refreshPromise = $interval(
@@ -25,8 +24,6 @@ controllers.controller("GeometryController", [ '$scope', '$routeParams', '$locat
       promise = $scope.geometry.save()
       promise.then ->
         $http.post("geometry/#{$scope.geometry.id}/run")
-          .success (data) ->
-            console.log(data)
           .error (data) ->
             console.log("error running simulation")
 

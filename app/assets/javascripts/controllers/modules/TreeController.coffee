@@ -1,7 +1,6 @@
 controllers = angular.module('controllers')
 controllers.controller("TreeController", [ '$scope', '$routeParams', '$location', '$resource',
   ($scope,$routeParams,$location,$resource)->
-    $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/tree.html" }
 ])
 
