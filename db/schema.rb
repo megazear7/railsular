@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150324151312) do
+ActiveRecord::Schema.define(version: 20150324192359) do
 
   create_table "apps", force: true do |t|
     t.string   "name"
@@ -66,7 +66,6 @@ ActiveRecord::Schema.define(version: 20150324151312) do
   add_index "attribute_descriptors", ["geometry_type_id"], name: "index_attribute_descriptors_on_geometry_type_id"
 
   create_table "geometries", force: true do |t|
-    t.string   "name"
     t.text     "description"
     t.integer  "project_id"
     t.datetime "created_at",       null: false
