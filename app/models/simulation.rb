@@ -95,6 +95,14 @@ class Simulation < ActiveRecord::Base
     File.join(ENV['HOME'], "/crimson_files/", App.find(1).name.downcase.tr(' ', '_'), job_directory_name)
   end
 
+  def rendered_geometry_directory
+    File.join(ENV['HOME'], "/crimson_files/", App.find(1).name.downcase.tr(' ', '_'), job_directory_name, 'geometry')
+  end
+
+  def rendered_data_directory
+    File.join(ENV['HOME'], "/crimson_files/", App.find(1).name.downcase.tr(' ', '_'), job_directory_name, 'data')
+  end
+
   def batch_file_path script_number
     File.join(job_directory_path, "batch_"+script_number.to_s+".sh")
   end
@@ -144,21 +152,38 @@ class Simulation < ActiveRecord::Base
 
       ],
       simulation_settings: {
+        attributes: {
+        }
       }
     }
     Simulation.attribute_names.each do |attribute|
-      config[:simulation_settings][attribute] = send(attribute)
+      config[:simulation_settings][:attributes][attribute] = send(attribute)
     end
     assigned_geometries.each_with_index do |assigned_geo, index|
-      geo = config[:geometry_settings][index] = {}
+      config[:geometry_settings][index] = {
+        attributes: {},
+        rendered_geometries: [] 
+      }
+      geo = config[:geometry_settings][index]
       geo[:type] = assigned_geo.geometry.geometry_type.name
-      geo[:filename] = "geometry_#{assigned_geo.geometry.id}.stl"
+      geo[:filename] = assigned_geo.geometry.geo_file_name
       AssignedGeometry.assigned_geo_attribute_names(assigned_geo.geometry.geometry_type.name).each do |attribute|
-        geo[attribute] = assigned_geo.send(attribute)
+        geo[:attributes][attribute] = assigned_geo.send(attribute)
       end
       Geometry.geo_attribute_names(assigned_geo.geometry.geometry_type.name).each do |attribute|
-        geo[attribute] = assigned_geo.geometry.send(attribute)
+        geo[:attributes][attribute] = assigned_geo.geometry.send(attribute)
       end
+
+      # for each rendered geometry, add an entry to the rendered geometries array
+      Dir.glob(rendered_data_directory + '/*.json') do |file|
+        next if file == assigned_geo.geometry.geo_file_name
+        r_geo = {
+          filename: file
+        }
+        r_geo[:data] = JSON.parse(File.open(File.join(rendered_data_directory, file)).read)
+        geo[:rendered_geometries].push r_geo
+      end
+
     end
     File.write(config_file_path, config.to_json)
   end
@@ -168,6 +193,11 @@ class Simulation < ActiveRecord::Base
 
     self.geometries.each do |geometry|
       FileUtils.cp geometry.geo.path, File.join(job_directory_path, "geometry", "geometry_#{geometry.id}.stl")
+    end
+
+    Dir.foreach(rendered_geometry_directory) do |file|
+      next if item == "." or item == ".."
+      FileUtils.cp File.join(rendered_geometry_directory, file), File.join(job_directory_path, "geometry", file)
     end
   end
 
