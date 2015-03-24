@@ -52,6 +52,6 @@ class JobDescriptorController < ApplicationController
     end
 
     def job_descriptor_params
-      params.permit(:name, :job_type, :script_number, :test_compute_resources, :prod_compute_resources, :test_walltime, :prod_walltime)
+      params.permit(:name, :job_type, :script_number, :setup_method, :test_compute_resources, :prod_compute_resources, :test_walltime, :prod_walltime)
     end
 end

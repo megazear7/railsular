@@ -8,5 +8,5 @@
 cd $PBS_O_WORKDIR
 APP_BIN={{app_bin}}
 export PATH=$APP_BIN:$PATH
-{{#should_setup}} setup_simulation `pwd` {{#test}} --test {{/test}} {{/should_setup}}
+{{#should_setup}} {{setup_method}} `pwd` {{#test}} --test {{/test}} {{/should_setup}}
 source script/batch_content_{{script_number}}.sh

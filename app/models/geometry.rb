@@ -179,12 +179,13 @@ class Geometry < ActiveRecord::Base
         test: test,
         app_bin: app_bin,
         batch_queue: batch_queue,
+        setup_method: descr.setup_method,
         test_compute_resources: descr.test_compute_resources,
         prod_compute_resources: descr.prod_compute_resources,
         test_walltime: descr.test_walltime,
         prod_walltime: descr.prod_walltime,
         script_number: descr.script_number,
-        should_setup: descr.script_number==1
+        should_setup: descr.setup_method.present?
       })
       File.write(batch_file_path(descr.script_number), tmp)
     end

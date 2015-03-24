@@ -7,6 +7,7 @@
       <thead>
         <tr>
           <th>Script Number</td>
+          <th>Setup Method</td>
           <th>Test Compute Resources</td>
           <th>Prod Compute Resources</td>
           <th>Test Walltime</td>
@@ -16,11 +17,14 @@
       <tbody>
         <tr ng-repeat="job_descriptor in job_descriptors">
           <td ng-if="!job_descriptor.editing">{{job_descriptor.script_number}}</td>
+          <td ng-if="!job_descriptor.editing">{{job_descriptor.setup_method}}</td>
           <td ng-if="!job_descriptor.editing">{{job_descriptor.test_compute_resources}}</td>
           <td ng-if="!job_descriptor.editing">{{job_descriptor.prod_compute_resources}}</td>
           <td ng-if="!job_descriptor.editing">{{job_descriptor.test_walltime}}</td>
           <td ng-if="!job_descriptor.editing">{{job_descriptor.prod_walltime}}</td>
+
           <td ng-if="job_descriptor.editing"><input type="text" ng-model="job_descriptor.script_number" class="form-control form-custom"></input></td>
+          <td ng-if="job_descriptor.editing"><input type="text" ng-model="job_descriptor.setup_method" class="form-control form-custom"></input></td>
           <td ng-if="job_descriptor.editing"><input type="text" ng-model="job_descriptor.test_compute_resources" class="form-control form-custom"></input></td>
           <td ng-if="job_descriptor.editing"><input type="text" ng-model="job_descriptor.prod_compute_resources" class="form-control form-custom"></input></td>
           <td ng-if="job_descriptor.editing"><input type="text" ng-model="job_descriptor.test_walltime" class="form-control form-custom"></input></td>
