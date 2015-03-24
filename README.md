@@ -1,3 +1,15 @@
+### Setup ###
+
+###### On OSC ######
+```bash
+cd ~/awesim_dev/
+git clone git@bitbucket.org:megazear7/container-sim
+mv container-sim rails1 # or rails[1-10]
+```
+Then go to https://apps.awesim.org/devapps/ and restart apache
+Finally go to https://websvcs02.osc.edu/awesim_dev/rails1/simapp/#/admin
+Create the app on this page and go to https://websvcs02.osc.edu/awesim_dev/rails1/simapp/#/ to use the app.
+
 ### JavaScript Overview ###
 
 I wanted to give a quick overview of the javascript file layout as well as what the different portions of javascript and html represent.
