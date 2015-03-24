@@ -1,7 +1,6 @@
 controllers = angular.module('controllers')
 controllers.controller("SimulationJobSpecificationController", [ '$scope', '$routeParams', '$location', '$resource', 'JobDescriptor'
   ($scope,$routeParams,$location,$resource,JobDescriptor)->
-    $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/admin/simulation_job_specification.html" }
 
     $scope.job_descriptors = JobDescriptor.simulation_job_descriptors()

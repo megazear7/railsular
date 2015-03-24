@@ -124,7 +124,7 @@ class Geometry < ActiveRecord::Base
       ret = "Running" if self.jobs.where(status: "R").exists?
       ret = "Running" if self.jobs.where(status: "C").exists?
 
-      if JobDescriptor.where(job_type: "geometry").count == self.jobs.count
+      if JobDescriptor.where(job_type: self.geometry_type.name).count == self.jobs.count
         all_complete = true
         self.jobs.each do |job|
           all_complete = false if job.status != "C"
@@ -132,7 +132,7 @@ class Geometry < ActiveRecord::Base
         ret = "Complete" if all_complete
       end
 
-      ret = "Complete" if JobDescriptor.where(job_type: "geometry").count == 0
+      ret = "Complete" if JobDescriptor.where(job_type: self.geometry_type.name).count == 0
 
       return ret
     else
@@ -171,7 +171,7 @@ class Geometry < ActiveRecord::Base
     app_bin = app.app_bin
     batch_queue = app.batch_queue
     
-    JobDescriptor.where(job_type: "geometry").each do |descr|
+    JobDescriptor.where(job_type: self.geometry_type.name).each do |descr|
       template_file = File.open(template_file_path)
       tmp = Mustache.render(template_file.read,
       {
@@ -221,7 +221,7 @@ class Geometry < ActiveRecord::Base
     add_geometry_files
 
     jobs = []
-    JobDescriptor.where(job_type: "geometry").each_with_index do |descr, index|
+    JobDescriptor.where(job_type: self.geometry_type.name).each_with_index do |descr, index|
       jobs << OSC::Machete::Job.new(script: batch_file_path(descr.script_number))
       jobs[index].afterany(jobs[index-1]) unless index == 0
 

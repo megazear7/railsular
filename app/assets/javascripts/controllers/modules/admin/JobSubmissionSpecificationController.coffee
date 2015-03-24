@@ -1,7 +1,6 @@
 controllers = angular.module('controllers')
 controllers.controller("JobSubmissionSpecificationController", [ '$scope', '$routeParams', '$location', '$resource', '$http'
   ($scope,$routeParams,$location,$resource,$http)->
-    $scope.link = (url) -> $location.path("/#{url}")
     $scope.template = { url: "modules/admin/job_submission_specification.html" }
 
     $scope.editing = false
