@@ -36,6 +36,7 @@
         <tbody>
           <tr ng-repeat="sim in result.simulations()">
             <td>{{sim.name}}</td>
+            <td ng-if="result.editing"><a ng-click="result.remove_simulation(sim)" class="btn btn-default"><span class="glyphicon glyphicon-minus"> {{sim.name}}</span></a></td>
           </tr>
         </tbody>
       </table>

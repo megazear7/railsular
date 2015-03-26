@@ -100,3 +100,14 @@ angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
           join[model_id_string] = object.id
           cache[through].push(join)
           $http.post(url_prefix + through, join)
+
+        object["remove_#{pluralize(relation,1)}"] = (other) ->
+          relation_id_string = pluralize(relation,1)+"_id"
+          model_id_string = pluralize(table_name,1)+"_id"
+          join = {}
+          join[relation_id_string] = other.id
+          join[model_id_string] = object.id
+          angular.forEach cache[through], (join_to_remove, index) ->
+            if join_to_remove[relation_id_string] == other.id && join_to_remove[model_id_string] == object.id
+              cache[through].splice(index, 1)
+          $http.delete(url_prefix + through, join)

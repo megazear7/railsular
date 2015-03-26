@@ -71,6 +71,7 @@ SimApp::Application.routes.draw do
 
     get 'results_simulations' => 'join_value#results_simulations', defaults: { format: 'json' }
     post 'results_simulations' => 'join_value#add_result_simulation', defaults: { format: 'json' }
+    delete 'results_simulations' => 'join_value#remove_result_simulation', defaults: { format: 'json' }
 
     root 'home#index'
   end

@@ -10,7 +10,4 @@ controllers.controller("ResultController", [ '$scope', '$routeParams', '$locatio
         if ! (sim.id of $scope.result.simulations())
           addableSims[sim.id] = sim
       addableSims
-
-    console.log($scope.addableSimulations())
-    #console.log($scope.result.add_simulation(Simulation.find(40)))
 ])

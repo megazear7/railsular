@@ -19,6 +19,17 @@ class JoinValueController < ApplicationController
     end
   end
 
+  def remove_result_simulation
+    @rs = ResultSimulation.find_by(result_simulation_params)
+    respond_to do |format|
+      if @rs.destroy
+        format.json { render json: { message: "success" } }
+      else
+        format.json { render json: { message: "failure" }, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
     def result_simulation_params
       params.permit(:simulation_id, :result_id)
