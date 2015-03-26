@@ -4,7 +4,9 @@
       <a ng-click="link('projects/'+activeProject.id+'/geometries')">Geometries</a>
     </li>
     <li role="presentation" class="active"><a>Simulations</a></li>
-    <li role="presentation"><a>Results</a></li>
+    <li role="presentation">
+      <a ng-click="link('projects/'+activeProject.id+'/results')">Results</a>
+    </li>
   </ul>
   <div class="panel-body">
     <div ng-repeat="sim in simulations">

@@ -84,4 +84,5 @@ angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
         table_names.push(table_name)
         through = table_names.sort().join("_")
 
+        # this cannot use the throughRelation method. the through is a array, not a table
         throughRelation(through, relation)

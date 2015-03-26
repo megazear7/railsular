@@ -1,0 +1,30 @@
+<article class="panel panel-info">
+  <header class="panel-heading">
+    <h1>{{result.id}}</h1>
+  </header>
+  <div class="panel-body">
+    <a ng-if="result.editing" ng-click="result.stopEdit()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-ok"></span></a>
+    <a ng-if="!result.editing" ng-click="result.startEdit()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
+    <div class="col-md-3">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>X Axis Variable:</td>
+            <td ng-if="result.editing"><input type="text" ng-model="result.x_var" class="form-control form-custom" /></td>
+            <td ng-if="!result.editing">{{ result.x_var }}</td>
+          </tr>
+          <tr>
+            <td>Y Axis Variable:</td>
+            <td ng-if="result.editing"><input type="text" ng-model="result.y_var" class="form-control form-custom" /></td>
+            <td ng-if="!result.editing">{{ result.y_var }}</td>
+          </tr>
+          <tr>
+            <td>Result Type:</td>
+            <td ng-if="result.editing"><input type="text" ng-model="result.result_type" class="form-control form-custom" /></td>
+            <td ng-if="!result.editing">{{ result.result_type }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</article>

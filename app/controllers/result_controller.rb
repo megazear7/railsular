@@ -52,6 +52,6 @@ class ResultController < ApplicationController
     end
 
     def result_params
-      params.permit(:simulation_id)
+      params.permit(:x_var, :y_var, :result_type)
     end
 end
