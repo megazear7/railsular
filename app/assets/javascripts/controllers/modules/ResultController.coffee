@@ -3,8 +3,14 @@ controllers.controller("ResultController", [ '$scope', '$routeParams', '$locatio
   ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry,AssignedGeometry,Result)->
     $scope.template = { url: "modules/result.html" }
 
-    $scope.simulations = $scope.activeProject.simulations_where(status: "Complete")
+    $scope.addableSimulations = ->
+      sims = $scope.activeProject.simulations_where(status: "Complete")
+      addableSims = { }
+      angular.forEach sims, (sim) ->
+        if ! (sim.id of $scope.result.simulations())
+          addableSims[sim.id] = sim
+      addableSims
 
-    console.log($scope.simulations)
+    console.log($scope.addableSimulations())
     #console.log($scope.result.add_simulation(Simulation.find(40)))
 ])

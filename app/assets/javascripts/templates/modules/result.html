@@ -3,9 +3,12 @@
     <h1>{{result.id}}</h1>
   </header>
   <div class="panel-body">
+
     <a ng-if="result.editing" ng-click="result.stopEdit()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-ok"></span></a>
     <a ng-if="!result.editing" ng-click="result.startEdit()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-pencil"></span></a>
+
     <div class="col-md-3">
+      <h4>Plot Setup</h4>
       <table class="table">
         <tbody>
           <tr>
@@ -26,5 +29,20 @@
         </tbody>
       </table>
     </div>
+
+    <div class="col-md-3">
+      <h4>Simulations to Plot:</h4>
+      <table class="table">
+        <tbody>
+          <tr ng-repeat="sim in result.simulations()">
+            <td>{{sim.name}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div ng-if="result.editing" ng-repeat="sim in addableSimulations()">
+        <a ng-click="result.add_simulation(sim)" class="btn btn-default"><span class="glyphicon glyphicon-plus"> {{sim.name}}</span></a>
+      </div>
+    </div>
+
   </div>
 </article>
