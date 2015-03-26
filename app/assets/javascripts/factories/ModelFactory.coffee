@@ -1,5 +1,5 @@
 angular.module('simapp').factory('ModelFactory', (DataCache,$http,$q) ->
-  (table_name, addMethods, cache = DataCache, url_prefix = "") ->
+  (table_name, addMethods, url_prefix = "", cache = DataCache) ->
     {
       all: ->
         cache[table_name]

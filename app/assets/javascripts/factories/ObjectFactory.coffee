@@ -1,5 +1,5 @@
 angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
-  (table_name, object, relations, cache = DataCache, url_prefix = "") ->
+  (table_name, object, relations, url_prefix = "", cache = DataCache) ->
     object.save = ->
       $http.post("#{url_prefix}#{pluralize(table_name, 1)}/#{object.id}/update", object)
         .error (data) ->

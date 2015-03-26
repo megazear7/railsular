@@ -6,5 +6,10 @@ angular.module('simapp').factory('DataCache', ($http) ->
     simulations: { }
     geometries: { }
     results: { }
+    geometry_types: { }
+    attribute_descriptors: { }
+    attribute_descriptor_values: { }
+    job_descriptors: { }
+    apps: { }
   }
 )
