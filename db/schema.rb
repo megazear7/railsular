@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326135003) do
+ActiveRecord::Schema.define(version: 20150326132933) do
 
   create_table "apps", force: true do |t|
     t.string   "name"
@@ -130,13 +130,18 @@ ActiveRecord::Schema.define(version: 20150326135003) do
   end
 
   create_table "results", force: true do |t|
-    t.integer  "simulation_id"
+    t.boolean  "generic",     default: false
+    t.string   "x_var"
+    t.string   "y_var"
+    t.string   "result_type"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "generic",       default: false
   end
 
-  add_index "results", ["simulation_id"], name: "index_results_on_simulation_id"
+  create_table "results_simulations", force: true do |t|
+    t.integer "result_id"
+    t.integer "simulation_id"
+  end
 
   create_table "simulation_attrs", force: true do |t|
     t.string   "value"

@@ -4,6 +4,7 @@ class Simulation < ActiveRecord::Base
   has_many :geometries, through: :assigned_geometries
   has_many :jobs
   has_many :simulation_attrs
+  has_and_belongs_to_many :results
   after_initialize :add_attr_methods
 
   def add_attr_methods
