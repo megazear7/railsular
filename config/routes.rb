@@ -70,6 +70,7 @@ SimApp::Application.routes.draw do
     delete 'result/:id/delete' => 'result#delete', defaults: { format: 'json' }
 
     get 'results_simulations' => 'join_value#results_simulations', defaults: { format: 'json' }
+    post 'results_simulations' => 'join_value#add_result_simulation', defaults: { format: 'json' }
 
     root 'home#index'
   end

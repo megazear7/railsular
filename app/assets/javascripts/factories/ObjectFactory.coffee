@@ -84,5 +84,19 @@ angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
         table_names.push(table_name)
         through = table_names.sort().join("_")
 
-        # this cannot use the throughRelation method. the through is a array, not a table
-        throughRelation(through, relation)
+        object[relation] = ->
+          objs = {}
+          angular.forEach cache[through], (val) ->
+            if val[pluralize(table_name,1) + "_id"] == object.id
+              obj = cache[relation][val[pluralize(relation,1) + "_id"]]
+              objs[obj.id] = obj
+          objs
+
+        object["add_#{pluralize(relation,1)}"] = (other) ->
+          relation_id_string = pluralize(relation,1)+"_id"
+          model_id_string = pluralize(table_name,1)+"_id"
+          join = {}
+          join[relation_id_string] = other.id
+          join[model_id_string] = object.id
+          cache[through].push(join)
+          $http.post(url_prefix + through, join)

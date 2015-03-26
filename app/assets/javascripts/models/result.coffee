@@ -27,9 +27,8 @@ angular.module('simapp').factory('Result', (DataCache,ModelFactory,ObjectFactory
 
   modelMethods["results_simulations_promise"] = $http.get('results_simulations')
     .success (data) ->
-      angular.forEach data.results_simulations, (join) ->
-        DataCache.results_simulations[join.id] = join
-        DataCache.results_simulations[join.id].editing = false
+      angular.forEach data.result_simulations, (join) ->
+        DataCache.results_simulations.push(join)
     .error (data) ->
       console.log('error loading results_simulations join data')
 

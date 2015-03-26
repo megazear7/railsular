@@ -24,6 +24,8 @@ standard_resolve = {
       GeometryType.promise
     resultsData: (Result) ->
       Result.promise
+    resultsSimulationsData: (Result) ->
+      Result.results_simulations_promise
     appsData: (App) ->
       App.promise
   }
