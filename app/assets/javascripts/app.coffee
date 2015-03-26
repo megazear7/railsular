@@ -24,6 +24,8 @@ standard_resolve = {
       GeometryType.promise
     resultsData: (Result) ->
       Result.promise
+    appsData: (App) ->
+      App.promise
   }
 
 simapp.config([ '$routeProvider', 'flashProvider', '$httpProvider',

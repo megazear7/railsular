@@ -23,11 +23,38 @@ angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
       object.save()
       this.editing = false
 
+    throughRelation = (relation, through) ->
+      object[relation] = ->
+        object_ids = []
+        angular.forEach cache[through], (val, key) ->
+          if val["#{pluralize(table_name,1)}_id"] == object.id
+            object_ids.push(val["#{pluralize(relation,1)}_id"])
+        object_list = {}
+        angular.forEach object_ids, (object_id) ->
+          object_list[object_id] = cache[relation][object_id]
+        object_list
+      object[relation+"_where"] = (attrs) ->
+        object_ids = []
+        angular.forEach cache[through], (val, key) ->
+          if val["#{pluralize(table_name,1)}_id"] == object.id
+            object_ids.push(val["#{pluralize(relation,1)}_id"])
+        object_list = {}
+        angular.forEach object_ids, (object_id) ->
+          add_obj_to_objs = true
+          angular.forEach attrs, (val, attr) ->
+            if cache[relation][object_id][attr] != val
+              add_obj_to_objs = false
+          if add_obj_to_objs
+            object_list[object_id] = cache[relation][object_id]
+        object_list
+
     angular.forEach relations, (relation) ->
+
       if "belongs_to" of relation
         relation = relation.belongs_to
         object[relation] = ->
           cache[pluralize(relation)][object["#{relation}_id"]]
+
       else if "has_many" of relation
         relation = relation.has_many
         object[relation] = ->
@@ -46,29 +73,9 @@ angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
             if obj["#{pluralize(table_name,1)}_id"] == object.id && add_obj_to_objs
               objs[obj.id] = obj
           objs
+
       else if "has_many_through" of relation
-        through = relation.has_many_through.through
-        relation = relation.has_many_through.has_many
-        object[relation] = ->
-          object_ids = []
-          angular.forEach cache[through], (val, key) ->
-            if val["#{pluralize(table_name,1)}_id"] == object.id
-              object_ids.push(val["#{pluralize(relation,1)}_id"])
-          object_list = {}
-          angular.forEach object_ids, (object_id) ->
-            object_list[object_id] = cache[relation][object_id]
-          object_list
-        object[relation+"_where"] = (attrs) ->
-          object_ids = []
-          angular.forEach cache[through], (val, key) ->
-            if val["#{pluralize(table_name,1)}_id"] == object.id
-              object_ids.push(val["#{pluralize(relation,1)}_id"])
-          object_list = {}
-          angular.forEach object_ids, (object_id) ->
-            add_obj_to_objs = true
-            angular.forEach attrs, (val, attr) ->
-              if cache[relation][object_id][attr] != val
-                add_obj_to_objs = false
-            if add_obj_to_objs
-              object_list[object_id] = cache[relation][object_id]
-          object_list
+        throughRelation(relation.has_many_through.through, relation.has_many_through.has_many)
+
+      else if "has_and_belongs_to_many" of relation
+        throughRelation(table_name + "_" + relation, relation)
