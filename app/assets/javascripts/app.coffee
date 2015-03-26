@@ -57,6 +57,8 @@ simapp.config([ '$routeProvider', 'flashProvider', '$httpProvider',
             AttributeDescriptorValue.promise
           jobDescriptorData: (JobDescriptor) ->
             JobDescriptor.promise
+          appsData: (App) ->
+            App.promise
         }
       ).when('/',
         templateUrl: "layouts/projects.html"

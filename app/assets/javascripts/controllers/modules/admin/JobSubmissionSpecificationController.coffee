@@ -1,6 +1,6 @@
 controllers = angular.module('controllers')
-controllers.controller("JobSubmissionSpecificationController", [ '$scope', '$routeParams', '$location', '$resource', '$http'
-  ($scope,$routeParams,$location,$resource,$http)->
+controllers.controller("JobSubmissionSpecificationController", [ '$scope', '$routeParams', '$location', '$resource', '$http', 'App'
+  ($scope,$routeParams,$location,$resource,$http,App)->
     $scope.template = { url: "modules/admin/job_submission_specification.html" }
 
     $scope.editing = false
@@ -15,8 +15,5 @@ controllers.controller("JobSubmissionSpecificationController", [ '$scope', '$rou
           alert('server had error saving app overview')
           $scope.app = data
 
-    $scope.app = { }
-    $http.get("admin/data/show")
-      .success (data) ->
-        $scope.app = data
+    $scope.app = App.find(1)
 ])

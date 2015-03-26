@@ -3,9 +3,6 @@ SimApp::Application.routes.draw do
   scope 'simapp' do
     scope 'admin' do
 
-      get "data/show" => 'admin_data#show', defaults: { format: 'json' }
-      post "data/update" => 'admin_data#update', defaults: { format: 'json' }
-
       get 'attribute_descriptor_values' => 'attribute_descriptor_value#index', defaults: { format: 'json' }
       get 'attribute_descriptor_value/:id' => 'attribute_descriptor_value#show', defaults: { format: 'json' }
       post 'attribute_descriptor_value/create' => 'attribute_descriptor_value#create', defaults: { format: 'json' }
@@ -29,6 +26,12 @@ SimApp::Application.routes.draw do
       post 'geometry_type/create' => 'geometry_type#create', defaults: { format: 'json' }
       post 'geometry_type/:id/update' => 'geometry_type#update', defaults: { format: 'json' }
       delete 'geometry_type/:id/delete' => 'geometry_type#delete', defaults: { format: 'json' }
+
+      get 'apps' => 'app#index', defaults: { format: 'json' }
+      get 'app/:id' => 'app#show', defaults: { format: 'json' }
+      post 'app/create' => 'app#create', defaults: { format: 'json' }
+      post 'app/:id/update' => 'app#update', defaults: { format: 'json' }
+      delete 'app/:id/delete' => 'app#delete', defaults: { format: 'json' }
     end
 
     get 'projects' => 'project#index', defaults: { format: 'json' }

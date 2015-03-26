@@ -4,5 +4,6 @@ angular.module('simapp').factory('AdminDataCache', ->
     attribute_descriptors: { }
     attribute_descriptor_values: { }
     job_descriptors: { }
+    apps: { }
   }
 )
