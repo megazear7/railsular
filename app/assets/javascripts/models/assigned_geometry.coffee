@@ -7,7 +7,7 @@ angular.module('simapp').factory('AssignedGeometry', (DataCache,ModelFactory,Obj
 
     # Add the custom object methods
     assigned_geometry.attributes = ->
-      DataCache.geometry_types[this.geometry().geo_type].assigned_attributes
+      DataCache.geometry_types_overview[this.geometry().geo_type].assigned_attributes
 
   # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
   modelMethods = ModelFactory("assigned_geometries", addMethods)

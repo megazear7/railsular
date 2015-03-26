@@ -45,7 +45,7 @@ SimApp::Application.routes.draw do
     post 'geometry/create' => 'geometry#create', defaults: { format: 'json' }
     post 'geometry/:id/update' => 'geometry#update', defaults: { format: 'json' }
     delete 'geometry/:id/delete' => 'geometry#delete', defaults: { format: 'json' }
-    get 'geometry_types' => 'geometry#types', defaults: { format: 'json' }
+    get 'geometry_types_overview' => 'geometry#types', defaults: { format: 'json' }
     post 'geometry/:id/update_file' => 'geometry#update_file', defaults: { format: 'json' }
     post 'geometry/:id/run' => 'geometry#run', defaults: { format: 'json' }
 

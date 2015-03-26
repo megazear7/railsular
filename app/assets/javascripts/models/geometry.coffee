@@ -12,21 +12,21 @@ angular.module('simapp').factory('Geometry', (DataCache,ModelFactory,ObjectFacto
           DataCache.geometries[geometry.id].status = data.geometry.status
 
     geometry.attributes = ->
-      DataCache.geometry_types[this.geo_type].attributes
+      DataCache.geometry_types_overview[this.geo_type].attributes
 
   # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
   modelMethods = ModelFactory("geometries", addMethods)
 
   # create the custom model methods
   modelMethods["geo_types"] = ->
-    DataCache.geometry_types
+    DataCache.geometry_types_overview
 
   # Create the promises for loading data
-  modelMethods["geometry_type_promise"] = $http.get('geometry_types')
+  modelMethods["geometry_types_overview_promise"] = $http.get('geometry_types_overview')
     .success (data) ->
-      DataCache.geometry_types = data
+      DataCache.geometry_types_overview = data
     .error (data) ->
-      console.log('error loading geometry types')
+      console.log('error loading geometry types overview')
 
   modelMethods["promise"] = $http.get('geometries')
     .success (data) ->

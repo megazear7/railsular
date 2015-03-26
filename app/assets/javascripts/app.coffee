@@ -10,8 +10,8 @@ simapp = angular.module('simapp',[
 standard_resolve = {
     geometryData: (Geometry) ->
       Geometry.promise
-    geometryTypeData: (Geometry) ->
-      Geometry.geometry_type_promise
+    geometryTypeOverviewData: (Geometry) ->
+      Geometry.geometry_type_overview_promise
     smulationData: (Simulation) ->
       Simulation.promise
     projectData: (Project) ->

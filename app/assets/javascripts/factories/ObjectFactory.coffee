@@ -23,7 +23,7 @@ angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
       object.save()
       this.editing = false
 
-    throughRelation = (relation, through) ->
+    throughRelation = (through, relation) ->
       object[relation] = ->
         object_ids = []
         angular.forEach cache[through], (val, key) ->
