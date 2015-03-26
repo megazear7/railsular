@@ -3,7 +3,7 @@ angular.module('simapp').factory('Result', (DataCache,ModelFactory,ObjectFactory
   # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (result) ->
     # Add the standard object methods
-    ObjectFactory("results", result, [{belongs_to: "simulation"}])
+    ObjectFactory("results", result, [{has_and_belongs_to_many: "simulations"}])
 
     # Add the custom object methods
     # None
@@ -24,6 +24,15 @@ angular.module('simapp').factory('Result', (DataCache,ModelFactory,ObjectFactory
         addMethods(result)
     .error (data) ->
       console.log('error loading results')
+
+  modelMethods["results_simulations_promise"] = $http.get('results_simulations')
+    .success (data) ->
+      angular.forEach data.results_simulations, (join) ->
+        DataCache.results_simulations[join.id] = join
+        DataCache.results_simulations[join.id].editing = false
+    .error (data) ->
+      console.log('error loading results_simulations join data')
+
 
   # Return the model methods
   modelMethods

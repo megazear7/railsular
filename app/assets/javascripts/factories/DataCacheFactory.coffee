@@ -11,5 +11,6 @@ angular.module('simapp').factory('DataCache', ($http) ->
     attribute_descriptor_values: { }
     job_descriptors: { }
     apps: { }
+    results_simulations: { }
   }
 )

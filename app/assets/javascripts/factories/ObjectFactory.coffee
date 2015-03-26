@@ -78,4 +78,10 @@ angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
         throughRelation(relation.has_many_through.through, relation.has_many_through.has_many)
 
       else if "has_and_belongs_to_many" of relation
-        throughRelation(table_name + "_" + relation, relation)
+        relation = relation.has_and_belongs_to_many
+        table_names = []
+        table_names.push(relation)
+        table_names.push(table_name)
+        through = table_names.sort().join("_")
+
+        throughRelation(through, relation)
