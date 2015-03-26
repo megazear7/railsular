@@ -194,7 +194,8 @@ class Geometry < ActiveRecord::Base
   def add_config_file
     config = {
       geometry_settings: {
-
+        attributes: {
+        }
       }
     }
 
@@ -202,7 +203,7 @@ class Geometry < ActiveRecord::Base
     geo[:type] = self.geometry_type.name
     geo[:filename] = "geometry_#{self.id}.stl"
     Geometry.geo_attribute_names(self.geometry_type.name).each do |attribute|
-      geo[attribute] = self.send(attribute)
+      geo[:attributes][attribute] = self.send(attribute)
     end
 
     File.write(config_file_path, config.to_json)
