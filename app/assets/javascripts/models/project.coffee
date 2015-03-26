@@ -16,13 +16,13 @@ angular.module('simapp').factory('Project', (DataCache,ModelFactory,ObjectFactor
 
   # Create the promises for loading data
   modelMethods["promise"] = $http.get('projects')
-    .success (data, status, headers, config) ->
+    .success (data) ->
       angular.forEach data.projects, (project) ->
         DataCache.projects[project.id] = project
         DataCache.projects[project.id].editing = false
       angular.forEach DataCache.projects, (project, proj_id) ->
         addMethods(project)
-    .error (data, status, headers, config) ->
+    .error (data) ->
       console.log('error loading projects')
 
   # Return the model methods

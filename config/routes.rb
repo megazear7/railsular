@@ -59,6 +59,12 @@ SimApp::Application.routes.draw do
     post 'simulation/:id/update' => 'simulation#update', defaults: { format: 'json' }
     delete 'simulation/:id/delete' => 'simulation#delete', defaults: { format: 'json' }
     post 'simulation/:id/run' => 'simulation#run', defaults: { format: 'json' }
+    
+    get 'results' => 'result#index', defaults: { format: 'json' }
+    get 'result/:id' => 'result#show', defaults: { format: 'json' }
+    post 'result/create' => 'result#create', defaults: { format: 'json' }
+    post 'result/:id/update' => 'result#update', defaults: { format: 'json' }
+    delete 'result/:id/delete' => 'result#delete', defaults: { format: 'json' }
 
     root 'home#index'
   end

@@ -22,6 +22,8 @@ standard_resolve = {
       Simulation.simulation_attributes_promise
     geometryTypesData: (GeometryType) ->
       GeometryType.promise
+    resultsData: (Result) ->
+      Result.promise
   }
 
 simapp.config([ '$routeProvider', 'flashProvider', '$httpProvider',

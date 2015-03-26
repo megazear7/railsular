@@ -1,6 +1,6 @@
 controllers = angular.module('controllers')
-controllers.controller("SimulationController", [ '$scope', '$routeParams', '$location', '$resource', '$http', '$interval', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry'
-  ($scope,$routeParams,$location,$resource,$http,$interval,Project,Simulation,Geometry,AssignedGeometry)->
+controllers.controller("SimulationController", [ '$scope', '$routeParams', '$location', '$resource', '$http', '$interval', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry', 'Result'
+  ($scope,$routeParams,$location,$resource,$http,$interval,Project,Simulation,Geometry,AssignedGeometry,Result)->
     $scope.template = { url: "modules/simulation.html" }
 
     refreshPromise = $interval(

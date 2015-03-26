@@ -5,5 +5,6 @@ angular.module('simapp').factory('DataCache', ($http) ->
     projects: { }
     simulations: { }
     geometries: { }
+    results: { }
   }
 )

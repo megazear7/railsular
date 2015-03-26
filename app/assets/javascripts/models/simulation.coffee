@@ -3,7 +3,7 @@ angular.module('simapp').factory('Simulation', (DataCache,AssignedGeometry,Model
   # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (simulation) ->
     # Add the standard object methods
-    ObjectFactory("simulations", simulation, [{belongs_to: "project"}, {has_many: "assigned_geometries"}, {has_many_through: {has_many: "geometries", through: "assigned_geometries"}}])
+    ObjectFactory("simulations", simulation, [{belongs_to: "project"}, {has_many: "results"}, {has_many: "assigned_geometries"}, {has_many_through: {has_many: "geometries", through: "assigned_geometries"}}])
 
     # Add the custom object methods
     simulation.addGeometry = (geo_id, attrs) ->
@@ -29,7 +29,7 @@ angular.module('simapp').factory('Simulation', (DataCache,AssignedGeometry,Model
 
   # Create the promises for loading data
   modelMethods["promise"] = $http.get('simulations')
-    .success (data, status, headers, config) ->
+    .success (data) ->
       angular.forEach data.simulations, (simulation) ->
         DataCache.simulations[simulation.id] = simulation
         DataCache.simulations[simulation.id].editing = false
@@ -39,9 +39,9 @@ angular.module('simapp').factory('Simulation', (DataCache,AssignedGeometry,Model
       console.log('error loading simulations')
 
   modelMethods["simulation_attributes_promise"] = $http.get('simulations/attributes')
-    .success (data, status, headers, config) ->
+    .success (data) ->
       DataCache.simulation_attributes = data.attributes
-    .error (data, status, headers, config) ->
+    .error (data) ->
       console.log("error loading simulation attributes")
 
   # Return the model methods
