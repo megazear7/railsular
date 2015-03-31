@@ -10,19 +10,9 @@ class ResultController < ApplicationController
   end
 
   def show
-
-    @example = CSV.generate do |csv|
-      csv << ["x", "y1", "y2"]
-      csv << ["0", "0", "3"]
-      csv << ["1", "1", "6"]
-      csv << ["2", "2", "12"]
-      csv << ["3", "4", "24"]
-      csv << ["4", "6", "34"]
-    end
-
     respond_to do |format|
       format.json
-      format.csv { render text: @example }
+      format.csv { render text: @result.csv_data }
     end
   end
 
