@@ -65,6 +65,7 @@ SimApp::Application.routes.draw do
     
     get 'results' => 'result#index', defaults: { format: 'json' }
     get 'result/:id' => 'result#show', defaults: { format: 'json' }
+    get 'result_csv/:id' => 'result#show', defaults: { format: 'csv' }
     post 'result/create' => 'result#create', defaults: { format: 'json' }
     post 'result/:id/update' => 'result#update', defaults: { format: 'json' }
     delete 'result/:id/delete' => 'result#delete', defaults: { format: 'json' }

@@ -2,15 +2,19 @@ angular.module('simapp').directive('saDygraph', ->
   {
     scope: {
       file: '='
-      id: '='
+      chartname: '='
     }
-    controller: ['$scope', '$http', ($scope, $http) ->
-      new Dygraph(document.getElementById($scope.id), file)
+    controller: ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
+      $http.get($scope.file)
+        .success (data) ->
+          graph = new Dygraph(document.getElementById($scope.chartname+"-chart"), data)
+          $('#'+$scope.chartname+'-reset-zoom').click ->
+            graph.resetZoom()
     ]
     restrict: 'E',
     template: '
-      <div id="{{id}}" style="width: 100%; height: 100%; margin: auto;"></div>
-      <button id="{{id}}-reset-zoom">Reset Zoom</button>
+      <div id="{{chartname}}-chart" style="width: 100%; height: 300px; margin: auto;"></div>
+      <button id="{{chartname}}-reset-zoom">Reset Zoom</button>
     '
   }
 )
