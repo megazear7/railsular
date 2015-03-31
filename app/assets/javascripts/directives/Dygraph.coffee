@@ -10,10 +10,11 @@ angular.module('simapp').directive('saDygraph', ->
           graph = new Dygraph(document.getElementById($scope.chartname+"-chart"), data,
           {
             highlightSeriesOpts: {
+              customBars: true
               strokeWidth: 2
               strokeBorderWidth: 1
               hightlightCirclesSize: 5
-
+              showRangeSelector: true
             }
           })
           $('#'+$scope.chartname+'-reset-zoom').click ->
