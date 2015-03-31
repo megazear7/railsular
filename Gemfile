@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'sqlite3'
 
-#gem "osc-machete", "~> 0.2.4"
+gem "osc-machete", "~> 0.2.4"
 gem 'mustache'
 gem 'rails', '~> 4'
 gem 'sass'
@@ -14,7 +14,7 @@ gem 'jbuilder'
 gem 'paperclip', '~> 4.2'
 
 gem 'therubyracer', platforms: :ruby
-gem 'bower-rails'
+#gem 'bower-rails'
 gem 'angular-rails-templates'
 
 group :production, :staging do

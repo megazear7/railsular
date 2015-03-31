@@ -4,7 +4,8 @@ simapp = angular.module('simapp',[
   'ngResource',
   'controllers',
   'angular-flash.service',
-  'angular-flash.flash-alert-directive'
+  'angular-flash.flash-alert-directive',
+  'n3-line-chart'
 ])
 
 standard_resolve = {
