@@ -11,6 +11,7 @@
     "pluralize": "latest",
     "slide-push-menu": "latest",
     "classie": "latest",
-    "n3-line-chart": "latest"
+    "n3-line-chart": "latest",
+    "dygraphs": "latest"
   }
 }
