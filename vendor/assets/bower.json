@@ -10,6 +10,7 @@
     "jstree": "latest",
     "pluralize": "latest",
     "slide-push-menu": "latest",
-    "classie": "latest"
+    "classie": "latest",
+    "n3-line-chart": "latest"
   }
 }

@@ -20,4 +20,7 @@
 //= require pluralize/pluralize.js
 //= require slide-push-menu/menu.js
 //= require classie/classie.js
+//= require d3/d3.min.js
+//= require n3-line-chart/src/line-chart.coffee
+//= require 
 //= require_tree .
