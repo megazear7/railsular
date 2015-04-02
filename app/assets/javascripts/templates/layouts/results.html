@@ -8,7 +8,10 @@
   <section class="col-md-4">
     <div ng-controller="ResultNavController"><div ng-include="template.url"></div></div>
   </section>
-  <section class="col-md-8">
+  <section ng-if="showResult" class="col-md-8">
     <div ng-controller="ResultController"><div ng-include="template.url"></div></div>
+  </section>
+  <section ng-if="!showResult" class="col-md-8">
+    <div ng-controller="ResultMakerController"><div ng-include="template.url"></div></div>
   </section>
 </div>

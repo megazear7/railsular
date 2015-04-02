@@ -5,6 +5,11 @@ controllers.controller("ResultsController", [ '$scope', '$routeParams', '$locati
 
     $scope.projects = Project.all()
     $scope.activeProject = $scope.projects[$routeParams.project_id]
-    $scope.result = Result.find($routeParams.result_id)
     $scope.results = Result.all()
+
+    if $routeParams.result_id
+      $scope.result = Result.find($routeParams.result_id)
+      $scope.showResult = true
+    else
+      $scope.showResult = false
 ])

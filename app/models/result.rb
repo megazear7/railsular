@@ -1,11 +1,11 @@
 class Result < ActiveRecord::Base
   has_and_belongs_to_many :simulations
 
-  def csv_file_path sim
+  def self.csv_file_path sim
     File.join(ENV['HOME'], "/crimson_files/", App.find(1).name.downcase.tr(' ', '_'), sim.job_directory_name, 'results', 'data', 'iterative.csv')
   end
 
-  def csv_data
+  def self.csv_data simulations, y_var
     cols = []
     row_count = 0
     simulations.each do |sim|
@@ -31,5 +31,9 @@ class Result < ActiveRecord::Base
         csv << row_data
       end
     end
+  end
+
+  def csv_data
+    Result.csv_data self.simulations, self.y_var
   end
 end

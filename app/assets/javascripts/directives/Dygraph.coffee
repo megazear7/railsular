@@ -1,20 +1,21 @@
 angular.module('simapp').directive('saDygraph', ->
   {
     scope: {
-      file: '='
+      url: '='
       chartname: '='
+      params: '='
     }
     controller: ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
-      $http.get($scope.file)
+      $scope.params = {} if $scope.params == null
+      $http.get($scope.url,params: $scope.params )
         .success (data) ->
           graph = new Dygraph(document.getElementById($scope.chartname+"-chart"), data,
           {
             highlightSeriesOpts: {
-              customBars: true
+              showRangeSelector: true # this is not working for some reason
               strokeWidth: 2
               strokeBorderWidth: 1
               hightlightCirclesSize: 5
-              showRangeSelector: true
             }
           })
           $('#'+$scope.chartname+'-reset-zoom').click ->

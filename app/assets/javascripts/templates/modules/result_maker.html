@@ -1,0 +1,31 @@
+<article class="panel panel-info">
+  <header class="panel-heading">
+    <h1>View Results</h1>
+  </header>
+  <div class="panel-body">
+
+
+    <div class="col-md-3">
+      <div>Y Axis Variable:</div>
+      <input type="text" ng-model="y_var.val" class="form-control form-custom" />
+    </div>
+
+    <div class="col-md-3">
+      <h4>Simulations to Plot:</h4>
+      <table class="table">
+        <tbody>
+          <tr ng-repeat="sim in simulations">
+            <td ng-if="isSelected(sim)"><a ng-click="removeSimulation(sim)" class="btn btn-default pull-left"><span class="glyphicon glyphicon-minus"> {{sim.name}}</span></a></td>
+            <td ng-if="!isSelected(sim)"><a ng-click="addSimulation(sim)" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"> {{sim.name}}</span></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <a ng-click="plot()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-repeat"></span></a>
+
+  </div>
+</article>
+
+<div id="graph" style="width: 100%; height: 500px; margin: auto;"></div>
+<button id="graph-reset-zoom">Reset Zoom</button>

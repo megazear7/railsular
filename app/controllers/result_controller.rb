@@ -9,6 +9,15 @@ class ResultController < ApplicationController
     end
   end
 
+  def graph
+    simulations = Simulation.find(params[:simulation_ids].split(','))
+    y_var = params[:y_var]
+    respond_to do |format|
+      format.json
+      format.csv { render text: Result.csv_data(simulations, y_var) }
+    end
+  end
+
   def show
     respond_to do |format|
       format.json

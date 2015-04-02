@@ -98,8 +98,8 @@ simapp.config([ '$routeProvider', 'flashProvider', '$httpProvider',
         controller: 'ResultsController'
         resolve: standard_resolve
       ).when('/projects/:project_id/results',
-        templateUrl: "layouts/project.html"
-        controller: 'ProjectController'
+        templateUrl: "layouts/results.html"
+        controller: 'ResultsController'
         resolve: standard_resolve
       )
 ])
