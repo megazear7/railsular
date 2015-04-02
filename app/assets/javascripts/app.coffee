@@ -101,6 +101,18 @@ simapp.config([ '$routeProvider', 'flashProvider', '$httpProvider',
         templateUrl: "layouts/results.html"
         controller: 'ResultsController'
         resolve: standard_resolve
+      ).when('/projects/:project_id/results/lineplot',
+        templateUrl: "layouts/results.html"
+        controller: 'ResultsController'
+        resolve: standard_resolve
+      ).when('/projects/:project_id/results/images',
+        templateUrl: "layouts/results.html"
+        controller: 'ResultsController'
+        resolve: standard_resolve
+      ).when('/projects/:project_id/results/movies',
+        templateUrl: "layouts/results.html"
+        controller: 'ResultsController'
+        resolve: standard_resolve
       )
 ])
 

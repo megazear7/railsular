@@ -9,14 +9,14 @@
     <li role="presentation" class="active"><a>Results</a></li>
   </ul>
   <div class="panel-body">
-    <div ng-repeat="res in results">
-      <div ng-if="res == result">
-        <span style="color:red">{{res.id}}</span>
-      </div>
-      <div ng-if="res != result">
-        <a ng-click="link('projects/'+activeProject.id+'/results/'+res.id)">{{res.id}}</a>
-      </div>
+    <div class="well">
+      <a ng-click="link('projects/'+activeProject.id+'/results/lineplot')">Line Plot</a>
     </div>
-    <a ng-click="addResult()"><span class="glyphicon glyphicon-plus"></span></a>
+    <div class="well">
+      <a ng-click="link('projects/'+activeProject.id+'/results/images')">Images</a>
+    </div>
+    <div class="well">
+      <a ng-click="link('projects/'+activeProject.id+'/results/movies')">Movies</a>
+    </div>
   </div>
 </article>
