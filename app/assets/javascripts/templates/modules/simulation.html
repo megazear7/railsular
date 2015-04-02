@@ -32,8 +32,8 @@
         <p ng-if="simulation.editing"><textarea type="text" ng-model="simulation.description" class="form-control form-custom" /></p>
       </div>
     </div>
-    <div class="row">
 
+    <div class="row">
       <div class="col-md-6">
         <div class="row"><div class="col-md-12"><h3>Geometries:</h3></div></div>
         <div ng-controller="AssignedGeometriesController"><div ng-include="template.url"></div></div>
@@ -44,13 +44,6 @@
           <div ng-controller="SimulationDetailsController"><div ng-include="template.url"></div></div>
         </div>
       </div>
-
-      <div ng-if="simulation.status == 'Complete'" class="col-md-12">
-        <div class="row"><div class="col-md-12"><h3>Simulation Results:</h3></div></div>
-          <div ng-controller="SimResultsController"><div ng-include="template.url"></div></div>
-        </div>
-      </div>
-
     </div>
   </div>
 </article>

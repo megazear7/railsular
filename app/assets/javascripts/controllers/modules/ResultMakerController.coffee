@@ -7,7 +7,7 @@ controllers.controller("ResultMakerController", [ '$scope', '$routeParams', '$lo
     angular.forEach App.find(1).result_vars(), (result_var, id) ->
       $scope.result_vars.push result_var.name
 
-    $scope.simulations = $scope.activeProject.simulations()
+    $scope.simulations = $scope.activeProject.simulations_where(status: "Complete")
     $scope.y_var = { val: "" }
 
     selectedSimulationIds = [ ]
