@@ -4,22 +4,6 @@
   </header>
   <div class="panel-body">
 
-    <div class="row">
-      <div class="col-md-1">
-        <a ng-click="setIterative(true)">
-          <span ng-if="app.iterative" class="glyphicon glyphicon-star">Iterative</span>
-          <span ng-if="!app.iterative" class="glyphicon glyphicon-star-empty">Iterative</span>
-        </a>
-      </div>
-      <div class="col-md-1">
-        <a ng-click="setIterative(false)">
-          <span ng-if="!app.iterative" class="glyphicon glyphicon-star">Transient</span>
-          <span ng-if="app.iterative" class="glyphicon glyphicon-star-empty">Transient</span>
-        </a>
-      </div>
-    </div>
-    <br />
-
     <article class="panel panel-info">
       <div class="panel-body">
         <h3>Attributes:</h3>
@@ -31,6 +15,13 @@
       <div class="panel-body">
         <h3>Jobs:</h3>
         <div ng-controller="SimulationJobSpecificationController"><div ng-include="template.url"></div></div>
+      </div>
+    </article>
+
+    <article class="panel panel-info">
+      <div class="panel-body">
+        <h3>Results:</h3>
+        <div ng-controller="SimulationResultSpecificationController"><div ng-include="template.url"></div></div>
       </div>
     </article>
 

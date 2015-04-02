@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-12">
+    <a ng-click="setIterative(true)">
+      <span ng-if="app.iterative" class="glyphicon glyphicon-star">Iterative</span>
+      <span ng-if="!app.iterative" class="glyphicon glyphicon-star-empty">Iterative</span>
+    </a>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <a ng-click="setIterative(false)">
+      <span ng-if="!app.iterative" class="glyphicon glyphicon-star">Transient</span>
+      <span ng-if="app.iterative" class="glyphicon glyphicon-star-empty">Transient</span>
+    </a>
+  </div>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Variable</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="variable in variables">
+      <td ng-if="!variable.editing">{{variable.name}}</td>
+
+      <td ng-if="variable.editing"><input type="text" ng-model="variable.name" class="form-control form-custom"></input></td>
+
+      <td ng-if="!variable.editing">
+        <a ng-click="variable.startEdit()"><span class="glyphicon glyphicon-pencil"></span></a>
+        <a ng-click="delete(variable)"><span class="glyphicon glyphicon-trash"></span></a>
+      </td>
+      <td ng-if="variable.editing"><a ng-click="variable.stopEdit()"><span class="glyphicon glyphicon-ok"></span></a></td>
+    </tr>
+  </tbody>
+</table>
+<table class="table">
+  <tr>
+    <td>
+      <a ng-click="create(variable)"><span class="glyphicon glyphicon-plus"></span> Variable</a>
+    </td>
+  </tr>
+</table>
