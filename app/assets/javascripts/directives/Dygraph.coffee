@@ -9,7 +9,7 @@ angular.module('simapp').directive('saDygraph', ->
       $scope.params = {} if $scope.params == null
       $http.get($scope.url,params: $scope.params )
         .success (data) ->
-          graph = new Dygraph(document.getElementById($scope.chartname+"-chart"), data,
+          $scope.graph = new Dygraph(document.getElementById($scope.chartname+"-chart"), data,
           {
             highlightSeriesOpts: {
               showRangeSelector: true # this is not working for some reason
@@ -18,13 +18,11 @@ angular.module('simapp').directive('saDygraph', ->
               hightlightCirclesSize: 5
             }
           })
-          $('#'+$scope.chartname+'-reset-zoom').click ->
-            graph.resetZoom()
     ]
     restrict: 'E',
     template: '
       <div id="{{chartname}}-chart" style="width: 100%; height: 500px; margin: auto;"></div>
-      <button id="{{chartname}}-reset-zoom">Reset Zoom</button>
+      <a ng-click="graph.resetZoom()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-zoom-out"></span></a>
     '
   }
 )

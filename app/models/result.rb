@@ -2,7 +2,8 @@ class Result < ActiveRecord::Base
   has_and_belongs_to_many :simulations
 
   def self.csv_file_path sim
-    File.join(ENV['HOME'], "/crimson_files/", App.find(1).name.downcase.tr(' ', '_'), sim.job_directory_name, 'results', 'data', 'iterative.csv')
+    filename = App.find(1).iterative ? "iterative.csv" : "transient.csv"
+    File.join(ENV['HOME'], "/crimson_files/", App.find(1).name.downcase.tr(' ', '_'), sim.job_directory_name, 'results', 'data', filename)
   end
 
   def self.csv_data simulations, y_var
@@ -10,6 +11,7 @@ class Result < ActiveRecord::Base
     row_count = 0
     simulations.each do |sim|
       col_data = []
+      row_count = 0
       CSV.foreach(csv_file_path(sim), {headers: true}) do |row|
         row_count += 1
         col_data << row[y_var]

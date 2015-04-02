@@ -17,7 +17,7 @@ controllers.controller("ResultMakerController", [ '$scope', '$routeParams', '$lo
     $scope.plot = ->
       $http.get("graph",params: $scope.graphParams() )
         .success (data) ->
-          graph = new Dygraph(document.getElementById("graph"), data,
+          $scope.graph = new Dygraph(document.getElementById("graph"), data,
           {
             highlightSeriesOpts: {
               showRangeSelector: true # this is not working for some reason
@@ -26,8 +26,6 @@ controllers.controller("ResultMakerController", [ '$scope', '$routeParams', '$lo
               hightlightCirclesSize: 5
             }
           })
-          $('#graph-reset-zoom').click ->
-            graph.resetZoom()
 
     $scope.isSelected = (sim) ->
       return sim.id in selectedSimulationIds

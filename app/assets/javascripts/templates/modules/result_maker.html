@@ -22,10 +22,10 @@
       </table>
     </div>
 
-    <a ng-click="plot()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-repeat"></span></a>
+    <a ng-click="plot()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-refresh"></span></a>
 
   </div>
 </article>
 
 <div id="graph" style="width: 100%; height: 500px; margin: auto;"></div>
-<button id="graph-reset-zoom">Reset Zoom</button>
+<a ng-click="graph.resetZoom()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-zoom-out"></span></a>
