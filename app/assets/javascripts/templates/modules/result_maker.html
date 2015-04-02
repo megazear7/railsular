@@ -7,7 +7,7 @@
 
     <div class="col-md-3">
       <div>Y Axis Variable:</div>
-      <input type="text" ng-model="y_var.val" class="form-control form-custom" />
+      <select ng-options="option as option for option in result_vars" ng-model="y_var.val" class="form-control form-custom" /></select>
     </div>
 
     <div class="col-md-3">

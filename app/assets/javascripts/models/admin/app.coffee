@@ -3,7 +3,7 @@ angular.module('simapp').factory('App', (DataCache,$http,ModelFactory,ObjectFact
   # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (app) ->
     # Add the standard object methods
-    ObjectFactory("apps", app, [], "admin/")
+    ObjectFactory("apps", app, [{has_many: "result_vars"}], "admin/")
 
     # Add the custom object methods
     # None

@@ -22,23 +22,23 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="variable in variables">
-      <td ng-if="!variable.editing">{{variable.name}}</td>
+    <tr ng-repeat="result_var in result_vars">
+      <td ng-if="!result_var.editing">{{result_var.name}}</td>
 
-      <td ng-if="variable.editing"><input type="text" ng-model="variable.name" class="form-control form-custom"></input></td>
+      <td ng-if="result_var.editing"><input type="text" ng-model="result_var.name" class="form-control form-custom"></input></td>
 
-      <td ng-if="!variable.editing">
-        <a ng-click="variable.startEdit()"><span class="glyphicon glyphicon-pencil"></span></a>
-        <a ng-click="delete(variable)"><span class="glyphicon glyphicon-trash"></span></a>
+      <td ng-if="!result_var.editing">
+        <a ng-click="result_var.startEdit()"><span class="glyphicon glyphicon-pencil"></span></a>
+        <a ng-click="delete(result_var)"><span class="glyphicon glyphicon-trash"></span></a>
       </td>
-      <td ng-if="variable.editing"><a ng-click="variable.stopEdit()"><span class="glyphicon glyphicon-ok"></span></a></td>
+      <td ng-if="result_var.editing"><a ng-click="result_var.stopEdit()"><span class="glyphicon glyphicon-ok"></span></a></td>
     </tr>
   </tbody>
 </table>
 <table class="table">
   <tr>
     <td>
-      <a ng-click="create(variable)"><span class="glyphicon glyphicon-plus"></span> Variable</a>
+      <a ng-click="create(result_var)"><span class="glyphicon glyphicon-plus"></span> Variable</a>
     </td>
   </tr>
 </table>

@@ -1,31 +1,20 @@
 controllers = angular.module('controllers')
-controllers.controller("SimulationResultSpecificationController", [ '$scope', '$routeParams', '$location', '$resource', 'JobDescriptor'
-  ($scope,$routeParams,$location,$resource,JobDescriptor)->
+controllers.controller("SimulationResultSpecificationController", [ '$scope', '$routeParams', '$location', '$resource', 'JobDescriptor', 'ResultVar'
+  ($scope,$routeParams,$location,$resource,JobDescriptor,ResultVar)->
     $scope.template = { url: "modules/admin/simulation_result_specification.html" }
 
-    $scope.variables = { }
+    console.log(ResultVar.all())
+    console.log($scope.app)
+    console.log($scope.app.result_vars())
+    $scope.result_vars = $scope.app.result_vars()
 
-    $scope.variables[1] = {
-      name: "abc"
-      id: 1
-      editing: false
-    }
-    $scope.variables[1].startEdit = ->
-      $scope.variables[1].editing = true
-    $scope.variables[1].stopEdit = ->
-      $scope.variables[1].editing = false
+    $scope.delete = (result_var) ->
+      result_var.delete()
+      $scope.result_vars = $scope.app.result_vars()
 
     $scope.create = ->
-      $scope.variables[2] = {
-        id: 2
-        name: ""
-        editing: true
-      }
-      $scope.variables[2].startEdit = ->
-        $scope.variables[2].editing = true
-      $scope.variables[2].stopEdit = ->
-        $scope.variables[2].editing = false
-
-    $scope.delete = (variable) ->
-      delete $scope.variables[variable.id]
+      ResultVar.create({name: "", app_id: $scope.app.id})
+        .then (result_var) ->
+          $scope.result_vars = $scope.app.result_vars()
+          result_var.startEdit()
 ])

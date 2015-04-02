@@ -1,7 +1,11 @@
 controllers = angular.module('controllers')
-controllers.controller("ResultMakerController", [ '$scope', '$routeParams', '$location', '$resource', '$http', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry', 'Result'
-  ($scope,$routeParams,$location,$resource,$http,Project,Simulation,Geometry,AssignedGeometry,Result)->
+controllers.controller("ResultMakerController", [ '$scope', '$routeParams', '$location', '$resource', '$http', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry', 'Result', 'App'
+  ($scope,$routeParams,$location,$resource,$http,Project,Simulation,Geometry,AssignedGeometry,Result,App)->
     $scope.template = { url: "modules/result_maker.html" }
+
+    $scope.result_vars = []
+    angular.forEach App.find(1).result_vars(), (result_var, id) ->
+      $scope.result_vars.push result_var.name
 
     $scope.simulations = $scope.activeProject.simulations()
     $scope.y_var = { val: "" }
