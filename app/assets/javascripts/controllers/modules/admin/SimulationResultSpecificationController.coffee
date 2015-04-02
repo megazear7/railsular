@@ -3,9 +3,6 @@ controllers.controller("SimulationResultSpecificationController", [ '$scope', '$
   ($scope,$routeParams,$location,$resource,JobDescriptor,ResultVar)->
     $scope.template = { url: "modules/admin/simulation_result_specification.html" }
 
-    console.log(ResultVar.all())
-    console.log($scope.app)
-    console.log($scope.app.result_vars())
     $scope.result_vars = $scope.app.result_vars()
 
     $scope.delete = (result_var) ->

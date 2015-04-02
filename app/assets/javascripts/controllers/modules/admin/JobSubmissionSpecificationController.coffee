@@ -3,17 +3,5 @@ controllers.controller("JobSubmissionSpecificationController", [ '$scope', '$rou
   ($scope,$routeParams,$location,$resource,$http,App)->
     $scope.template = { url: "modules/admin/job_submission_specification.html" }
 
-    $scope.editing = false
-
-    $scope.startEditing = ->
-      $scope.editing = true
-
-    $scope.stopEditing = ->
-      $scope.editing = false
-      $http.post("admin/data/update", $scope.app)
-        .error (data) ->
-          alert('server had error saving app overview')
-          $scope.app = data
-
     $scope.app = App.find(1)
 ])

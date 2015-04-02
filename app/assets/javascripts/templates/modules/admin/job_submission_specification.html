@@ -4,10 +4,10 @@
   </header>
   <div class="panel-body">
     <table class="table">
-      <tbody ng-if="!editing">
+      <tbody ng-if="!app.editing">
         <tr>
           <td></td>
-          <td><a ng-click="startEditing()" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a></td>
+          <td><a ng-click="app.startEdit()" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a></td>
         </tr>
         <tr>
           <td>App Name</td>
@@ -30,10 +30,10 @@
           <td>{{app.batch_queue}}</td>
         </tr>
       </tbody>
-      <tbody ng-if="editing">
+      <tbody ng-if="app.editing">
         <tr>
           <td></td>
-          <td><a ng-click="stopEditing()" class="pull-right"><span class="glyphicon glyphicon-ok"></span></a></td>
+          <td><a ng-click="app.stopEdit()" class="pull-right"><span class="glyphicon glyphicon-ok"></span></a></td>
         </tr>
         <tr>
           <td>App Name</td>
