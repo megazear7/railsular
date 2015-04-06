@@ -17,4 +17,7 @@
   <section ng-if="!showResult && resultType.val == 'images'" class="col-md-8">
     <div ng-controller="ImageViewerController"><div ng-include="template.url"></div></div>
   </section>
+  <section ng-if="!showResult && resultType.val == 'movies'" class="col-md-8">
+    <div ng-controller="MovieViewerController"><div ng-include="template.url"></div></div>
+  </section>
 </div>

@@ -11,6 +11,5 @@ controllers.controller("ResultNavController", [ '$scope', '$routeParams', '$loca
           console.log(result)
 
     $scope.setResultType = (type) ->
-      console.log('hello')
       $scope.resultType.val = type
 ])
