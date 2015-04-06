@@ -212,7 +212,7 @@ class Geometry < ActiveRecord::Base
   def add_geometry_files
     Dir.mkdir(File.join(job_directory_path, "geometry"))
 
-    FileUtils.cp self.geo.path, File.join(job_directory_path, "geometry", "geometry_#{self.id}.stl")
+    FileUtils.cp self.geo.path, File.join(job_directory_path, "geometry", geo_file_name)
   end
 
   def submit
