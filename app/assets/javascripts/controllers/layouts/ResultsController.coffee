@@ -8,6 +8,8 @@ controllers.controller("ResultsController", [ '$scope', '$routeParams', '$locati
     $scope.results = Result.all()
     $scope.simulations = $scope.activeProject.simulations_where(status: "Complete")
 
+    $scope.resultType = { val: 'curves' }
+
     if $routeParams.result_id and !isNaN($routeParams.result_id)
       $scope.result = Result.find($routeParams.result_id)
       $scope.showResult = true

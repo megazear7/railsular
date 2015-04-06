@@ -11,7 +11,10 @@
   <section ng-if="showResult" class="col-md-8">
     <div ng-controller="ResultController"><div ng-include="template.url"></div></div>
   </section>
-  <section ng-if="!showResult" class="col-md-8">
+  <section ng-if="!showResult && resultType.val == 'curves'" class="col-md-8">
     <div ng-controller="ResultMakerController"><div ng-include="template.url"></div></div>
+  </section>
+  <section ng-if="!showResult && resultType.val == 'images'" class="col-md-8">
+    <div ng-controller="ImageViewerController"><div ng-include="template.url"></div></div>
   </section>
 </div>

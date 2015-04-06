@@ -5,12 +5,12 @@ controllers.controller("ResultNavController", [ '$scope', '$routeParams', '$loca
 
     $scope.result = Result.find()
 
-    $scope.current = ->
-      $location.path().slice($location.path().lastIndexOf("/")+1)
-
     $scope.addResult = ->
       Result.create()
         .then (result) ->
           console.log(result)
 
+    $scope.setResultType = (type) ->
+      console.log('hello')
+      $scope.resultType.val = type
 ])
