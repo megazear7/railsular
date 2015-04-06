@@ -96,6 +96,10 @@ class Simulation < ActiveRecord::Base
     File.join(ENV['HOME'], "/crimson_files/", App.find(1).name.downcase.tr(' ', '_'), job_directory_name)
   end
 
+  def image_path variable_name, component_direction, view
+    File.join(job_directory_path, "results", "images", variable_name, component_direction, view)
+  end
+
   def rendered_geometry_directory geo
     File.join(geo.job_directory_path, 'geometry')
   end

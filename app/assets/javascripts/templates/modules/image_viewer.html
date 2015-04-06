@@ -4,24 +4,56 @@
   </header>
   <div class="panel-body">
 
-    <div class="col-md-6">
-      <img src="..." alt="image 1" class="img-rounded">
+    <div class="row">
+      <div class="col-md-6">
+        <img src="{{urls[0].url}}" alt="image 1" class="img-rounded" style="width:100%">
+      </div>
+
+      <div class="col-md-6">
+        <img src="{{urls[1].url}}" alt="image 2" class="img-rounded" style="width:100%">
+      </div>
     </div>
 
-    <div class="col-md-6">
-      <img src="..." alt="image 2" class="img-rounded">
+    <br />
+
+    <div class="row">
+      <div class="col-md-6">
+        <img src="{{urls[2].url}}" alt="image 3" class="img-rounded" style="width:100%">
+      </div>
+
+      <div class="col-md-6">
+        <img src="{{urls[3].url}}" alt="image 4" class="img-rounded" style="width:100%">
+      </div>
     </div>
 
-    <div class="col-md-6">
-      <img src="..." alt="image 3" class="img-rounded">
-    </div>
+    <br />
 
-    <div class="col-md-6">
-      <img src="..." alt="image 4" class="img-rounded">
-    </div>
-
-    <div class="col-md-12">
-      Controls and options ...
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-2">
+            <span>Variable Name:</span>
+            <input type="text" ng-model="control.variable_name" class="form-control form-custom" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span>Component Direction:</span>
+            <input type="text" ng-model="control.component_direction" class="form-control form-custom" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <span>View:</span>
+            <input type="text" ng-model="control.view" class="form-control form-custom" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <a ng-click="refresh()" class="btn btn-default">refresh</a>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>

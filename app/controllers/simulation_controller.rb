@@ -1,6 +1,15 @@
+Mime::Type.register "image/png", :png
+
 class SimulationController < ApplicationController
-  before_action :set_simulation, only: [:show, :update, :delete, :run]
+  before_action :set_simulation, only: [:show, :update, :delete, :run, :image]
   skip_before_action :verify_authenticity_token
+
+  def image
+    variable_name = params[:variable_name]
+    component_direction = params[:component_direction]
+    view = params[:view]
+    send_data open(@simulation.image_path(variable_name, component_direction, view) + ".png", "rb") { |f| f.read }
+  end
 
   def attributes
     respond_to do |format|

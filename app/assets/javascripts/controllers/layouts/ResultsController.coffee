@@ -40,4 +40,10 @@ controllers.controller("ResultsController", [ '$scope', '$routeParams', '$locati
         "primary"
       else
         "default"
+
+    $scope.selectedSims = ->
+      sims = {}
+      angular.forEach $scope.selectedSimulationIds, (id) ->
+        sims[id] = Simulation.find(id)
+      sims
 ])

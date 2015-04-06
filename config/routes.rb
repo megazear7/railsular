@@ -1,10 +1,5 @@
 SimApp::Application.routes.draw do
 
-  get "result_var/index"
-  get "result_var/show"
-  get "result_var/create"
-  get "result_var/update"
-  get "result_var/delete"
   scope 'simapp' do
     scope 'admin' do
 
@@ -69,6 +64,7 @@ SimApp::Application.routes.draw do
     get 'simulations' => 'simulation#index', defaults: { format: 'json' }
     get 'simulations/attributes' => 'simulation#attributes', defaults: { format: 'json' }
     get 'simulation/:id' => 'simulation#show', defaults: { format: 'json' }
+    get 'simulation/:id/image' => 'simulation#image', defaults: { format: 'json' }
     post 'simulation/create' => 'simulation#create', defaults: { format: 'json' }
     post 'simulation/:id/update' => 'simulation#update', defaults: { format: 'json' }
     delete 'simulation/:id/delete' => 'simulation#delete', defaults: { format: 'json' }

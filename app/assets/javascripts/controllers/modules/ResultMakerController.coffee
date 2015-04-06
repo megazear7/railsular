@@ -29,9 +29,4 @@ controllers.controller("ResultMakerController", [ '$scope', '$routeParams', '$lo
             }
           })
 
-    $scope.selectedSims = ->
-      sims = {}
-      angular.forEach $scope.selectedSimulationIds, (id) ->
-        sims[id] = Simulation.find(id)
-      sims
 ])
