@@ -23,4 +23,5 @@
 //= require d3/d3.js
 //= require n3-line-chart/build/line-chart.min.js
 //= require dygraphs/dygraph-combined.js
+//= require bootstrap-sass-official/assets/javascripts/bootstrap.min.js
 //= require_tree .

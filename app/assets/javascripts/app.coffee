@@ -105,7 +105,7 @@ simapp.config([ '$routeProvider', 'flashProvider', '$httpProvider',
         templateUrl: "layouts/results.html"
         controller: 'ResultsController'
         resolve: standard_resolve
-      ).when('/projects/:project_id/results/lineplot',
+      ).when('/projects/:project_id/results/curves',
         templateUrl: "layouts/results.html"
         controller: 'ResultsController'
         resolve: standard_resolve

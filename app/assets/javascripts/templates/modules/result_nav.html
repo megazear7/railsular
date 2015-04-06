@@ -9,14 +9,22 @@
     <li role="presentation" class="active"><a>Results</a></li>
   </ul>
   <div class="panel-body">
-    <div class="well">
-      <a ng-click="link('projects/'+activeProject.id+'/results/lineplot')">Line Plot</a>
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropwdownMenu1" data-toggle="dropdown" aria-expanded="true">
+        {{ current() | titlize }}
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation"><a ng-click="link('projects/'+activeProject.id+'/results/curves')" role="menuitem" tabindex="-1">Curves</a></li>
+        <li role="presentation"><a ng-click="link('projects/'+activeProject.id+'/results/images')" role="menuitem" tabindex="-1">Images</a></li>
+        <li role="presentation"><a ng-click="link('projects/'+activeProject.id+'/results/movies')" role="menuitem" tabindex="-1">Movies</a></li>
+      </ul>
     </div>
-    <div class="well">
-      <a ng-click="link('projects/'+activeProject.id+'/results/images')">Images</a>
-    </div>
-    <div class="well">
-      <a ng-click="link('projects/'+activeProject.id+'/results/movies')">Movies</a>
+    <br/>
+    <div class="btn-group-vertical" role="group">
+      <div ng-repeat="sim in simulations" ng-click="addOrRemoveSimulation(sim)" class="btn btn-{{btnType(sim)}}">
+        {{sim.name}}
+      </div>
     </div>
   </div>
 </article>

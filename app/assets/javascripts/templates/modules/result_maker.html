@@ -1,31 +1,44 @@
 <article class="panel panel-info">
   <header class="panel-heading">
-    <h1>Line Plot</h1>
+    <h1>Curves</h1>
   </header>
   <div class="panel-body">
 
+    <div class="col-md-10 well">
+      <div id="graph" style="width: 100%; height: 500px; margin: auto;"></div>
+      <br />
+      <div class="row">
 
-    <div class="col-md-3">
-      <div>Y Axis Variable:</div>
-      <select ng-options="option as option for option in result_vars" ng-model="y_var.val" class="form-control form-custom" /></select>
+        <div class="col-md-3">
+          <select ng-options="option as option for option in result_vars" ng-model="y_var.val" class="form-control form-custom" /></select>
+        </div>
+
+        <div class="col-md-3">
+          <div>Grid</div>
+          <div>Linear</div>
+          <div>Logarithmic</div>
+        </div>
+
+        <div class="col-md-3">
+          <div>Moving Average</div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="btn-group pull-right" role="group">
+            <div ng-click="graph.resetZoom()" class="btn btn-default"><span class="glyphicon glyphicon-zoom-out"></span></div>
+            <div ng-click="plot()" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
-    <div class="col-md-3">
-      <h4>Simulations to Plot:</h4>
-      <table class="table">
-        <tbody>
-          <tr ng-repeat="sim in simulations">
-            <td ng-if="isSelected(sim)"><a ng-click="removeSimulation(sim)" class="btn btn-default pull-left"><span class="glyphicon glyphicon-minus"> {{sim.name}}</span></a></td>
-            <td ng-if="!isSelected(sim)"><a ng-click="addSimulation(sim)" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"> {{sim.name}}</span></a></td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="col-md-2">
+      <h4>Legend:</h4>
+      <div class="btn-group-vertical" role="group">
+        <div ng-repeat="sim in selectedSims()" ng-click="removeSimulation(sim)" class="btn btn-default">{{sim.name}}</div>
+      </div>
     </div>
-
-    <a ng-click="plot()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-refresh"></span></a>
 
   </div>
 </article>
-
-<div id="graph" style="width: 100%; height: 500px; margin: auto;"></div>
-<a ng-click="graph.resetZoom()" class="btn btn-default pull-right"><span class="glyphicon glyphicon-zoom-out"></span></a>

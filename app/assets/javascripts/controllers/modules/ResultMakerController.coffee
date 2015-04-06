@@ -7,14 +7,12 @@ controllers.controller("ResultMakerController", [ '$scope', '$routeParams', '$lo
     angular.forEach App.find(1).result_vars(), (result_var, id) ->
       $scope.result_vars.push result_var.name
 
-    $scope.simulations = $scope.activeProject.simulations_where(status: "Complete")
     $scope.y_var = { val: "" }
 
-    selectedSimulationIds = [ ]
 
     $scope.graphParams = ->
       {
-        simulation_ids: selectedSimulationIds.join()
+        simulation_ids: $scope.selectedSimulationIds.join()
         y_var: $scope.y_var.val
       }
 
@@ -31,14 +29,9 @@ controllers.controller("ResultMakerController", [ '$scope', '$routeParams', '$lo
             }
           })
 
-    $scope.isSelected = (sim) ->
-      return sim.id in selectedSimulationIds
-
-    $scope.removeSimulation = (sim) ->
-      index = selectedSimulationIds.indexOf(sim.id)
-      if (index > -1)
-        selectedSimulationIds.splice(index, 1)
-
-    $scope.addSimulation = (sim) ->
-      selectedSimulationIds.push(sim.id)
+    $scope.selectedSims = ->
+      sims = {}
+      angular.forEach $scope.selectedSimulationIds, (id) ->
+        sims[id] = Simulation.find(id)
+      sims
 ])
