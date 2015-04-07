@@ -18,3 +18,5 @@
 
 # Ignfore the admin data for the app
 .admin_data
+
+pull_changes
