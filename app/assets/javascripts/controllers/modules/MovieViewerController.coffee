@@ -1,6 +1,6 @@
 controllers = angular.module('controllers')
-controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$location', '$resource', '$http', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry', 'Result', 'App', 'ImageData'
-  ($scope,$routeParams,$location,$resource,$http,Project,Simulation,Geometry,AssignedGeometry,Result,App,ImageData)->
+controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$location', '$resource', '$http', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry', 'Result', 'App', 'MovieData'
+  ($scope,$routeParams,$location,$resource,$http,Project,Simulation,Geometry,AssignedGeometry,Result,App,MovieData)->
     $scope.template = { url: "modules/movie_viewer.html" }
 
     baseUrl = "/awesim_dev/rails3/simapp/simulation/<<id>>/image?variable_name=<<variable_name>>&component_direction=<<component_direction>>&view=<<view>>"
@@ -30,13 +30,13 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
 
     $scope.$watchCollection 'selectedSimulationIds', ->
       if $scope.selectedSimulationIds.length > 0
-        ImageData.variableNames($scope.selectedSimulationIds).then (variableNames) ->
+        MovieData.variableNames($scope.selectedSimulationIds).then (variableNames) ->
           $scope.variableNames = variableNames
         if $scope.control.variableName != ""
-          ImageData.componentDirections($scope.selectedSimulationIds, $scope.control.variableName).then (componentDirections) ->
+          MovieData.componentDirections($scope.selectedSimulationIds, $scope.control.variableName).then (componentDirections) ->
             $scope.componentDirections = componentDirections
         if $scope.control.variableName != "" and $scope.control.componentDirection != ""
-          ImageData.views($scope.selectedSimulationIds, $scope.control.variableName, $scope.control.componentDirection).then (views) ->
+          MovieData.views($scope.selectedSimulationIds, $scope.control.variableName, $scope.control.componentDirection).then (views) ->
             $scope.views = views
         $scope.refresh()
 
@@ -53,21 +53,21 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
           $scope.urls[i].sim = { }
 
     if $scope.selectedSimulationIds.length > 0
-      ImageData.variableNames($scope.selectedSimulationIds).then (variableNames) ->
+      MovieData.variableNames($scope.selectedSimulationIds).then (variableNames) ->
         $scope.variableNames = variableNames
 
     $scope.componentDirections = [""]
     $scope.views = [""]
 
     $scope.updateComponentDirections = (variableName) ->
-      ImageData.componentDirections($scope.selectedSimulationIds, variableName).then (componentDirections) ->
+      MovieData.componentDirections($scope.selectedSimulationIds, variableName).then (componentDirections) ->
         $scope.componentDirections = componentDirections
       $scope.control.variableName = variableName
       if $scope.control.componentDirection != ""
         $scope.updateViews(variableName, $scope.control.componentDirection)
 
     $scope.updateViews = (variableName, componentDirection) ->
-      ImageData.views($scope.selectedSimulationIds, variableName, componentDirection).then (views) ->
+      MovieData.views($scope.selectedSimulationIds, variableName, componentDirection).then (views) ->
         $scope.views = views
       $scope.control.componentDirection = componentDirection
       $scope.refresh()

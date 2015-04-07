@@ -104,6 +104,14 @@ class Simulation < ActiveRecord::Base
     File.join(images_path, variable_name, component_direction, view)
   end
 
+  def movies_path
+    File.join(job_directory_path, "results", "movies")
+  end
+
+  def frame_path slice_normal, variable_name, component_direction, frame
+    File.join(movies_path, slice_normal, variable_name, component_direction, (frame-1).to_s.rjust(4, '0') + ".png")
+  end
+
   def rendered_geometry_directory geo
     File.join(geo.job_directory_path, 'geometry')
   end
@@ -274,5 +282,49 @@ class Simulation < ActiveRecord::Base
       view = File.basename(view, ".png")
     end
     views
+  end
+
+  def self.movie_slice_normals simulations
+    lists = [ ]
+    simulations.each do |sim|
+      lists.push Dir.entries(sim.movies_path)
+    end
+    slice_normals = lists.flatten.uniq
+    slice_normals.delete('.')
+    slice_normals.delete('..')
+    slice_normals
+  end
+
+  def self.movie_variable_names simulations, slice_normal
+    lists = [ ]
+    simulations.each do |sim|
+      lists.push Dir.entries(File.join(sim.movies_path, slice_normal))
+    end
+    variable_names = lists.flatten.uniq
+    variable_names.delete('.')
+    variable_names.delete('..')
+    variable_names
+  end
+
+  def self.movie_component_directions simulations, slice_normal, variable_name
+    lists = [ ]
+    simulations.each do |sim|
+      lists.push Dir.entries(File.join(sim.movies_path, slice_normal, variable_name))
+    end
+    component_directions = lists.flatten.uniq
+    component_directions.delete('.')
+    component_directions.delete('..')
+    component_directions
+  end
+
+  def self.movie_frame_count simulations, slice_normal, variable_name, component_direction
+    lists = [ ]
+    simulations.each do |sim|
+      lists.push Dir.entries(File.join(sim.movies_path, slice_normal, variable_name, component_direction))
+    end
+    frames = lists.flatten.uniq
+    frames.delete('.')
+    frames.delete('..')
+    frames.count
   end
 end

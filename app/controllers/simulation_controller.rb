@@ -1,8 +1,59 @@
 Mime::Type.register "image/png", :png
 
 class SimulationController < ApplicationController
-  before_action :set_simulation, only: [:show, :update, :delete, :run, :image]
+  before_action :set_simulation, only: [:show, :update, :delete, :run, :image, :movie_frame]
   skip_before_action :verify_authenticity_token
+
+  def movie_slice_normals
+    simulations = Simulation.where(id: params[:simulation_ids].split(','))
+
+    respond_to do |format|
+      format.json { render json: { slice_normals: Simulation.movie_slice_normals(simulations) } }
+    end
+  end
+
+  def movie_variable_names
+    simulations = Simulation.where(id: params[:simulation_ids].split(','))
+    slice_normal = params[:slice_normal]
+
+    respond_to do |format|
+      format.json { render json: { variable_names: Simulation.movie_variable_names(simulations, slice_normal) } }
+    end
+  end
+
+  def movie_component_directions
+    simulations = Simulation.where(id: params[:simulation_ids].split(','))
+    slice_normal = params[:slice_normal]
+    variable_name = params[:variable_name]
+
+    respond_to do |format|
+      format.json { render json: { component_directions: Simulation.movie_component_directions(simulations, slice_normal, variable_name) } }
+    end
+  end
+
+  def frame_count
+    simulations = Simulation.where(id: params[:simulation_ids].split(','))
+    slice_normal = params[:slice_normal]
+    variable_name = params[:variable_name]
+    component_direction = params[:component_direction]
+
+    respond_to do |format|
+      format.json { render json: { component_directions: Simulation.movie_frame_count(simulations, slice_normal, variable_name, component_direction) } }
+    end
+  end
+
+  def movie_frame
+    slice_normal = params[:slice_normal]
+    variable_name = params[:variable_name]
+    component_direction = params[:component_direction]
+    frame = params[:frame]
+
+    if slice_normal.present? and variable_name.present? and component_direction.present?
+      send_data open(@simulation.frame_path(slice_normal, variable_name, component_direction, frame), "rb") { |f| f.read }
+    else
+      send_data open(File.join(Rails.root, "public", "placeholder.png"), "rb") { |f| f.read }
+    end
+  end
 
   def image_variable_names
     simulations = Simulation.where(id: params[:simulation_ids].split(','))
