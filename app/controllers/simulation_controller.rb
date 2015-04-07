@@ -38,7 +38,7 @@ class SimulationController < ApplicationController
     component_direction = params[:component_direction]
 
     respond_to do |format|
-      format.json { render json: { component_directions: Simulation.movie_frame_count(simulations, slice_normal, variable_name, component_direction) } }
+      format.json { render json: { frame_count: Simulation.movie_frame_count(simulations, slice_normal, variable_name, component_direction) } }
     end
   end
 

@@ -30,10 +30,10 @@ angular.module('simapp').factory('MovieData', ($http,$q) ->
           .success (data) ->
             resolve(data.component_directions)
       )
-    frame_count: (simIds, sliceNormal, variableName, componentDirection) ->
+    frameCount: (simIds, sliceNormal, variableName, componentDirection) ->
       params = {
         simulation_ids: simIds
-        sliceNormal: sliceNormal
+        slice_normal: sliceNormal
         variable_name: variableName
         component_direction: componentDirection
       }

@@ -6,19 +6,19 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
     baseUrl = "/awesim_dev/rails3/simapp/simulation/<<id>>/movie_frame?slice_normal=<<slice_normal>>&variable_name=<<variable_name>>&component_direction=<<component_direction>>&frame=<<frame>>"
     $scope.urls = [
       {
-        url: ""
+        urls: []
         sim: { }
       }
       {
-        url: ""
+        urls: []
         sim: { }
       }
       {
-        url: ""
+        urls: []
         sim: { }
       }
       {
-        url: ""
+        urls: []
         sim: { }
       }
     ]
@@ -27,6 +27,7 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
       variableName: ""
       componentDirection: ""
       frame: 0
+      frameCount: 0
     }
 
     $scope.$watchCollection 'selectedSimulationIds', ->
@@ -42,17 +43,22 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
         $scope.refresh()
 
     $scope.refresh = ->
+      if $scope.control.sliceNormal != "" and $scope.control.variableName != "" and $scope.control.componentDirection != ""
+        MovieData.frameCount($scope.selectedSimulationIds, $scope.control.sliceNormal, $scope.control.variableName, $scope.control.componentDirection).then (frameCount) ->
+          $scope.control.frameCount = frameCount
       for i in [0, 1, 2, 3]
         if $scope.selectedSimulationIds[i]
-          $scope.urls[i].url = baseUrl.replace("<<id>>", $scope.selectedSimulationIds[i])
-            .replace("<<slice_normal>>", $scope.control.sliceNormal)
-            .replace("<<variable_name>>", $scope.control.variableName)
-            .replace("<<component_direction>>", $scope.control.componentDirection)
-            .replace("<<frame>>", 1)
+          for frame in [1..$scope.control.frameCount]
+            $scope.urls[i].urls[frame] = baseUrl.replace("<<id>>", $scope.selectedSimulationIds[i])
+              .replace("<<slice_normal>>", $scope.control.sliceNormal)
+              .replace("<<variable_name>>", $scope.control.variableName)
+              .replace("<<component_direction>>", $scope.control.componentDirection)
+              .replace("<<frame>>", frame)
           $scope.urls[i].sim = Simulation.find($scope.selectedSimulationIds[i])
         else
-          $scope.urls[i].url = ""
+          $scope.urls[i].urls = []
           $scope.urls[i].sim = { }
+      console.log($scope.urls)
 
     if $scope.selectedSimulationIds.length > 0
       MovieData.sliceNormals($scope.selectedSimulationIds).then (sliceNormals) ->
@@ -76,4 +82,15 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
     $scope.updateComponentDirection = (componentDirection) ->
       $scope.control.componentDirection = componentDirection
       $scope.refresh()
+
+
+    $scope.nextFrame = ->
+      $scope.frame = $scope.frame + 1
+
+    $scope.range = (min, max) ->
+      input = []
+      for (i = min; i <= max; i += 1)
+        input.push(i)
+      input
+
 ])
