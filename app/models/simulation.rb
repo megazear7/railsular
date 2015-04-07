@@ -209,7 +209,7 @@ class Simulation < ActiveRecord::Base
     Dir.mkdir(File.join(job_directory_path, "geometry"))
 
     self.geometries.each do |geometry|
-      FileUtils.cp geometry.geo.path, File.join(job_directory_path, "geometry", assigned_geo.geometry.geo_file_name)
+      FileUtils.cp geometry.geo.path, File.join(job_directory_path, "geometry", geometry.geo_file_name)
       Dir.foreach(rendered_geometry_directory(geometry)) do |file|
         next if file == "." or file == ".."
         FileUtils.cp File.join(rendered_geometry_directory(geometry), file), File.join(job_directory_path, "geometry", file)
