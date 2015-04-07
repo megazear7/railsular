@@ -1,6 +1,6 @@
 controllers = angular.module('controllers')
-controllers.controller("ImageViewerController", [ '$scope', '$routeParams', '$location', '$resource', '$http', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry', 'Result', 'App'
-  ($scope,$routeParams,$location,$resource,$http,Project,Simulation,Geometry,AssignedGeometry,Result,App)->
+controllers.controller("ImageViewerController", [ '$scope', '$routeParams', '$location', '$resource', '$http', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry', 'Result', 'App', 'ImageData'
+  ($scope,$routeParams,$location,$resource,$http,Project,Simulation,Geometry,AssignedGeometry,Result,App,ImageData)->
     $scope.template = { url: "modules/image_viewer.html" }
 
     $scope.sim1 = Simulation.find(41)
@@ -44,15 +44,18 @@ controllers.controller("ImageViewerController", [ '$scope', '$routeParams', '$lo
           $scope.urls[i].url = ""
           $scope.urls[i].sim = { }
 
-    $scope.variableNames = ["NormalisedUw", "b", "c"]
-    $scope.componentDirections = ["Mag", "y", "z"]
-    $scope.views = ["plot_all_to_mesh_bottom", "plot_all_to_mesh_bottom_front_left", "plot_all_to_mesh_bottom_front_right"]
+    $scope.variableNames = ImageData.variableNames()
+    $scope.componentDirections = [""]
+    $scope.views = [""]
 
     $scope.updateComponentDirections = (variableName) ->
+      $scope.componentDirections = ImageData.componentDirections(variableName)
       $scope.control.variableName = variableName
-      $scope.refresh()
+      if $scope.control.componentDirection != ""
+        $scope.updateViews(variableName, $scope.control.componentDirection)
 
     $scope.updateViews = (variableName, componentDirection) ->
+      $scope.views = ImageData.views(variableName, componentDirection)
       $scope.control.componentDirection = componentDirection
       $scope.refresh()
 
