@@ -3,58 +3,63 @@
     <h1>Image Viewer</h1>
   </header>
   <div class="panel-body">
-
     <div class="row">
-      <div class="col-md-6">
-        <img src="{{urls[0].url}}" alt="image 1" class="img-rounded" style="width:100%">
+      <div class="col-md-6" ng-if="urls[0].sim.id">
+        <img src="{{urls[0].url}}" alt="{{urls[0].sim.name}}" class="img-rounded" style="width:100%">
       </div>
 
-      <div class="col-md-6">
-        <img src="{{urls[1].url}}" alt="image 2" class="img-rounded" style="width:100%">
+      <div class="col-md-6" ng-if="urls[1].sim.id">
+        <img src="{{urls[1].url}}" alt="{{urls[1].sim.name}}" class="img-rounded" style="width:100%">
       </div>
     </div>
 
     <br />
 
     <div class="row">
-      <div class="col-md-6">
-        <img src="{{urls[2].url}}" alt="image 3" class="img-rounded" style="width:100%">
+      <div class="col-md-6" ng-if="urls[2].sim.id">
+        <img src="{{urls[2].url}}" alt="{{urls[2].sim.name}}" class="img-rounded" style="width:100%">
       </div>
 
-      <div class="col-md-6">
-        <img src="{{urls[3].url}}" alt="image 4" class="img-rounded" style="width:100%">
+      <div class="col-md-6" ng-if="urls[3].sim.id">
+        <img src="{{urls[3].url}}" alt="{{urls[3].sim.name}}" class="img-rounded" style="width:100%">
       </div>
     </div>
 
     <br />
 
     <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-2">
-            <span>Variable Name:</span>
-            <input type="text" ng-model="control.variable_name" class="form-control form-custom" />
+      <div class="col-md-3">
+        <h4>Variable Names:</h4>
+        <div class="btn-group-vertical" role="group">
+          <div ng-repeat="variableName in variableNames"
+            ng-click="updateComponentDirections(variableName)"
+            class="btn btn-{{ variableName == control.variableName ? 'primary' : 'default'}}">
+            {{variableName}}
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-2">
-            <span>Component Direction:</span>
-            <input type="text" ng-model="control.component_direction" class="form-control form-custom" />
+      </div>
+
+      <div class="col-md-3">
+        <h4>Component Directions:</h4>
+        <div class="btn-group-vertical" role="group">
+          <div ng-repeat="componentDirection in componentDirections"
+            ng-click="updateViews(control.variableName, componentDirection)"
+            class="btn btn-{{ componentDirection == control.componentDirection ? 'primary' : 'default'}}">
+            {{componentDirection}}
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-2">
-            <span>View:</span>
-            <input type="text" ng-model="control.view" class="form-control form-custom" />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-2">
-            <a ng-click="refresh()" class="btn btn-default">refresh</a>
+      </div>
+
+      <div class="col-md-3">
+        <h4>Views:</h4>
+        <div class="btn-group-vertical" role="group">
+          <div ng-repeat="view in views"
+            ng-click="updateView(view)"
+            class="btn btn-{{ view == control.view ? 'primary' : 'default'}}">
+            {{view}}
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </article>
