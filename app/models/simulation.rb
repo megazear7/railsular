@@ -96,8 +96,12 @@ class Simulation < ActiveRecord::Base
     File.join(ENV['HOME'], "/crimson_files/", App.find(1).name.downcase.tr(' ', '_'), job_directory_name)
   end
 
+  def images_path
+    File.join(job_directory_path, "results", "images")
+  end
+
   def image_path variable_name, component_direction, view
-    File.join(job_directory_path, "results", "images", variable_name, component_direction, view)
+    File.join(images_path, variable_name, component_direction, view)
   end
 
   def rendered_geometry_directory geo
@@ -237,22 +241,38 @@ class Simulation < ActiveRecord::Base
   end
 
   def self.image_variable_names simulations
-    ["NormalisedUw", "b", "c"]
+    lists = [ ]
+    simulations.each do |sim|
+      lists.push Dir.entries(sim.images_path)
+    end
+    variable_names = lists.flatten.uniq
+    variable_names.delete('.')
+    variable_names.delete('..')
+    variable_names
   end
 
   def self.image_component_directions simulations, variable_name
-    if variable_name == "NormalisedUw"
-      ["Mag", "y", "z"]
-    else
-      ["blah", "test", "again"]
+    lists = [ ]
+    simulations.each do |sim|
+      lists.push Dir.entries(File.join(sim.images_path, variable_name))
     end
+    component_directions = lists.flatten.uniq
+    component_directions.delete('.')
+    component_directions.delete('..')
+    component_directions
   end
 
   def self.image_views simulations, variable_name, component_direction
-    if variable_name == "NormalisedUw" and component_direction = "Mag"
-      ["plot_all_to_mesh_bottom", "plot_all_to_mesh_bottom_front_left", "plot_all_to_mesh_bottom_front_right"]
-    else
-      ["abc", "def", "ghi"]
+    lists = [ ]
+    simulations.each do |sim|
+      lists.push Dir.entries(File.join(sim.images_path, variable_name, component_direction))
     end
+    views = lists.flatten.uniq
+    views.delete('.')
+    views.delete('..')
+    views.map! do |view|
+      view = File.basename(view, ".png")
+    end
+    views
   end
 end
