@@ -26,7 +26,7 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
       sliceNormal: ""
       variableName: ""
       componentDirection: ""
-      frame: 0
+      frame: 1
       frameCount: 0
     }
 
@@ -58,7 +58,6 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
         else
           $scope.urls[i].urls = []
           $scope.urls[i].sim = { }
-      console.log($scope.urls)
 
     if $scope.selectedSimulationIds.length > 0
       MovieData.sliceNormals($scope.selectedSimulationIds).then (sliceNormals) ->
@@ -85,12 +84,13 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
 
 
     $scope.nextFrame = ->
-      $scope.frame = $scope.frame + 1
+      $scope.control.frame = $scope.control.frame + 1
 
     $scope.range = (min, max) ->
       input = []
-      for (i = min; i <= max; i += 1)
+      for i in [min..max]
         input.push(i)
       input
 
+    console.log($scope.range(1, 27))
 ])
