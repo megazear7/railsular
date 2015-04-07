@@ -29,10 +29,21 @@
 
     <div class="row">
       <div class="col-md-3">
+        <h4>Slice Normals:</h4>
+        <div class="btn-group-vertical" role="group">
+          <div ng-repeat="sliceNormal in sliceNormals"
+            ng-click="updateVariableNames(sliceNormal)"
+            class="btn btn-{{ sliceNormal == control.sliceNormal ? 'primary' : 'default'}}">
+            {{sliceNormal | humanize}}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
         <h4>Variable Names:</h4>
         <div class="btn-group-vertical" role="group">
           <div ng-repeat="variableName in variableNames"
-            ng-click="updateComponentDirections(variableName)"
+            ng-click="updateComponentDirections(control.sliceNormal, variableName)"
             class="btn btn-{{ variableName == control.variableName ? 'primary' : 'default'}}">
             {{variableName}}
           </div>
@@ -43,23 +54,14 @@
         <h4>Component Directions:</h4>
         <div class="btn-group-vertical" role="group">
           <div ng-repeat="componentDirection in componentDirections"
-            ng-click="updateViews(control.variableName, componentDirection)"
+            ng-click="updateComponentDirection(componentDirection)"
             class="btn btn-{{ componentDirection == control.componentDirection ? 'primary' : 'default'}}">
             {{componentDirection}}
           </div>
         </div>
       </div>
 
-      <div class="col-md-3">
-        <h4>Views:</h4>
-        <div class="btn-group-vertical" role="group">
-          <div ng-repeat="view in views"
-            ng-click="updateView(view)"
-            class="btn btn-{{ view == control.view ? 'primary' : 'default'}}">
-            {{view | humanize}}
-          </div>
-        </div>
-      </div>
+
     </div>
   </div>
 </article>

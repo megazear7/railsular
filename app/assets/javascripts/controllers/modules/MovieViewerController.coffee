@@ -3,7 +3,7 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
   ($scope,$routeParams,$location,$resource,$http,Project,Simulation,Geometry,AssignedGeometry,Result,App,MovieData)->
     $scope.template = { url: "modules/movie_viewer.html" }
 
-    baseUrl = "/awesim_dev/rails3/simapp/simulation/<<id>>/image?variable_name=<<variable_name>>&component_direction=<<component_direction>>&view=<<view>>"
+    baseUrl = "/awesim_dev/rails3/simapp/simulation/<<id>>/movie_frame?slice_normal=<<slice_normal>>&variable_name=<<variable_name>>&component_direction=<<component_direction>>&frame=<<frame>>"
     $scope.urls = [
       {
         url: ""
@@ -23,56 +23,57 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
       }
     ]
     $scope.control = {
+      sliceNormal: ""
       variableName: ""
       componentDirection: ""
-      view: ""
+      frame: 0
     }
 
     $scope.$watchCollection 'selectedSimulationIds', ->
       if $scope.selectedSimulationIds.length > 0
-        MovieData.variableNames($scope.selectedSimulationIds).then (variableNames) ->
-          $scope.variableNames = variableNames
-        if $scope.control.variableName != ""
-          MovieData.componentDirections($scope.selectedSimulationIds, $scope.control.variableName).then (componentDirections) ->
+        MovieData.sliceNormals($scope.selectedSimulationIds).then (sliceNormals) ->
+          $scope.sliceNormals = sliceNormals
+        if $scope.control.sliceNormal != ""
+          MovieData.variableNames($scope.selectedSimulationIds, $scope.sliceNormal).then (variableNames) ->
+            $scope.variableNames = variableNames
+        if $scope.control.sliceNormal != "" and $scope.control.variableName != ""
+          MovieData.componentDirections($scope.selectedSimulationIds, $scope.sliceNormal, $scope.control.variableName).then (componentDirections) ->
             $scope.componentDirections = componentDirections
-        if $scope.control.variableName != "" and $scope.control.componentDirection != ""
-          MovieData.views($scope.selectedSimulationIds, $scope.control.variableName, $scope.control.componentDirection).then (views) ->
-            $scope.views = views
         $scope.refresh()
 
     $scope.refresh = ->
       for i in [0, 1, 2, 3]
         if $scope.selectedSimulationIds[i]
           $scope.urls[i].url = baseUrl.replace("<<id>>", $scope.selectedSimulationIds[i])
+            .replace("<<slice_normal>>", $scope.control.sliceNormal)
             .replace("<<variable_name>>", $scope.control.variableName)
             .replace("<<component_direction>>", $scope.control.componentDirection)
-            .replace("<<view>>", $scope.control.view)
+            .replace("<<frame>>", 1)
           $scope.urls[i].sim = Simulation.find($scope.selectedSimulationIds[i])
         else
           $scope.urls[i].url = ""
           $scope.urls[i].sim = { }
 
     if $scope.selectedSimulationIds.length > 0
-      MovieData.variableNames($scope.selectedSimulationIds).then (variableNames) ->
+      MovieData.sliceNormals($scope.selectedSimulationIds).then (sliceNormals) ->
+        $scope.sliceNormals = sliceNormals
+
+    $scope.variableNames = []
+    $scope.componentDirections = []
+    $scope.views = []
+
+    $scope.updateVariableNames = (sliceNormal) ->
+      MovieData.variableNames($scope.selectedSimulationIds, sliceNormal).then (variableNames) ->
         $scope.variableNames = variableNames
-
-    $scope.componentDirections = [""]
-    $scope.views = [""]
-
-    $scope.updateComponentDirections = (variableName) ->
-      MovieData.componentDirections($scope.selectedSimulationIds, variableName).then (componentDirections) ->
-        $scope.componentDirections = componentDirections
-      $scope.control.variableName = variableName
-      if $scope.control.componentDirection != ""
-        $scope.updateViews(variableName, $scope.control.componentDirection)
-
-    $scope.updateViews = (variableName, componentDirection) ->
-      MovieData.views($scope.selectedSimulationIds, variableName, componentDirection).then (views) ->
-        $scope.views = views
-      $scope.control.componentDirection = componentDirection
+      $scope.control.sliceNormal = sliceNormal
       $scope.refresh()
 
-    $scope.updateView = (view) ->
-      $scope.control.view = view
+    $scope.updateComponentDirections = (sliceNormal, variableName) ->
+      MovieData.componentDirections($scope.selectedSimulationIds, sliceNormal, variableName).then (componentDirections) ->
+        $scope.componentDirections = componentDirections
+      $scope.control.variableName = variableName
+
+    $scope.updateComponentDirection = (componentDirection) ->
+      $scope.control.componentDirection = componentDirection
       $scope.refresh()
 ])

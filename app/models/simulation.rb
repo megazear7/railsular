@@ -109,7 +109,7 @@ class Simulation < ActiveRecord::Base
   end
 
   def frame_path slice_normal, variable_name, component_direction, frame
-    File.join(movies_path, slice_normal, variable_name, component_direction, (frame-1).to_s.rjust(4, '0') + ".png")
+    File.join(movies_path, slice_normal, variable_name, component_direction, (frame.to_i-1).to_s.rjust(4, '0') + ".png")
   end
 
   def rendered_geometry_directory geo
