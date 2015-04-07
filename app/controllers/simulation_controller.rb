@@ -4,6 +4,33 @@ class SimulationController < ApplicationController
   before_action :set_simulation, only: [:show, :update, :delete, :run, :image]
   skip_before_action :verify_authenticity_token
 
+  def image_variable_names
+    simulations = Simulation.where(id: params[:simulation_ids].split(','))
+
+    respond_to do |format|
+      format.json { render json: { variable_names: Simulation.image_variable_names(simulations) } }
+    end
+  end
+
+  def image_component_directions
+    simulations = Simulation.where(id: params[:simulation_ids].split(','))
+    variable_name = params[:variable_name]
+
+    respond_to do |format|
+      format.json { render json: { component_directions: Simulation.image_component_directions(simulations, variable_name) } }
+    end
+  end
+
+  def image_views
+    simulations = Simulation.where(id: params[:simulation_ids].split(','))
+    variable_name = params[:variable_name]
+    component_direction = params[:component_direction]
+
+    respond_to do |format|
+      format.json { render json: { views: Simulation.image_views(simulations, variable_name, component_direction) } }
+    end
+  end
+
   def image
     variable_name = params[:variable_name]
     component_direction = params[:component_direction]

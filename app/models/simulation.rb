@@ -235,4 +235,24 @@ class Simulation < ActiveRecord::Base
       job.save
     end
   end
+
+  def self.image_variable_names simulations
+    ["NormalisedUw", "b", "c"]
+  end
+
+  def self.image_component_directions simulations, variable_name
+    if variable_name == "NormalisedUw"
+      ["Mag", "y", "z"]
+    else
+      ["blah", "test", "again"]
+    end
+  end
+
+  def self.image_views simulations, variable_name, component_direction
+    if variable_name == "NormalisedUw" and component_direction = "Mag"
+      ["plot_all_to_mesh_bottom", "plot_all_to_mesh_bottom_front_left", "plot_all_to_mesh_bottom_front_right"]
+    else
+      ["abc", "def", "ghi"]
+    end
+  end
 end

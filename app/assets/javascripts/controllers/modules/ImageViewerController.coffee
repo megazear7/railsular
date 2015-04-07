@@ -30,7 +30,16 @@ controllers.controller("ImageViewerController", [ '$scope', '$routeParams', '$lo
     }
 
     $scope.$watchCollection 'selectedSimulationIds', ->
-      $scope.refresh()
+      if $scope.selectedSimulationIds.length > 0
+        ImageData.variableNames($scope.selectedSimulationIds).then (variableNames) ->
+          $scope.variableNames = variableNames
+        if $scope.control.variableName != ""
+          ImageData.componentDirections($scope.selectedSimulationIds, $scope.control.variableName).then (componentDirections) ->
+            $scope.componentDirections = componentDirections
+        if $scope.control.variableName != "" and $scope.control.componentDirection != ""
+          ImageData.views($scope.selectedSimulationIds, $scope.control.variableName, $scope.control.componentDirection).then (views) ->
+            $scope.views = views
+        $scope.refresh()
 
     $scope.refresh = ->
       for i in [0, 1, 2, 3]
@@ -44,18 +53,23 @@ controllers.controller("ImageViewerController", [ '$scope', '$routeParams', '$lo
           $scope.urls[i].url = ""
           $scope.urls[i].sim = { }
 
-    $scope.variableNames = ImageData.variableNames()
+    if $scope.selectedSimulationIds.length > 0
+      ImageData.variableNames($scope.selectedSimulationIds).then (variableNames) ->
+        $scope.variableNames = variableNames
+
     $scope.componentDirections = [""]
     $scope.views = [""]
 
     $scope.updateComponentDirections = (variableName) ->
-      $scope.componentDirections = ImageData.componentDirections(variableName)
+      ImageData.componentDirections($scope.selectedSimulationIds, variableName).then (componentDirections) ->
+        $scope.componentDirections = componentDirections
       $scope.control.variableName = variableName
       if $scope.control.componentDirection != ""
         $scope.updateViews(variableName, $scope.control.componentDirection)
 
     $scope.updateViews = (variableName, componentDirection) ->
-      $scope.views = ImageData.views(variableName, componentDirection)
+      ImageData.views($scope.selectedSimulationIds, variableName, componentDirection).then (views) ->
+        $scope.views = views
       $scope.control.componentDirection = componentDirection
       $scope.refresh()
 

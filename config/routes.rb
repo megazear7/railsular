@@ -61,6 +61,9 @@ SimApp::Application.routes.draw do
     post 'assigned_geometry/:id/update' => 'assigned_geo#update', defaults: { format: 'json' }
     delete 'assigned_geometry/:id/delete' => 'assigned_geo#delete', defaults: { format: 'json' }
 
+    get 'simulations/variable_names' => 'simulation#image_variable_names', defaults: { format: 'json' }
+    get 'simulations/component_directions' => 'simulation#image_component_directions', defaults: { format: 'json' }
+    get 'simulations/views' => 'simulation#image_views', defaults: { format: 'json' }
     get 'simulations' => 'simulation#index', defaults: { format: 'json' }
     get 'simulations/attributes' => 'simulation#attributes', defaults: { format: 'json' }
     get 'simulation/:id' => 'simulation#show', defaults: { format: 'json' }
