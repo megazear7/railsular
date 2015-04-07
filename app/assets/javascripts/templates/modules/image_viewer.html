@@ -56,7 +56,7 @@
           <div ng-repeat="view in views"
             ng-click="updateView(view)"
             class="btn btn-{{ view == control.view ? 'primary' : 'default'}}">
-            {{view}}
+            {{view | humanize}}
           </div>
         </div>
       </div>

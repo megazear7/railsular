@@ -11,7 +11,7 @@ angular.module('simapp')
 )
 .filter('humanize', ->
   (str) ->
-    str = str.replace("_", " ")
+    str = str.replace(/_/g, " ")
     # capitalize each word:
     str.replace(/\w\S*/g, (txt) ->
       txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
