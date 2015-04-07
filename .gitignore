@@ -20,4 +20,4 @@
 .admin_data
 
 pull_changes
-deploy.rb
+deploy
