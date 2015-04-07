@@ -35,7 +35,11 @@ class SimulationController < ApplicationController
     variable_name = params[:variable_name]
     component_direction = params[:component_direction]
     view = params[:view]
-    send_data open(@simulation.image_path(variable_name, component_direction, view) + ".png", "rb") { |f| f.read }
+    if variable_name.present? and component_direction.present? and view.present?
+      send_data open(@simulation.image_path(variable_name, component_direction, view) + ".png", "rb") { |f| f.read }
+    else
+      send_data open(File.join(Rails.root, "public", "placeholder.png"), "rb") { |f| f.read }
+    end
   end
 
   def attributes
