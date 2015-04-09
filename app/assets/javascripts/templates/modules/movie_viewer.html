@@ -4,31 +4,13 @@
   </header>
   <div class="panel-body">
     <div class="row">
-      <div ng-repeat="f in range(1, control.frameCount)">
-        <div class="col-md-6" ng-if="urls[0].sim.id && f == control.frame">
-          <img ng-src="{{urls[0].urls[f]}}" alt="{{urls[0].sim.name}}" class="img-rounded image-{{ updating.val ? 'dont-show' : 'show'}}" style="width:100%">
-        </div>
-      </div>
-
-      <div ng-repeat="f in range(1, control.frameCount)">
-        <div class="col-md-6" ng-if="urls[1].sim.id && f == control.frame">
-          <img ng-src="{{urls[1].urls[f]}}" alt="{{urls[1].sim.name}}" class="img-rounded image-{{ updating.val ? 'dont-show' : 'show'}}" style="width:100%">
-        </div>
-      </div>
-    </div>
-
-    <br />
-
-    <div class="row">
-      <div ng-repeat="f in range(1, control.frameCount)">
-        <div class="col-md-6" ng-if="urls[2].sim.id && f == control.frame">
-          <img ng-src="{{urls[2].urls[f]}}" alt="{{urls[2].sim.name}}" class="img-rounded image-{{ updating.val ? 'dont-show' : 'show'}}" style="width:100%">
-        </div>
-      </div>
-
-      <div ng-repeat="f in range(1, control.frameCount)">
-        <div class="col-md-6" ng-if="urls[3].sim.id && f == control.frame">
-          <img ng-src="{{urls[3].urls[f]}}" alt="{{urls[3].sim.name}}" class="img-rounded image-{{ updating.val ? 'dont-show' : 'show'}}" style="width:100%">
+      <div ng-repeat="index in [0, 1, 2, 3]">
+        <div ng-repeat="f in range(1, control.frameCount)">
+          <div class="col-md-6" ng-if="urls[index].sim.id && f == control.frame">
+            <div>
+              <img ng-src="{{urls[index].urls[f]}}" alt="{{urls[index].sim.name}}" class="img-rounded frame-{{ updating.val ? 'dont-show' : 'show'}}" style="width:100%">
+            </div>
+          </div>
         </div>
       </div>
     </div>

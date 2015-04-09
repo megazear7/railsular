@@ -27,6 +27,7 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
         sim: { }
       }
     ]
+
     $scope.control = {
       sliceNormal: ""
       variableName: ""
@@ -67,7 +68,7 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
               $scope.urls[i].sim = { }
           # this interval here cycles through all of the images and loades them in so that they get cached by the browser. The images
           # are hidden during this time because updating.val is true. In this way the user doesn't see the images flashing.
-          $interval($scope.nextFrame, 100, $scope.control.frameCount)
+          $interval($scope.nextFrame, 20, $scope.control.frameCount)
             .then ->
               $scope.updating.val = false
 
