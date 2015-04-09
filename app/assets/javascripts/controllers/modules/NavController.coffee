@@ -25,9 +25,9 @@ controllers.controller("NavController", [ '$scope', '$routeParams', '$location',
 
     $scope.openMenu = ->
       menuLeft = document.getElementById('cbp-spmenu-s1')
-      classie.toggle(menuLeft, 'cbp-spmenu-open')
+      classie.add(menuLeft, 'cbp-spmenu-open')
 
     $scope.closeMenu = ->
       menuLeft = document.getElementById('cbp-spmenu-s1')
-      classie.toggle(menuLeft, 'cbp-spmenu-open')
+      classie.remove(menuLeft, 'cbp-spmenu-open')
 ])
