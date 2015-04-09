@@ -1,6 +1,6 @@
 <article class="panel panel-info">
   <header class="panel-heading">
-    <h1>Curves <span class="icon-spin icon-refresh"></span></h1>
+    <h1>Curves <span ng-if="updating.val" class="glyphicon glyphicon-refresh animate-spin"></span></h1>
   </header>
   <div class="panel-body">
 
@@ -26,7 +26,6 @@
         <div class="col-md-3">
           <div class="btn-group pull-right" role="group">
             <div ng-click="graph.resetZoom()" class="btn btn-default"><span class="glyphicon glyphicon-zoom-out"></span></div>
-            <div ng-click="plot()" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></div>
           </div>
         </div>
 

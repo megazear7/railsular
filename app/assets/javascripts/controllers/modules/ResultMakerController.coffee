@@ -3,12 +3,21 @@ controllers.controller("ResultMakerController", [ '$scope', '$routeParams', '$lo
   ($scope,$routeParams,$location,$resource,$http,Project,Simulation,Geometry,AssignedGeometry,Result,App)->
     $scope.template = { url: "modules/result_maker.html" }
 
+    $scope.updating = {
+      val: false
+    }
+
     $scope.result_vars = []
     angular.forEach App.find(1).result_vars(), (result_var, id) ->
       $scope.result_vars.push result_var.name
 
     $scope.y_var = { val: "" }
 
+    $scope.$watchCollection 'selectedSimulationIds', ->
+      $scope.plot()
+
+    $scope.$watch 'y_var.val', ->
+      $scope.plot()
 
     $scope.graphParams = ->
       {
@@ -17,6 +26,7 @@ controllers.controller("ResultMakerController", [ '$scope', '$routeParams', '$lo
       }
 
     $scope.plot = ->
+      $scope.updating.val = true
       $http.get("graph",params: $scope.graphParams() )
         .success (data) ->
           $scope.graph = new Dygraph(document.getElementById("graph"), data,
@@ -28,5 +38,5 @@ controllers.controller("ResultMakerController", [ '$scope', '$routeParams', '$lo
               hightlightCirclesSize: 5
             }
           })
-
+          $scope.updating.val = false
 ])
