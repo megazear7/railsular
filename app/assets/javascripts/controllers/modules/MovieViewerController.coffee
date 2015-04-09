@@ -4,6 +4,11 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
     $scope.template = { url: "modules/movie_viewer.html" }
 
     baseUrl = "/awesim_dev/rails3/simapp/simulation/<<id>>/movie_frame?slice_normal=<<slice_normal>>&variable_name=<<variable_name>>&component_direction=<<component_direction>>&frame=<<frame>>"
+
+    $scope.updating = {
+      val: false
+    }
+
     $scope.urls = [
       {
         urls: []
@@ -44,6 +49,7 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
 
     $scope.refresh = ->
       if $scope.control.sliceNormal != "" and $scope.control.variableName != "" and $scope.control.componentDirection != ""
+        $scope.updating.val = true
         MovieData.frameCount($scope.selectedSimulationIds, $scope.control.sliceNormal, $scope.control.variableName, $scope.control.componentDirection).then (frameCount) ->
           $scope.control.frameCount = frameCount
           for i in [0, 1, 2, 3]
@@ -58,6 +64,11 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
             else
               $scope.urls[i].urls = []
               $scope.urls[i].sim = { }
+          # this interval here cycles through all of the images and loades them in so that they get cached by the browser. The images
+          # are hidden during this time because updating.val is true. In this way the user doesn't see the images flashing.
+          $interval($scope.nextFrame, 100, $scope.control.frameCount)
+            .then ->
+              $scope.updating.val = false
 
     if $scope.selectedSimulationIds.length > 0
       MovieData.sliceNormals($scope.selectedSimulationIds).then (sliceNormals) ->
