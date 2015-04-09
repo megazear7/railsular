@@ -13,6 +13,9 @@ controllers.controller("ProjectController", [ '$scope', '$routeParams', '$locati
     $scope.displayGeoNav = $location.path().indexOf("geometries") > -1
     $scope.displayResNav = $location.path().indexOf("results") > -1
 
+    if not $scope.displaySimNav && not $scope.displayGeoNav && not $scope.displayResNav
+      $scope.displaySimNav = true
+
     $scope.delete = ->
       $scope.activeProject.delete()
       $location.path("projects/")

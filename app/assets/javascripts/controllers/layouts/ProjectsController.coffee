@@ -4,4 +4,5 @@ controllers.controller("ProjectsController", [ '$scope', '$routeParams', '$locat
     $scope.link = (url) -> $location.path("/#{url}")
 
     $scope.projects = Project.all()
+    $scope.shouldOpenMenu = true
 ])
