@@ -69,3 +69,11 @@ input.form-header {
 .image-dont-show {
   height: 0px
 }
+
+.progress .no-animation {
+  -webkit-transition: none;
+  -moz-transition: none;
+  -ms-transition: none;
+  -o-transition: none;
+  transition: none;
+}

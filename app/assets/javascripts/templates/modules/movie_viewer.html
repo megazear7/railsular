@@ -35,14 +35,32 @@
 
     <br />
     {{ control.frame }} / {{ control.frameCount }} 
-    <div class="btn-group">
-      <button class="btn btn-default" ng-click="previousFrame()"><span class="glyphicon glyphicon-step-backward"></span></button> 
-      <button class="btn btn-default" ng-click="fastBack()"><span class="glyphicon glyphicon-fast-backward"></span></button> 
-      <button class="btn btn-default" ng-click="play()"><span class="glyphicon glyphicon-play"></span></button>
-      <button class="btn btn-default" ng-click="pause()"><span class="glyphicon glyphicon-pause"></span></button>
-      <button class="btn btn-default" ng-click="stop()"><span class="glyphicon glyphicon-stop"></span></button>
-      <button class="btn btn-default" ng-click="fastForward()"><span class="glyphicon glyphicon-fast-forward"></span></button> 
-      <button class="btn btn-default" ng-click="nextFrame()"><span class="glyphicon glyphicon-step-forward"></span></button> 
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="progress">
+          <div class="progress-bar no-animation" role="progressbar" 
+            aria-valuenow="{{control.frame}}" aria-valuemin="0" 
+            aria-valuemax="{{control.frameCount}}" style="width: {{(control.frame / control.frameCount) * 100 | number}}%">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="btn-group">
+          <button class="btn btn-default" ng-click="previousFrame()"><span class="glyphicon glyphicon-step-backward"></span></button> 
+          <button class="btn btn-default" ng-click="fastBack()"><span class="glyphicon glyphicon-fast-backward"></span></button> 
+          <button class="btn btn-default" ng-click="play()"><span class="glyphicon glyphicon-play"></span></button>
+          <button class="btn btn-default" ng-click="pause()"><span class="glyphicon glyphicon-pause"></span></button>
+          <button class="btn btn-default" ng-click="stop()"><span class="glyphicon glyphicon-stop"></span></button>
+          <button class="btn btn-default" ng-click="fastForward()"><span class="glyphicon glyphicon-fast-forward"></span></button> 
+          <button class="btn btn-default" ng-click="nextFrame()"><span class="glyphicon glyphicon-step-forward"></span></button> 
+        </div>
+        <span>Play Speed:</span>
+        <input type="text" ng-model="control.playspeed" class="form-control form-custom form-header" />
+      </div>
     </div>
 
     <div class="row">

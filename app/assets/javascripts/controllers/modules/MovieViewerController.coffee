@@ -32,7 +32,8 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
       variableName: ""
       componentDirection: ""
       frame: 1
-      frameCount: 0
+      frameCount: 1
+      playspeed: 100
     }
 
     $scope.$watchCollection 'selectedSimulationIds', ->
@@ -110,7 +111,7 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
         $scope.control.frame = $scope.control.frameCount
 
     $scope.play = ->
-      promise = $interval($scope.nextFrame, 100, $scope.control.frameCount)
+      promise = $interval($scope.nextFrame, $scope.control.playspeed, $scope.control.frameCount-1)
       $scope.pause = ->
         $interval.cancel(promise)
       $scope.stop = ->
