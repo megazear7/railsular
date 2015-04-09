@@ -24,8 +24,9 @@ controllers.controller("GeometryController", [ '$scope', '$routeParams', '$locat
       promise = $scope.geometry.save()
       promise.then ->
         $http.post("geometry/#{$scope.geometry.id}/run")
-          .error (data) ->
-            console.log("error running simulation")
+          .success ->
+            $scope.geometry.refreshStatus()
+
 
     $scope.report = ->
       alert("Reporting Geometry...")

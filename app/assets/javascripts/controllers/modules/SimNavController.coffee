@@ -7,7 +7,7 @@ controllers.controller("SimNavController", [ '$scope', '$routeParams', '$locatio
       promise = Simulation.create(
         {
           name: "Name"
-          description: "Description"
+          description: ""
           project_id: $scope.activeProject.id
           status: "New"
           measurement_scale: ""

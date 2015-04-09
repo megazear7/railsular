@@ -26,17 +26,18 @@ controllers.controller("ResultMakerController", [ '$scope', '$routeParams', '$lo
       }
 
     $scope.plot = ->
-      $scope.updating.val = true
-      $http.get("graph",params: $scope.graphParams() )
-        .success (data) ->
-          $scope.graph = new Dygraph(document.getElementById("graph"), data,
-          {
-            highlightSeriesOpts: {
-              showRangeSelector: true # this is not working for some reason
-              strokeWidth: 2
-              strokeBorderWidth: 1
-              hightlightCirclesSize: 5
-            }
-          })
-          $scope.updating.val = false
+      if $scope.y_var.val != ""
+        $scope.updating.val = true
+        $http.get("graph",params: $scope.graphParams() )
+          .success (data) ->
+            $scope.graph = new Dygraph(document.getElementById("graph"), data,
+            {
+              highlightSeriesOpts: {
+                showRangeSelector: true # this is not working for some reason
+                strokeWidth: 2
+                strokeBorderWidth: 1
+                hightlightCirclesSize: 5
+              }
+            })
+            $scope.updating.val = false
 ])

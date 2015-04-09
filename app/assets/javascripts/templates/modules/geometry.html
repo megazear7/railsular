@@ -22,12 +22,15 @@
       <div>{{geometry.description}}</div>
     </div>
     <div ng-if="geometry.editing">
-      <p><textarea type="text" ng-model="geometry.description" class="form-control form-custom" /></p>
+      <p><textarea type="text" ng-model="geometry.description" class="form-control form-custom" placeholder="Description" /></p>
     </div>
     <br />
     <div class="row">
       <div class="col-md-12">
-        <div ng-if="!(geometry.editing && !geometry.final)">{{geometry.geo_file_name}}</div>
+        <div ng-if="!(geometry.editing && !geometry.final)">
+          <span class="glyphicon glyphicon-file"></span>
+          {{geometry.geo_file_name}}
+        </div>
         <div ng-if="geometry.editing && !geometry.final"><sa-geometry-upload text="geometry.geo_file_name" id="geometry.id"></sa-geometry-upload></div>
       </div>
     </div>

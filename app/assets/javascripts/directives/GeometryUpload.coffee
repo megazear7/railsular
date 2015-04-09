@@ -36,6 +36,7 @@ angular.module('simapp').directive('saGeometryUpload', ->
     restrict: 'E',
     template: '
         <span class="btn btn-default btn-file">
+          <span class="glyphicon glyphicon-file"></span>
           <span class="upload-file-text">
             {{text}}
           </span>
