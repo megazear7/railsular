@@ -13,14 +13,16 @@ controllers.controller("ProjectsController", [ '$scope', '$routeParams', '$locat
     yMax = 0
     angular.forEach $scope.projects, (project) ->
       projectArray.push project
-      y = 0
+      sims = 0
+      geos = 0
       angular.forEach project.simulations(), ->
-        y++
+        sims++
       angular.forEach project.geometries(), ->
-        y++
+        geos++
+      y = sims + geos
       if y > yMax
         yMax = y
-      $scope.data.push { x: counter, value: y }
+      $scope.data.push { x: counter, size: y, sims: sims, geos: geos }
       counter++
 
     projectCount = projectArray.length
@@ -47,7 +49,9 @@ controllers.controller("ProjectsController", [ '$scope', '$routeParams', '$locat
         }
       }
       series: [
-        {y: 'value', color: 'steelblue', type: 'column', label: 'Project Complexity'}
+        {y: 'size', color: '#3F5D7D', type: 'column', label: 'Project Complexity'}
+        {y: 'sims', color: '#279B61', type: 'column', label: 'Simulation Count'}
+        {y: 'geos', color: '#008AB8', type: 'column', label: 'Geometry Count'}
       ],
       stacks: [],
       lineMode: 'linear',
@@ -55,7 +59,7 @@ controllers.controller("ProjectsController", [ '$scope', '$routeParams', '$locat
       tooltip: {
         mode: 'scrubber'
         formatter: (x, y, series) ->
-          return 'size'
+          return "#{series.label}: #{y}"
       },
       drawDots: true,
       columnsHGap: 5
