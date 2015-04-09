@@ -56,8 +56,8 @@ controllers.controller("ImageViewerController", [ '$scope', '$routeParams', '$lo
       ImageData.variableNames($scope.selectedSimulationIds).then (variableNames) ->
         $scope.variableNames = variableNames
 
-    $scope.componentDirections = [""]
-    $scope.views = [""]
+    $scope.componentDirections = []
+    $scope.views = []
 
     $scope.updateComponentDirections = (variableName) ->
       ImageData.componentDirections($scope.selectedSimulationIds, variableName).then (componentDirections) ->
