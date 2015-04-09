@@ -32,7 +32,10 @@
     <div class="col-md-2">
       <h4>Legend:</h4>
       <div class="btn-group-vertical" role="group">
-        <div ng-repeat="sim in selectedSims()" ng-click="removeSimulation(sim)" class="btn btn-default">{{sim.name}}</div>
+        <div ng-repeat="sim in selectedSims()" ng-click="removeSimulation(sim)" class="btn btn-default" style="color: {{graph.getPropertiesForSeries(sim.name).color}}">
+          {{sim.name}}
+          <span class="glyphicon glyphicon-certificate" style="color: {{graph.getPropertiesForSeries(sim.name).color}}"></span>
+        </div>
       </div>
     </div>
   </div>
