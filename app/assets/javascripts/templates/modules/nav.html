@@ -1,6 +1,23 @@
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1" style="z-index: 10001">
-  <a ng-click="closeMenu($event)"><span class="glyphicon glyphicon-list"></span></a><h3>Projects</h3>
-  <span ng-repeat="project in projects" ng-if="!project.editing"><a ng-click="link('projects/' + project.id + '/simulations')">{{project.name}}</a></span>
+  <a ng-click="closeMenu($event)"><span class="glyphicon glyphicon-list"></span></a>
+  <h3 ng-click="link('projects')" style="cursor:pointer">Projects</h3>
+  <a ng-repeat="project in projects" ng-if="!project.editing" ng-mouseenter="project.hovering = true" ng-mouseleave="project.hovering = false; project.expanded = false">
+    <span ng-click="link('projects/' + project.id + '/simulations')">{{project.name}}</span>
+    <span ng-if="!project.expanded && project.hovering" ng-click="project.expanded = true" class="pull-right"><span class="glyphicon glyphicon-save"></span></span>
+    <span ng-if="project.expanded && project.hovering" ng-click="project.expanded = false" class="pull-right"><span class="glyphicon glyphicon-open"></span></span>
+    <p ng-if="project.expanded">
+      <br><br>
+      {{project.description}}
+    </p>
+  </a>
+  <span ng-repeat="project in projects" ng-if="project.editing">
+    <div style="margin:10px">
+      <input type="text" ng-model="project.name" class="form-control form-custom" />
+      <br><br>
+      <textarea ng-model="project.description" class="form-control" placeholder="Description" />
+    </div>
+    <a ng-click="project.stopEdit()"><span class="glyphicon glyphicon-ok"></span></a>
+  </span>
   <a ng-click="addProject()"><span class="glyphicon glyphicon-plus"></span></a>
 </nav>
 
@@ -14,7 +31,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a class="navbar-brand" ng-click="link('projects')" ng-if="!activeProject">No Project Selected</a></li>
-        <li><a class="navbar-brand" ng-click="link('projects/'+activeProject.id)" ng-if="activeProject">{{activeProject.name}}</a></li>
+        <li><a class="navbar-brand" ng-click="link('projects/'+activeProject.id+'/simulations')" ng-if="activeProject">{{activeProject.name}}</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="navbar-brand">{{app_name}}</li>
