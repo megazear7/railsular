@@ -53,7 +53,11 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
       $location.path("projects/"+$scope.activeProject.id+"/simulations/")
 
     $scope.report = ->
-      alert("Reporting Simulation...")
+      $http.get("simulation/#{$scope.simulation.id}/report")
+        .success ->
+          alert("Reporting Simulation...")
+        .error ->
+          alert("ERROR!")
 
     $scope.startEdit = ->
       $scope.simulation.startEdit()

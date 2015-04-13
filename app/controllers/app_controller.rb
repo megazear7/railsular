@@ -52,6 +52,6 @@ class AppController < ApplicationController
     end
 
     def app_params
-      params.permit(:name, :app_hex_code, :test, :app_bin, :batch_queue, :iterative)
+      params.permit(:name, :email, :app_hex_code, :test, :app_bin, :batch_queue, :iterative)
     end
 end

@@ -1,7 +1,7 @@
 Mime::Type.register "image/png", :png
 
 class SimulationController < ApplicationController
-  before_action :set_simulation, only: [:show, :update, :delete, :run, :image, :movie_frame]
+  before_action :set_simulation, only: [:show, :update, :delete, :run, :image, :movie_frame, :report]
   skip_before_action :verify_authenticity_token
 
   def movie_slice_normals
@@ -131,6 +131,17 @@ class SimulationController < ApplicationController
       else
         format.json { render json: { message: 'project doesnt exist' }, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def report
+    subject = "Report from #{App.find(1).name} about the simulation: #{@simulation.name} (id #{@simulation.id})"
+    body = "Path to simulation directory: #{@simulation.job_directory_path}\n" +
+      "Simulation: #{@simulation.name} (id #{@simulation.id})\n" +
+      "Project: #{@simulation.project.name} (id #{@simulation.project.id})"
+      system "echo '#{body}' | mutt -s '#{subject}' #{App.find(1).email}"
+    respond_to do |format|
+      format.json { render json: { message: 'report sent' } }
     end
   end
 

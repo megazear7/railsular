@@ -74,6 +74,7 @@ SimApp::Application.routes.draw do
     get 'simulation/:id' => 'simulation#show', defaults: { format: 'json' }
     get 'simulation/:id/image' => 'simulation#image', defaults: { format: 'json' }
     post 'simulation/create' => 'simulation#create', defaults: { format: 'json' }
+    get 'simulation/:id/report' => 'simulation#report', defaults: { format: 'json' }
     post 'simulation/:id/update' => 'simulation#update', defaults: { format: 'json' }
     delete 'simulation/:id/delete' => 'simulation#delete', defaults: { format: 'json' }
     post 'simulation/:id/run' => 'simulation#run', defaults: { format: 'json' }
