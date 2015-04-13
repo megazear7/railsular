@@ -1,6 +1,6 @@
 <article class="panel panel-info">
   <header class="panel-heading">
-    <h1>Curves <span ng-if="updating.val" class="glyphicon glyphicon-refresh animate-spin"></span></h1>
+    <h1>Curves <span ng-if="control.updating" class="glyphicon glyphicon-refresh animate-spin"></span></h1>
   </header>
   <div class="panel-body">
     <div class="col-md-10 well">
@@ -8,7 +8,7 @@
       <br />
       <div class="row">
         <div class="col-md-3">
-          <select ng-options="option as option for option in result_vars" ng-model="y_var.val" class="form-control form-custom" /></select>
+          <select ng-options="option as option for option in result_vars" ng-model="control.yVar" class="form-control form-custom" /></select>
         </div>
 
         <div class="col-md-3">
@@ -18,7 +18,8 @@
         </div>
 
         <div class="col-md-3">
-          <div>Moving Average</div>
+          <span>Moving Average</span>
+          <input type="text" ng-model="control.rollPeriod" class="form-control form-custom" />
         </div>
 
         <div class="col-md-3">
