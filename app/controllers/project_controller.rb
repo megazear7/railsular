@@ -1,6 +1,15 @@
 class ProjectController < ApplicationController
-  before_action :set_project, only: [:show, :update, :delete]
+  before_action :set_project, only: [:show, :update, :delete, :report]
   skip_before_action :verify_authenticity_token
+
+  def report
+    subject = "Report from #{App.find(1).name} about the project: #{@project.name} (id #{@project.id})"
+    body = "Project: #{@project.name} (id #{@project.id})"
+    system "echo '#{body}' | mutt -s '#{subject}' #{App.find(1).email}"
+    respond_to do |format|
+      format.json { render json: { message: 'report sent' } }
+    end
+  end
 
   def index
     @projects = Project.all

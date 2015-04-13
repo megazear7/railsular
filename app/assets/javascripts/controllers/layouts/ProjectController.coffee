@@ -1,6 +1,6 @@
 controllers = angular.module('controllers')
-controllers.controller("ProjectController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry', 'Result'
-  ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry,AssignedGeometry,Result)->
+controllers.controller("ProjectController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry', 'Result', '$http'
+  ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry,AssignedGeometry,Result,$http)->
     $scope.link = (url) -> $location.path("/#{url}")
 
     $scope.projects = Project.all()
@@ -21,5 +21,9 @@ controllers.controller("ProjectController", [ '$scope', '$routeParams', '$locati
       $location.path("projects/")
 
     $scope.report = ->
-      alert("Reporting project...")
+      $http.get("project/#{$scope.activeProject.id}/report")
+        .success ->
+          alert("Reporting Project...")
+        .error ->
+          alert("ERROR!")
 ])

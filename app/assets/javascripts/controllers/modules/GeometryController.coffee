@@ -29,5 +29,9 @@ controllers.controller("GeometryController", [ '$scope', '$routeParams', '$locat
 
 
     $scope.report = ->
-      alert("Reporting Geometry...")
+      $http.get("geometry/#{$scope.geometry.id}/report")
+        .success ->
+          alert("Reporting Geometry...")
+        .error ->
+          alert("ERROR!")
 ])

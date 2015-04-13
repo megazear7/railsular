@@ -43,12 +43,14 @@ SimApp::Application.routes.draw do
     get 'projects' => 'project#index', defaults: { format: 'json' }
     get 'project/:id' => 'project#show', defaults: { format: 'json' }
     post 'project/create' => 'project#create', defaults: { format: 'json' }
+    get 'project/:id/report' => 'project#report', defaults: { format: 'json' }
     post 'project/:id/update' => 'project#update', defaults: { format: 'json' }
     delete 'project/:id/delete' => 'project#delete', defaults: { format: 'json' }
 
     get 'geometries' => 'geometry#index', defaults: { format: 'json' }
     get 'geometry/:id' => 'geometry#show', defaults: { format: 'json' }
     post 'geometry/create' => 'geometry#create', defaults: { format: 'json' }
+    get 'geometry/:id/report' => 'geometry#report', defaults: { format: 'json' }
     post 'geometry/:id/update' => 'geometry#update', defaults: { format: 'json' }
     delete 'geometry/:id/delete' => 'geometry#delete', defaults: { format: 'json' }
     get 'geometry_types_overview' => 'geometry#types', defaults: { format: 'json' }
