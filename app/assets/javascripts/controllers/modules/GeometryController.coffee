@@ -27,11 +27,19 @@ controllers.controller("GeometryController", [ '$scope', '$routeParams', '$locat
           .success ->
             $scope.geometry.refreshStatus()
 
+    $scope.showReport = false
 
-    $scope.report = ->
-      $http.get("geometry/#{$scope.geometry.id}/report")
+    $scope.openReport = ->
+      $scope.showReport = true
+
+    $scope.closeReport = ->
+      $scope.showReport = false
+
+    $scope.sendReport = (reportMessage) ->
+      $scope.showReport = false
+      $http.get("geometry/#{$scope.geometry.id}/report", params: {message: reportMessage})
         .success ->
-          alert("Reporting Geometry...")
+          alert("Report sent")
         .error ->
-          alert("ERROR!")
+          alert("Error sending report")
 ])

@@ -5,6 +5,7 @@ class ProjectController < ApplicationController
   def report
     subject = "Report from #{App.find(1).name} about the project: #{@project.name} (id #{@project.id})"
     body = "Project: #{@project.name} (id #{@project.id})"
+    body += "\nUser Message: #{params[:message]}" if params[:message]
     system "echo '#{body}' | mutt -s '#{subject}' #{App.find(1).email}"
     respond_to do |format|
       format.json { render json: { message: 'report sent' } }

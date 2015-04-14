@@ -52,12 +52,21 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
       $scope.simulation.delete()
       $location.path("projects/"+$scope.activeProject.id+"/simulations/")
 
-    $scope.report = ->
-      $http.get("simulation/#{$scope.simulation.id}/report")
+    $scope.showReport = false
+
+    $scope.openReport = ->
+      $scope.showReport = true
+
+    $scope.closeReport = ->
+      $scope.showReport = false
+
+    $scope.sendReport = (reportMessage) ->
+      $scope.showReport = false
+      $http.get("simulation/#{$scope.simulation.id}/report", params: {message: reportMessage})
         .success ->
-          alert("Reporting Simulation...")
+          alert("Report sent")
         .error ->
-          alert("ERROR!")
+          alert("Error sending report")
 
     $scope.startEdit = ->
       $scope.simulation.startEdit()

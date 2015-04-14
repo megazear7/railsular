@@ -139,7 +139,8 @@ class SimulationController < ApplicationController
     body = "Path to simulation directory: #{@simulation.job_directory_path}\n" +
       "Simulation: #{@simulation.name} (id #{@simulation.id})\n" +
       "Project: #{@simulation.project.name} (id #{@simulation.project.id})"
-      system "echo '#{body}' | mutt -s '#{subject}' #{App.find(1).email}"
+    body += "\nUser Message: #{params[:message]}" if params[:message]
+    system "echo '#{body}' | mutt -s '#{subject}' #{App.find(1).email}"
     respond_to do |format|
       format.json { render json: { message: 'report sent' } }
     end

@@ -29,7 +29,8 @@ class GeometryController < ApplicationController
     body = "Path to geometry directory: #{@geometry.job_directory_path}\n" +
       "Simulation: #{@geometry.name} (id #{@geometry.id})\n" +
       "Project: #{@geometry.project.name} (id #{@geometry.project.id})"
-      system "echo '#{body}' | mutt -s '#{subject}' #{App.find(1).email}"
+    body += "\nUser Message: #{params[:message]}" if params[:message]
+    system "echo '#{body}' | mutt -s '#{subject}' #{App.find(1).email}"
     respond_to do |format|
       format.json { render json: { message: 'report sent' } }
     end

@@ -20,10 +20,19 @@ controllers.controller("ProjectController", [ '$scope', '$routeParams', '$locati
       $scope.activeProject.delete()
       $location.path("projects/")
 
-    $scope.report = ->
-      $http.get("project/#{$scope.activeProject.id}/report")
+    $scope.showReport = false
+
+    $scope.openReport = ->
+      $scope.showReport = true
+
+    $scope.closeReport = ->
+      $scope.showReport = false
+
+    $scope.sendReport = (reportMessage) ->
+      $scope.showReport = false
+      $http.get("project/#{$scope.activeProject.id}/report", params: {message: reportMessage})
         .success ->
-          alert("Reporting Project...")
+          alert("Report sent")
         .error ->
-          alert("ERROR!")
+          alert("Error sending report")
 ])
