@@ -230,9 +230,9 @@ class Geometry < ActiveRecord::Base
     }
 
     geo = config[:geometry_settings]
-    geo[:type] = self.geometry_type.name
-    geo[:filename] = "geometry_#{self.id}.stl"
-    Geometry.geo_attribute_names(self.geometry_type.name).each do |attribute|
+    geo[:type] = geometry_type.name
+    geo[:filename] = "#{geo_file_name}.stl"
+    Geometry.geo_attribute_names(geometry_type.name).each do |attribute|
       geo[:attributes][attribute] = self.send(attribute)
     end
 
