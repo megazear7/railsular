@@ -1,8 +1,18 @@
 Mime::Type.register "image/png", :png
 
 class SimulationController < ApplicationController
-  before_action :set_simulation, only: [:show, :update, :delete, :run, :image, :movie_frame, :report]
+  before_action :set_simulation, only: [:show, :update, :delete, :run, :image, :movie_frame, :report, :download_results]
   skip_before_action :verify_authenticity_token
+
+  def download_results
+    if File.exist? @simulation.results_zip_path
+      send_file @simulation.results_zip_path, type: 'application/zip', filename: 'Results.zip'
+    else
+      respond_to do |format|
+        format.json { render json: { message: "results zip does not exist" } }
+      end
+    end
+  end
 
   def movie_slice_normals
     simulations = Simulation.where(id: params[:simulation_ids].split(','))

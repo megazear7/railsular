@@ -96,6 +96,10 @@ class Simulation < ActiveRecord::Base
     File.join(ENV['HOME'], "/crimson_files/", App.find(1).name.downcase.tr(' ', '_'), job_directory_name)
   end
 
+  def results_zip_path
+    File.join(job_directory_path, "results", "results.zip")
+  end
+
   def data_points_json_path
     File.join(job_directory_path, "results", "data", "data_points.json")
   end
