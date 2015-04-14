@@ -44,8 +44,8 @@
         <span ng-if="attribute_descriptor.attr_type!='select'">N/A</span>
       </td>
       <td ng-if="!attribute_descriptor.editing">
-        <a ng-click="attribute_descriptor.startEdit()"><span class="glyphicon glyphicon-pencil"></span></a>
-        <a ng-click="attribute_descriptor.delete()"><span class="glyphicon glyphicon-trash"></span></a>
+        <a ng-click="attribute_descriptor.startEdit()"><span class="glyphicon glyphicon-pencil pull-left"></span></a>
+        <a ng-click="attribute_descriptor.delete()"><span class="glyphicon glyphicon-trash pull-right"></span></a>
       </td>
       <td ng-if="attribute_descriptor.editing"><a ng-click="stopEditing(attribute_descriptor)"><span class="glyphicon glyphicon-ok"></span></a></td>
     </tr>

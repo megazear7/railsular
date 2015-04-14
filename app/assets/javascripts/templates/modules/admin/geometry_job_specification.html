@@ -25,8 +25,8 @@
       <td ng-if="job_descriptor.editing"><input type="text" ng-model="job_descriptor.test_walltime" class="form-control form-custom"></input></td>
       <td ng-if="job_descriptor.editing"><input type="text" ng-model="job_descriptor.prod_walltime" class="form-control form-custom"></input></td>
       <td ng-if="!job_descriptor.editing">
-        <a ng-click="job_descriptor.startEdit()"><span class="glyphicon glyphicon-pencil"></span></a>
-        <a ng-click="delete(job_descriptor)"><span class="glyphicon glyphicon-trash"></span></a>
+        <a ng-click="job_descriptor.startEdit()"><span class="glyphicon glyphicon-pencil pull-left"></span></a>
+        <a ng-click="delete(job_descriptor)"><span class="glyphicon glyphicon-trash pull-right"></span></a>
       </td>
       <td ng-if="job_descriptor.editing"><a ng-click="job_descriptor.stopEdit()"><span class="glyphicon glyphicon-ok"></span></a></td>
     </tr>

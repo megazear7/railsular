@@ -81,7 +81,7 @@ class Simulation < ActiveRecord::Base
             if sim_attr
               sim_attr.value = params[name]
             else
-              sim_attr = SimulationAttr.create(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id, value: params[name], simulation_id: self.id)
+              sim_attr = SimulationAttr.create(attribute_descriptor_id: attr_desc.id, value: params[name], simulation_id: self.id)
             end
             return false if not sim_attr.save
           else

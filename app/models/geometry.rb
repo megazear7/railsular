@@ -103,7 +103,7 @@ class Geometry < ActiveRecord::Base
             if geo_attr
               geo_attr.value = params[name]
             else
-              geo_attr = GeometryAttr.create(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id, value: params[name], geometry_id: self.id)
+              geo_attr = GeometryAttr.create(attribute_descriptor_id: attr_desc.id, value: params[name], geometry_id: self.id)
             end
             return false if not geo_attr.save
           else
