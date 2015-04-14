@@ -74,13 +74,19 @@ class Simulation < ActiveRecord::Base
     if not self.final
       Simulation.attribute_names.each do |name|
         if params[name]
-          sim_attr = self.simulation_attrs.find_by(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id)
-          if sim_attr
-            sim_attr.value = params[name]
+          attr_desc = AttributeDescriptor.find_by(name: name)
+          sim_attr = self.simulation_attrs.find_by(attribute_descriptor_id: attr_desc.id)
+          regex = Regexp.new attr_desc.validation
+          if regex.match params[name]
+            if sim_attr
+              sim_attr.value = params[name]
+            else
+              sim_attr = SimulationAttr.create(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id, value: params[name], simulation_id: self.id)
+            end
+            return false if not sim_attr.save
           else
-            sim_attr = SimulationAttr.create(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id, value: params[name], simulation_id: self.id)
+            return false
           end
-          return false if not sim_attr.save
         end
       end
     end

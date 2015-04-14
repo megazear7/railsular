@@ -96,13 +96,19 @@ class Geometry < ActiveRecord::Base
     if not self.final
       Geometry.geo_attribute_names(self.geo_type).each do |name|
         if params[name]
-          geo_attr = self.geometry_attrs.find_by(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id)
-          if geo_attr
-            geo_attr.value = params[name]
+          attr_desc = AttributeDescriptor.find_by(name: name)
+          geo_attr = self.geometry_attrs.find_by(attribute_descriptor_id: attr_desc.id)
+          regex = Regexp.new attr_desc.validation
+          if regex.match params[name]
+            if geo_attr
+              geo_attr.value = params[name]
+            else
+              geo_attr = GeometryAttr.create(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id, value: params[name], geometry_id: self.id)
+            end
+            return false if not geo_attr.save
           else
-            geo_attr = GeometryAttr.create(attribute_descriptor_id: AttributeDescriptor.find_by(name: name).id, value: params[name], geometry_id: self.id)
+            return false
           end
-          return false if not geo_attr.save
         end
       end
     else
