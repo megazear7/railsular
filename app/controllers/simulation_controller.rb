@@ -135,11 +135,14 @@ class SimulationController < ApplicationController
   end
 
   def report
-    subject = "Report from #{App.find(1).name} about the simulation: #{@simulation.name} (id #{@simulation.id})"
-    body = "Path to simulation directory: #{@simulation.job_directory_path}\n" +
-      "Simulation: #{@simulation.name} (id #{@simulation.id})\n" +
-      "Project: #{@simulation.project.name} (id #{@simulation.project.id})"
-    body += "\nUser Message: #{params[:message]}" if params[:message]
+    subject = "TotalSim App Issue Report: #{App.find(1).app_hex_code}"
+    body = "app: #{App.find(1).app_hex_code}\n" +
+      "type: simulation\n" +
+      "id: #{@simulation.id}\n" +
+      "path: #{@simulation.job_directory_path}\n" +
+      "user: <user>\n" +
+      "datetime: #{DateTime.now}"
+    body += "\nmessage: #{params[:message]}" if params[:message]
     system "echo '#{body}' | mutt -s '#{subject}' #{App.find(1).email}"
     respond_to do |format|
       format.json { render json: { message: 'report sent' } }

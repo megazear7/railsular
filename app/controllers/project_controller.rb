@@ -3,9 +3,14 @@ class ProjectController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def report
-    subject = "Report from #{App.find(1).name} about the project: #{@project.name} (id #{@project.id})"
-    body = "Project: #{@project.name} (id #{@project.id})"
-    body += "\nUser Message: #{params[:message]}" if params[:message]
+    subject = "TotalSim App Issue Report: #{App.find(1).app_hex_code}"
+    body = "app: #{App.find(1).app_hex_code}\n" +
+      "type: project\n" +
+      "id: #{@project.id}\n" +
+      "path: NULL\n" +
+      "user: <user>\n" +
+      "datetime: #{DateTime.now}"
+    body += "\nmessage: #{params[:message]}" if params[:message]
     system "echo '#{body}' | mutt -s '#{subject}' #{App.find(1).email}"
     respond_to do |format|
       format.json { render json: { message: 'report sent' } }

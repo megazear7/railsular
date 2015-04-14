@@ -25,11 +25,14 @@ class GeometryController < ApplicationController
   end
 
   def report
-    subject = "Report from #{App.find(1).name} about the geometry: #{@geometry.name} (id #{@geometry.id})"
-    body = "Path to geometry directory: #{@geometry.job_directory_path}\n" +
-      "Simulation: #{@geometry.name} (id #{@geometry.id})\n" +
-      "Project: #{@geometry.project.name} (id #{@geometry.project.id})"
-    body += "\nUser Message: #{params[:message]}" if params[:message]
+    subject = "TotalSim App Issue Report: #{App.find(1).app_hex_code}"
+    body = "app: #{App.find(1).app_hex_code}\n" +
+      "type: geometry (#{@geometry.geometry_type.name})\n" +
+      "id: #{@geometry.id}\n" +
+      "path: #{@geometry.job_directory_path}\n" +
+      "user: <user>\n" +
+      "datetime: #{DateTime.now}"
+    body += "\nmessage: #{params[:message]}" if params[:message]
     system "echo '#{body}' | mutt -s '#{subject}' #{App.find(1).email}"
     respond_to do |format|
       format.json { render json: { message: 'report sent' } }
