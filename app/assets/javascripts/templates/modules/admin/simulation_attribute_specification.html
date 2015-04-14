@@ -13,14 +13,18 @@
       <td ng-if="!attribute_descriptor.editing">{{attribute_descriptor.name}}</td>
       <td ng-if="!attribute_descriptor.editing">{{attribute_descriptor.attr_type}}</td>
       <td ng-if="!attribute_descriptor.editing">{{attribute_descriptor.display}}</td>
-      <td ng-if="!attribute_descriptor.editing">{{attribute_descriptor.validation}}</td>
+      <td ng-if="!attribute_descriptor.editing && attribute_descriptor.attr_type == 'text-input'">{{attribute_descriptor.validation}}</td>
+      <td ng-if="!attribute_descriptor.editing && attribute_descriptor.attr_type != 'text-input'">N/A</td>
       <td ng-if="attribute_descriptor.editing"><input type="text" ng-model="attribute_descriptor.name" class="form-control form-custom"></input></td>
       <td ng-if="attribute_descriptor.editing">
         <select ng-options="option as option for option in ['text-input', 'select']" 
                 ng-model="attribute_descriptor.attr_type" class="form-control form-custom" /></select>
       </td>
       <td ng-if="attribute_descriptor.editing"><input type="text" ng-model="attribute_descriptor.display" class="form-control form-custom"></input></td>
-      <td ng-if="attribute_descriptor.editing"><input type="text" ng-model="attribute_descriptor.validation" class="form-control form-custom"></input></td>
+      <td ng-if="attribute_descriptor.editing">
+        <input type="text" ng-if="attribute_descriptor.attr_type == 'text-input'" ng-model="attribute_descriptor.validation" class="form-control form-custom"></input>
+        <span ng-if="attribute_descriptor.attr_type != 'text-input'">N/A</span>
+      </td>
       <td>
         <span ng-if="attribute_descriptor.attr_type=='select'">
           <span ng-if="!attribute_descriptor.editing" ng-repeat="val in attribute_descriptor.attribute_descriptor_values()">{{val.value}} - </span>
