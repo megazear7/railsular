@@ -6,7 +6,9 @@ cd ~/awesim_dev/
 git clone git@bitbucket.org:megazear7/container-sim
 mv container-sim rails1 # or rails[1-10]
 cd rails1
+module load ruby-2.0.0-p247
 rake db:schema:load
+rake db:migrate
 rake app:create
 ```
 * Then  go to https://apps.awesim.org/devapps/ and restart Apache.
