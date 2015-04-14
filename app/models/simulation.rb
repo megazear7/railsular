@@ -195,7 +195,7 @@ class Simulation < ActiveRecord::Base
       end
 
       geo_json_file = File.join(rendered_data_directory(assigned_geo.geometry), File.basename(assigned_geo.geometry.geo_file_name, ".stl") + ".json")
-      if File.exists? geo_json_file
+      if File.exist? geo_json_file
         geo[:pre_processing_data][:data] = JSON.parse(File.open(geo_json_file).read)
       end
 

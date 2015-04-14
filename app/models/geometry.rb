@@ -149,6 +149,30 @@ class Geometry < ActiveRecord::Base
     File.join(ENV['HOME'], "/crimson_files/", App.find(1).name.downcase.tr(' ', '_'), "preprocessing_jobs", job_directory_name)
   end
 
+  def results_directory_path
+    File.join(job_directory_path, "results")
+  end
+
+  def results_file
+    if geo_file_name
+      File.join(results_directory_path, "data", File.basename(geo_file_name, ".stl") + ".json")
+    else
+      nil
+    end
+  end
+
+  def results
+    if results_file and File.exist?(results_file)
+      File.open(results_file).read
+    else
+      nil
+    end
+  end
+
+  def results_hash
+    results ? JSON.parse(results) : nil
+  end
+
   def batch_file_path script_number
     File.join(job_directory_path, "batch_"+script_number.to_s+".sh")
   end
