@@ -6,8 +6,14 @@ cd ~/awesim_dev/
 git clone git@bitbucket.org:megazear7/container-sim
 mv container-sim rails1 # or rails[1-10]
 cd rails1
+module load ruby-2.0.0-p247
 rake db:schema:load
+rake db:migrate
 rake app:create
+cd ~/crimson_files
+mkdir lower_case_app_name_with_spaces_replaces_by_underscores
+# cd into that directory you just created
+mkdir preprocessing_jobs
 ```
 * Then  go to https://apps.awesim.org/devapps/ and restart Apache.
 * Next go to https://websvcs02.osc.edu/awesim_dev/rails1/simapp/#/admin and create the app.
