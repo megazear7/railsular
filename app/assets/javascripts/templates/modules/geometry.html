@@ -24,6 +24,7 @@
       </div>
     </div>
     <br />
+
     <div ng-if="!geometry.editing">
       <div>{{geometry.description}}</div>
     </div>
@@ -31,6 +32,7 @@
       <p><textarea type="text" ng-model="geometry.description" class="form-control form-custom" placeholder="Description" /></p>
     </div>
     <br />
+
     <div class="row">
       <div class="col-md-12">
         <div ng-if="!(geometry.editing && !geometry.final)">
@@ -41,6 +43,7 @@
       </div>
     </div>
     <br />
+
     <div class="row">
       <div class="col-md-4">
         <table class="table table-hover table-striped">
@@ -56,6 +59,10 @@
           </tbody>
         </table>
       </div>
-    <div class="row">
+
+      <div class="col-md-6">
+        <sa-json-human json="results"></sa-json-human>
+      </div>
+    </div>
   </div>
 </article>

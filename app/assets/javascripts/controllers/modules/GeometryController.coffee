@@ -9,6 +9,14 @@ controllers.controller("GeometryController", [ '$scope', '$routeParams', '$locat
       30000
     )
 
+    $scope.results = {
+      "test": "hello"
+      "another": 2
+      "more": {
+        "blah": "bye"
+      }
+    }
+
     $scope.$on '$destroy', ->
       if (refreshPromise)
         $interval.cancel(refreshPromise)
