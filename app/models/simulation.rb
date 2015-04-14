@@ -143,7 +143,7 @@ class Simulation < ActiveRecord::Base
   end
 
   def rendered_data_directory geo
-    File.join(geo.job_directory_path, 'data')
+    File.join(geo.job_directory_path, 'results', 'data')
   end
 
   def batch_file_path script_number
@@ -220,10 +220,7 @@ class Simulation < ActiveRecord::Base
         geo[:attributes][attribute] = assigned_geo.geometry.send(attribute)
       end
 
-      geo_json_file = File.join(rendered_data_directory(assigned_geo.geometry), File.basename(assigned_geo.geometry.geo_file_name, ".stl") + ".json")
-      if File.exist? geo_json_file
-        geo[:pre_processing_data][:data] = JSON.parse(File.open(geo_json_file).read)
-      end
+      geo[:pre_processing_data][:data] = assigned_geo.geometry.results
 
       # for each rendered geometry, add an entry to the rendered geometries array
       Dir.glob(rendered_data_directory(assigned_geo.geometry) + '/*.json') do |file|
