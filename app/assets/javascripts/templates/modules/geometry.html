@@ -15,7 +15,7 @@
             <span class="glyphicon glyphicon-ok" ng-click="sendReport(reportMessage)"></span>
             <span class="glyphicon glyphicon-remove" ng-click="closeReport()"></span>
           </a>
-          <a class="btn btn-default" ng-click="finish()" ng-if="!geometry.final"><span class="glyphicon glyphicon-ok"> Finalize</span></a>
+          <a class="btn btn-default" ng-click="finish()" ng-if="!geometry.final && !geometry.editing"><span class="glyphicon glyphicon-ok"> Finalize</span></a>
           <a class="btn btn-default disabled" ng-if="geometry.final && geometry.status != 'Complete'">Calculating...</span></a>
           <a class="btn btn-default disabled" ng-if="geometry.final && geometry.status == 'Complete'">Finalized</span></a>
         </div>

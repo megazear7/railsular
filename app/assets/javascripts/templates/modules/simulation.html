@@ -14,7 +14,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="btn-group">
-          <a class="btn btn-default" ng-click="run()" ng-if="!simulation.final"><span class="glyphicon glyphicon-play"> Run</span></a>
+          <a class="btn btn-default" ng-click="run()" ng-if="!simulation.final && !simulation.editing"><span class="glyphicon glyphicon-play"> Run</span></a>
           <a class="btn btn-default disabled" ng-click="run()" ng-if="simulation.final">Finalized</a>
           <a class="btn btn-default" ng-click="duplicate()"><span class="glyphicon glyphicon-new-window"> Duplicate</span></a>
           <a class="btn btn-default" ng-click="delete()"><span class="glyphicon glyphicon-trash"> Delete</span></a>
