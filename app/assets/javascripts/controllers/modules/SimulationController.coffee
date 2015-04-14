@@ -3,6 +3,8 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
   ($scope,$routeParams,$location,$resource,$http,$interval,Project,Simulation,Geometry,AssignedGeometry,Result)->
     $scope.template = { url: "modules/simulation.html" }
 
+    console.log($scope.simulation)
+
     refreshPromise = $interval(
       ->
         $scope.simulation.refreshStatus()

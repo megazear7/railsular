@@ -41,13 +41,19 @@
 
     <div class="row">
       <div class="col-md-6">
-        <div class="row"><div class="col-md-12"><h3>Geometries:</h3></div></div>
+        <h3>Geometries:</h3>
         <div ng-controller="AssignedGeometriesController"><div ng-include="template.url"></div></div>
       </div>
 
-      <div class="col-md-6">
-        <div class="row"><div class="col-md-12"><h3>Simulation Details:</h3></div></div>
-          <div ng-controller="SimulationDetailsController"><div ng-include="template.url"></div></div>
+      <div class="col-md-3">
+        <h3>Simulation Details:</h3>
+        <div ng-controller="SimulationDetailsController"><div ng-include="template.url"></div></div>
+      </div>
+
+      <div class="col-md-3">
+        <div ng-if="simulation.data_point_results">
+          <h3>Data Point Results</h3>
+          <sa-json-human json="simulation.data_point_results"></sa-json-human>
         </div>
       </div>
     </div>

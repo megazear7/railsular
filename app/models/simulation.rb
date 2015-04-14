@@ -96,6 +96,22 @@ class Simulation < ActiveRecord::Base
     File.join(ENV['HOME'], "/crimson_files/", App.find(1).name.downcase.tr(' ', '_'), job_directory_name)
   end
 
+  def data_points_json_path
+    File.join(job_directory_path, "results", "data", "data_points.json")
+  end
+
+  def data_point_results
+    if data_points_json_path and File.exist?(data_points_json_path)
+      File.open(data_points_json_path).read
+    else
+      nil
+    end
+  end
+
+  def data_point_results_hash
+    data_point_results ? JSON.parse(data_point_results) : nil
+  end
+
   def images_path
     File.join(job_directory_path, "results", "images")
   end
