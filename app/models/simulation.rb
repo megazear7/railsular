@@ -220,7 +220,7 @@ class Simulation < ActiveRecord::Base
         geo[:attributes][attribute] = assigned_geo.geometry.send(attribute)
       end
 
-      geo[:pre_processing_data][:data] = assigned_geo.geometry.results
+      geo[:pre_processing_data][:data] = assigned_geo.geometry.results_hash
 
       # for each rendered geometry, add an entry to the rendered geometries array
       Dir.glob(rendered_data_directory(assigned_geo.geometry) + '/*.json') do |file|
