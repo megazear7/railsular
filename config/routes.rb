@@ -32,12 +32,6 @@ SimApp::Application.routes.draw do
       post 'app/create' => 'app#create', defaults: { format: 'json' }
       post 'app/:id/update' => 'app#update', defaults: { format: 'json' }
       delete 'app/:id/delete' => 'app#delete', defaults: { format: 'json' }
-
-      get 'result_vars' => 'result_var#index', defaults: { format: 'json' }
-      get 'result_var/:id' => 'result_var#show', defaults: { format: 'json' }
-      post 'result_var/create' => 'result_var#create', defaults: { format: 'json' }
-      post 'result_var/:id/update' => 'result_var#update', defaults: { format: 'json' }
-      delete 'result_var/:id/delete' => 'result_var#delete', defaults: { format: 'json' }
     end
 
     get 'projects' => 'project#index', defaults: { format: 'json' }

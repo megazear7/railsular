@@ -29,8 +29,6 @@ standard_resolve = {
       Result.results_simulations_promise
     appsData: (App) ->
       App.promise
-    resultVarData: (ResultVar) ->
-      ResultVar.promise
   }
 
 simapp.config([ '$routeProvider', 'flashProvider', '$httpProvider',
@@ -66,8 +64,6 @@ simapp.config([ '$routeProvider', 'flashProvider', '$httpProvider',
             JobDescriptor.promise
           appsData: (App) ->
             App.promise
-          resultVarData: (ResultVar) ->
-            ResultVar.promise
         }
       ).when('/',
         templateUrl: "layouts/projects.html"
