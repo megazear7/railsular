@@ -6,6 +6,14 @@ class Simulation < ActiveRecord::Base
   has_many :simulation_attrs
   has_and_belongs_to_many :results
   after_initialize :add_attr_methods
+  before_destroy :remove_jobs
+
+  def remove_jobs
+    jobs.each do |job|
+      torque = OSC::Machete::TorqueHelper.new
+      torque.qdel(job.pbsid)
+    end
+  end
 
   def add_attr_methods
     Simulation.attribute_names.each do |name|

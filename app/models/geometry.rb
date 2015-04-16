@@ -8,13 +8,28 @@ class Geometry < ActiveRecord::Base
   has_many :jobs
   has_many :geometry_attrs
   after_initialize :add_attr_methods
-  before_destroy :check_for_simulations
+  before_destroy :before_destroy_checks
   validate :file_name_is_unique
 
-  def check_for_simulations
+  def before_destroy_checks
+    ### Checks to make to possibly prevent destroying:
+    # check for simulations:
     if simulations.count > 0
       errors.add :simulations, "You must either delete the associated simulations or remove this geometry from them. The associated simulations are: " + simulations.pluck(:name).join(",")
       return false
+    end
+
+    ### Actions to take before destroying:
+    remove_jobs
+
+    # destroy was successful...
+    return true
+  end
+
+  def remove_jobs
+    jobs.each do |job|
+      torque = OSC::Machete::TorqueHelper.new
+      torque.qdel(job.pbsid)
     end
   end
 
