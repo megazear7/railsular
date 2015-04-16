@@ -4,11 +4,19 @@ class Geometry < ActiveRecord::Base
   belongs_to :project
   belongs_to :geometry_type
   has_many :assigned_geometries
+  has_many :simulations, through: :assigned_geometries
   has_many :jobs
   has_many :geometry_attrs
   after_initialize :add_attr_methods
-
+  before_destroy :check_for_simulations
   validate :file_name_is_unique
+
+  def check_for_simulations
+    if simulations.count > 0
+      errors.add :simulations, "You must either delete the associated simulations or remove this geometry from them. The associated simulations are: " + simulations.pluck(:name).join(",")
+      return false
+    end
+  end
 
   def file_name_is_unique
     if geo_file_name

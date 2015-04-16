@@ -11,6 +11,10 @@ angular.module('simapp').factory('Geometry', (DataCache,ModelFactory,ObjectFacto
         .success (data) ->
           DataCache.geometries[geometry.id].status = data.geometry.status
 
+    geometry.after_failed_delete = (data) ->
+      angular.forEach data.message.simulations, (message) ->
+        alert(message)
+
     geometry.attributes = ->
       DataCache.geometry_types_overview[this.geo_type].attributes
 
