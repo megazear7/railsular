@@ -9,7 +9,8 @@ angular.module('simapp').factory('Geometry', (DataCache,ModelFactory,ObjectFacto
     geometry.refreshStatus = ->
       $http.get("geometry/#{geometry.id}")
         .success (data) ->
-          DataCache.geometries[geometry.id] = data.geometry
+          DataCache.geometries[geometry.id].status = data.geometry.status
+          DataCache.geometries[geometry.id].results = data.geometry.results
 
     geometry.after_failed_delete = (data) ->
       angular.forEach data.message.simulations, (message) ->
