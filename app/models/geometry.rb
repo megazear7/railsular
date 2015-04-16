@@ -28,8 +28,7 @@ class Geometry < ActiveRecord::Base
 
   def remove_jobs
     jobs.each do |job|
-      torque = OSC::Machete::TorqueHelper.new
-      torque.qdel(job.pbsid)
+      job.job.delete
     end
   end
 
