@@ -252,7 +252,7 @@ class Geometry < ActiveRecord::Base
     add_geometry_files
 
     jobs = []
-    JobDescriptor.where(job_type: self.geometry_type.name).each_with_index do |descr, index|
+    JobDescriptor.where(job_type: self.geometry_type.name).order(:script_number).each_with_index do |descr, index|
       jobs << OSC::Machete::Job.new(script: batch_file_path(descr.script_number))
       jobs[index].afterany(jobs[index-1]) unless index == 0
 
