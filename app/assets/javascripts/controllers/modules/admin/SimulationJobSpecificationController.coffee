@@ -9,8 +9,15 @@ controllers.controller("SimulationJobSpecificationController", [ '$scope', '$rou
       job_descriptor.delete()
       $scope.job_descriptors = JobDescriptor.simulation_job_descriptors()
 
+    nextScriptNumber = ->
+      max = 0
+      angular.forEach $scope.job_descriptors, (job_desc) ->
+        if job_desc.script_number > max
+          max = job_desc.script_number
+      return max + 1
+
     $scope.create = ->
-      JobDescriptor.create({job_type: "simulation", script_number: 0})
+      JobDescriptor.create({job_type: "simulation", script_number: nextScriptNumber()})
         .then (job_descriptor) ->
           $scope.job_descriptors = JobDescriptor.simulation_job_descriptors()
           job_descriptor.startEdit()

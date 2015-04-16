@@ -11,8 +11,15 @@ controllers.controller("GeometryJobSpecificationController", [ '$scope', '$route
       job_descriptor.delete()
       $scope.job_descriptors = JobDescriptor.where({job_type: $scope.geometry_type.name})
 
+    nextScriptNumber = ->
+      max = 0
+      angular.forEach $scope.job_descriptors, (job_desc) ->
+        if job_desc.script_number > max
+          max = job_desc.script_number
+      return max + 1
+
     $scope.create = ->
-      JobDescriptor.create({job_type: $scope.geometry_type.name, script_number: 0})
+      JobDescriptor.create({job_type: $scope.geometry_type.name, script_number: nextScriptNumber()})
         .then (job_descriptor) ->
           $scope.job_descriptors = JobDescriptor.where({job_type: $scope.geometry_type.name})
           job_descriptor.startEdit()
