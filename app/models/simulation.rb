@@ -139,7 +139,7 @@ class Simulation < ActiveRecord::Base
   end
 
   def rendered_geometry_directory geo
-    File.join(geo.job_directory_path, 'geometry')
+    File.join(geo.job_directory_path, 'results', 'geometry')
   end
 
   def rendered_data_directory geo
