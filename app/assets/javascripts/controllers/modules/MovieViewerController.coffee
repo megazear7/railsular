@@ -3,7 +3,7 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
   ($scope,$routeParams,$location,$resource,$http,Project,Simulation,Geometry,AssignedGeometry,Result,App,MovieData,$interval)->
     $scope.template = { url: "modules/movie_viewer.html" }
 
-    baseUrl = "/awesim_dev/rails3/simapp/simulation/<<id>>/movie_frame?slice_normal=<<slice_normal>>&variable_name=<<variable_name>>&component_direction=<<component_direction>>&frame=<<frame>>"
+    baseUrl = "simulation/<<id>>/movie_frame?slice_normal=<<slice_normal>>&variable_name=<<variable_name>>&component_direction=<<component_direction>>&frame=<<frame>>"
 
     $scope.updating = {
       val: false

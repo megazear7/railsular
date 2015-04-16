@@ -3,7 +3,7 @@ controllers.controller("ImageViewerController", [ '$scope', '$routeParams', '$lo
   ($scope,$routeParams,$location,$resource,$http,Project,Simulation,Geometry,AssignedGeometry,Result,App,ImageData)->
     $scope.template = { url: "modules/image_viewer.html" }
 
-    baseUrl = "/awesim_dev/rails3/simapp/simulation/<<id>>/image?variable_name=<<variable_name>>&component_direction=<<component_direction>>&view=<<view>>"
+    baseUrl = "simulation/<<id>>/image?variable_name=<<variable_name>>&component_direction=<<component_direction>>&view=<<view>>"
     $scope.urls = [
       {
         url: ""
