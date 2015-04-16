@@ -1,6 +1,6 @@
 controllers = angular.module('controllers')
-controllers.controller("ResultMakerController", [ '$scope', '$routeParams', '$location', '$resource', '$http', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry', 'Result', 'App'
-  ($scope,$routeParams,$location,$resource,$http,Project,Simulation,Geometry,AssignedGeometry,Result,App)->
+controllers.controller("ResultMakerController", [ '$scope', '$routeParams', '$location', '$resource', '$http', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry', 'Result', 'App', 'ResultData'
+  ($scope,$routeParams,$location,$resource,$http,Project,Simulation,Geometry,AssignedGeometry,Result,App,ResultData)->
     $scope.template = { url: "modules/result_maker.html" }
 
     $scope.control = {
@@ -9,12 +9,13 @@ controllers.controller("ResultMakerController", [ '$scope', '$routeParams', '$lo
       rollPeriod: 7
     }
 
-    $scope.result_vars = []
-    angular.forEach App.find(1).result_vars(), (result_var, id) ->
-      $scope.result_vars.push result_var.name
+    $scope.variableNames = []
 
     $scope.$watchCollection 'selectedSimulationIds', ->
-      $scope.plot()
+      console.log('hello')
+      ResultData.variableNames($scope.selectedSimulationIds).then (variableNames) ->
+        $scope.variableNames = variableNames
+        $scope.plot()
 
     $scope.$watch 'control.yVar', ->
       $scope.plot()
