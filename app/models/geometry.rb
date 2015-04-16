@@ -159,12 +159,38 @@ class Geometry < ActiveRecord::Base
     File.join(job_directory_path, "results")
   end
 
+  def results_data_path
+    File.join(results_directory_path, "data")
+  end
+
   def results_file
     if geo_file_name
       File.join(results_directory_path, "data", File.basename(geo_file_name, ".stl") + ".json")
     else
       nil
     end
+  end
+
+  def rendered_results_file_paths
+    names = []
+    Dir.glob(results_data_path + '/*.json') do |file|
+      if file != results_file
+        names << file
+      end
+    end
+    names
+  end
+
+  def rendered_results_hash
+    result_strings = {}
+    return_nil = true
+    rendered_results_file_paths.each do |file_path|
+      return_nil = false
+      if file_path and File.exist?(file_path)
+        result_strings[File.basename(file_path, ".json")] = JSON.parse(File.open(file_path).read)
+      end
+    end
+    return_nil ? nil : result_strings
   end
 
   def results
@@ -177,6 +203,13 @@ class Geometry < ActiveRecord::Base
 
   def results_hash
     results ? JSON.parse(results) : nil
+  end
+
+  def complete_results_hash
+    hash = {}
+    hash[File.basename(geo_file_name, ".stl")] = results_hash if results_hash
+    hash["rendered_results"] = rendered_results_hash if rendered_results_hash
+    hash == {} ? nil : hash
   end
 
   def batch_file_path script_number
