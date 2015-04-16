@@ -20,10 +20,23 @@
 
       <td ng-if="job_descriptor.editing"><input type="text" ng-model="job_descriptor.script_number" class="form-control form-custom"></input></td>
       <td ng-if="job_descriptor.editing"><input type="text" ng-model="job_descriptor.setup_method" class="form-control form-custom"></input></td>
-      <td ng-if="job_descriptor.editing"><input type="text" ng-model="job_descriptor.test_compute_resources" class="form-control form-custom"></input></td>
-      <td ng-if="job_descriptor.editing"><input type="text" ng-model="job_descriptor.prod_compute_resources" class="form-control form-custom"></input></td>
-      <td ng-if="job_descriptor.editing"><input type="text" ng-model="job_descriptor.test_walltime" class="form-control form-custom"></input></td>
-      <td ng-if="job_descriptor.editing"><input type="text" ng-model="job_descriptor.prod_walltime" class="form-control form-custom"></input></td>
+
+      <td ng-if="job_descriptor.editing">
+        <input type="text" ng-model="job_descriptor.test_compute_resources" placeholder="nodes=#:ppn=#" class="form-control form-custom"></input>
+      </td>
+
+      <td ng-if="job_descriptor.editing">
+        <input type="text" ng-model="job_descriptor.prod_compute_resources" placeholder="nodes=#:ppn=#" class="form-control form-custom"></input>
+      </td>
+
+      <td ng-if="job_descriptor.editing">
+        <input type="text" ng-model="job_descriptor.test_walltime" placeholder="walltime=0:05:00" class="form-control form-custom"></input>
+      </td>
+
+      <td ng-if="job_descriptor.editing">
+        <input type="text" ng-model="job_descriptor.prod_walltime" placeholder="walltime=0:05:00" class="form-control form-custom"></input>
+      </td>
+
       <td ng-if="!job_descriptor.editing">
         <a ng-click="job_descriptor.startEdit()"><span class="glyphicon glyphicon-pencil pull-left"></span></a>
         <a ng-click="delete(job_descriptor)"><span class="glyphicon glyphicon-trash pull-right"></span></a>
