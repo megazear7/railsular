@@ -113,8 +113,11 @@ class Geometry < ActiveRecord::Base
             else
               geo_attr = GeometryAttr.create(attribute_descriptor_id: attr_desc.id, value: params[name], geometry_id: self.id)
             end
-            return false if not geo_attr.save
+            if not geo_attr.save
+              return false 
+            end
           else
+            errors.add name, "#{name.titleize} attribute must follow this regex: #{attr_desc.validation}"
             return false
           end
         end

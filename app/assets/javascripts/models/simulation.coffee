@@ -20,6 +20,13 @@ angular.module('simapp').factory('Simulation', (DataCache,AssignedGeometry,Model
         .success (data) ->
           DataCache.simulations[simulation.id].status = data.simulation.status
 
+    simulation.after_failed_save = (data) ->
+      complete_message = "Could not save simulation\n"
+      angular.forEach data.message, (message_type) ->
+        angular.forEach message_type, (message) ->
+          complete_message += message + "\n"
+      alert(complete_message)
+
   # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
   modelMethods = ModelFactory("simulations", addMethods)
 

@@ -16,6 +16,13 @@ angular.module('simapp').factory('Geometry', (DataCache,ModelFactory,ObjectFacto
       angular.forEach data.message.simulations, (message) ->
         alert(message)
 
+    geometry.after_failed_save = (data) ->
+      complete_message = "Could not save geometry\n"
+      angular.forEach data.message, (message_type) ->
+        angular.forEach message_type, (message) ->
+          complete_message += message + "\n"
+      alert(complete_message)
+
     geometry.attributes = ->
       DataCache.geometry_types_overview[this.geo_type].attributes
 
