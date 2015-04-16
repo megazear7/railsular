@@ -12,10 +12,10 @@ controllers.controller("ResultMakerController", [ '$scope', '$routeParams', '$lo
     $scope.variableNames = []
 
     $scope.$watchCollection 'selectedSimulationIds', ->
-      console.log('hello')
-      ResultData.variableNames($scope.selectedSimulationIds).then (variableNames) ->
-        $scope.variableNames = variableNames
-        $scope.plot()
+      if $scope.selectedSimulationIds.length > 0
+        ResultData.variableNames($scope.selectedSimulationIds).then (variableNames) ->
+          $scope.variableNames = variableNames
+          $scope.plot()
 
     $scope.$watch 'control.yVar', ->
       $scope.plot()

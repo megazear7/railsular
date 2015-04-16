@@ -69,6 +69,7 @@ SimApp::Application.routes.draw do
     get 'simulations/frame_count' => 'simulation#frame_count', defaults: { format: 'json' }
     get 'simulation/:id/download_results' => 'simulation#download_results'
     get 'simulation/:id/movie_frame' => 'simulation#movie_frame', defaults: { format: 'json' }
+    get 'simulations/curve_variable_names' => 'simulation#curve_variable_names', defaults: { format: 'json' }
     get 'simulations/variable_names' => 'simulation#image_variable_names', defaults: { format: 'json' }
     get 'simulations/component_directions' => 'simulation#image_component_directions', defaults: { format: 'json' }
     get 'simulations/views' => 'simulation#image_views', defaults: { format: 'json' }

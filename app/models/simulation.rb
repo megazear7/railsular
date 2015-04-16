@@ -274,6 +274,14 @@ class Simulation < ActiveRecord::Base
     end
   end
 
+  def self.curve_variable_names simulations
+    lists = [ ]
+    simulations.each do |sim|
+      lists.push File.open(Result.csv_file_path(sim), &:gets).split(",")
+    end
+    lists.flatten.uniq
+  end
+
   def self.image_variable_names simulations
     lists = [ ]
     simulations.each do |sim|

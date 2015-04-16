@@ -5,10 +5,9 @@ angular.module('simapp').factory('ResultData', ($http,$q) ->
         simulation_ids: simIds
       }
       return $q( (resolve, reject) ->
-        $http.get("simulations", params: params)
+        $http.get("simulations/curve_variable_names", params: params)
           .success (data) ->
-            resolve(["F0 all", "F1 all"])
-            #resolve(data.variable_names)
+            resolve(data.variable_names)
       )
   }
 )

@@ -65,6 +65,14 @@ class SimulationController < ApplicationController
     end
   end
 
+  def curve_variable_names
+    simulations = Simulation.where(id: params[:simulation_ids].split(','))
+
+    respond_to do |format|
+      format.json { render json: { variable_names: Simulation.curve_variable_names(simulations) } }
+    end
+  end
+
   def image_variable_names
     simulations = Simulation.where(id: params[:simulation_ids].split(','))
 
