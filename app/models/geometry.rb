@@ -1,5 +1,7 @@
 class Geometry < ActiveRecord::Base
-  has_attached_file :geo
+  has_attached_file :geo, path: File.join(ENV["HOME"], "crimson_files", Rails.application.class.parent_name,
+                                          App.find(1).name.downcase.sub(" ", "_"), "uploads", ":class",
+                                          ":id", ":basename.:extension")
   do_not_validate_attachment_file_type :geo
   belongs_to :project
   belongs_to :geometry_type
