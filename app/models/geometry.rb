@@ -176,7 +176,7 @@ class Geometry < ActiveRecord::Base
 
   def job_directory_name
     # TODO replace user_id with the actual users id
-    "ts_app_"+App.find(1).app_hex_code+"_user_id_"+id.to_s
+    "ts_app_" + App.find(1).app_hex_code + "_" + ENV["USER"] + "_g" + id.to_s
   end
 
   def job_directory_path
