@@ -5,10 +5,6 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
 
     baseUrl = "simulation/<<id>>/movie_frame?slice_normal=<<slice_normal>>&variable_name=<<variable_name>>&component_direction=<<component_direction>>&frame=<<frame>>"
 
-    $scope.updating = {
-      val: false
-    }
-
     $scope.urls = [
       {
         urls: []
@@ -35,6 +31,7 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
       frame: 1
       frameCount: 1
       playspeed: 100
+      updating: false
     }
 
     $scope.$watchCollection 'selectedSimulationIds', ->
@@ -51,7 +48,8 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
 
     $scope.refresh = ->
       if $scope.control.sliceNormal != "" and $scope.control.variableName != "" and $scope.control.componentDirection != ""
-        $scope.updating.val = true
+        $scope.stop()
+        $scope.control.updating = true
         MovieData.frameCount($scope.selectedSimulationIds, $scope.control.sliceNormal, $scope.control.variableName, $scope.control.componentDirection).then (frameCount) ->
           $scope.control.frameCount = frameCount
           for i in [0, 1, 2, 3]
@@ -67,10 +65,11 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
               $scope.urls[i].urls = []
               $scope.urls[i].sim = { }
           # this interval here cycles through all of the images and loades them in so that they get cached by the browser. The images
-          # are hidden during this time because updating.val is true. In this way the user doesn't see the images flashing.
-          $interval($scope.nextFrame, 20, $scope.control.frameCount)
+          # are hidden during this time because control.updating is true. In this way the user doesn't see the images flashing.
+          $interval($scope.nextFrame, 100, $scope.control.frameCount)
             .then ->
-              $scope.updating.val = false
+              $scope.control.frame = 1
+              $scope.control.updating = false
 
     if $scope.selectedSimulationIds.length > 0
       MovieData.sliceNormals($scope.selectedSimulationIds).then (sliceNormals) ->
@@ -95,6 +94,9 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
       $scope.control.componentDirection = componentDirection
       $scope.refresh()
 
+    $scope.stop = ->
+      $scope.control.frame = 1
+
     $scope.fastBack = ->
       $scope.control.frame = 1
 
@@ -110,6 +112,14 @@ controllers.controller("MovieViewerController", [ '$scope', '$routeParams', '$lo
       $scope.control.frame = $scope.control.frame - 1
       if $scope.control.frame < 1
         $scope.control.frame = $scope.control.frameCount
+
+    $scope.playOnRepeat = ->
+      promise = $interval($scope.nextFrame, $scope.control.playspeed)
+      $scope.pause = ->
+        $interval.cancel(promise)
+      $scope.stop = ->
+        $interval.cancel(promise)
+        $scope.control.frame = 1
 
     $scope.play = ->
       promise = $interval($scope.nextFrame, $scope.control.playspeed, $scope.control.frameCount-1)

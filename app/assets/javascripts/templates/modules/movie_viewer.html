@@ -1,6 +1,6 @@
 <article class="panel panel-info">
   <header class="panel-heading">
-    <h1>Movie Viewer <span ng-if="updating.val" class="glyphicon glyphicon-refresh animate-spin"></span></h1>
+    <h1>Movie Viewer <span ng-if="control.updating" class="glyphicon glyphicon-refresh animate-spin"></span></h1>
   </header>
   <div class="panel-body">
     <div class="row">
@@ -8,7 +8,7 @@
         <div ng-repeat="f in range(1, control.frameCount)">
           <div class="col-md-6" ng-if="urls[index].sim.id && f == control.frame">
             <div>
-              <img ng-src="{{urls[index].urls[f]}}" alt="{{urls[index].sim.name}}" class="img-rounded frame-{{ updating.val ? 'dont-show' : 'show'}}" style="width:100%">
+              <img ng-src="{{urls[index].urls[f]}}" alt="{{urls[index].sim.name}}" class="img-rounded frame-{{ control.updating ? 'dont-show' : 'show'}}" style="width:100%">
               <br><br>
             </div>
           </div>
@@ -33,6 +33,7 @@
           <button class="btn btn-default" ng-click="fastBack()"><span class="glyphicon glyphicon-fast-backward"></span></button> 
           <button class="btn btn-default" ng-click="previousFrame()"><span class="glyphicon glyphicon-step-backward"></span></button> 
           <button class="btn btn-default" ng-click="play()"><span class="glyphicon glyphicon-play"></span></button>
+          <button class="btn btn-default" ng-click="playOnRepeat()"><span class="glyphicon glyphicon-repeat"></span></button>
           <button class="btn btn-default" ng-click="pause()"><span class="glyphicon glyphicon-pause"></span></button>
           <button class="btn btn-default" ng-click="stop()"><span class="glyphicon glyphicon-stop"></span></button>
           <button class="btn btn-default" ng-click="nextFrame()"><span class="glyphicon glyphicon-step-forward"></span></button> 
