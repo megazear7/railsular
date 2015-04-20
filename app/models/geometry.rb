@@ -5,9 +5,9 @@ class Geometry < ActiveRecord::Base
   do_not_validate_attachment_file_type :geo
   belongs_to :project
   belongs_to :geometry_type
-  has_many :assigned_geometries
+  has_many :assigned_geometries, dependent: :destroy
   has_many :simulations, through: :assigned_geometries
-  has_many :jobs
+  has_many :jobs, dependent: :destroy
   has_many :geometry_attrs
   after_initialize :add_attr_methods
   before_destroy :before_destroy_checks
@@ -29,6 +29,7 @@ class Geometry < ActiveRecord::Base
   end
 
   def remove_jobs
+    FileUtils.rm_rf job_directory_path
     jobs.each do |job|
       job.job.delete
     end
