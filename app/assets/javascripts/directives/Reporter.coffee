@@ -7,8 +7,6 @@ angular.module('simapp').directive('saReporter', ->
       show: '='
     }
     controller: ['$scope', 'Report', ($scope, Report) ->
-      angular.for
-
       $scope.close = ->
         $scope.show = false
 
