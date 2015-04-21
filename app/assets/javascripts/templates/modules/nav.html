@@ -34,7 +34,7 @@
         <li><a class="navbar-brand" ng-click="link('projects/'+activeProject.id+'/simulations')" ng-if="activeProject">{{activeProject.name}}</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="navbar-brand">{{appName}}</li>
+        <li ng-click="link('projects')" class="navbar-brand" style="cursor: pointer;">{{appName}}</li>
       </ul>
     </div>
   </div>

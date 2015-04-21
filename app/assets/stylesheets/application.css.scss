@@ -17,6 +17,10 @@
 @import "components-font-awesome/scss/font-awesome";
 @import "json-human/json.human.css";
 
+.cbp-spmenu {
+  overflow: auto;
+}
+
 .animate-spin {
   -animation: spin .7s infinite linear;
   -webkit-animation: spin2 .7s infinite linear;
