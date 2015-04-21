@@ -11,7 +11,7 @@ class Geometry < ActiveRecord::Base
   has_many :jobs, dependent: :destroy
   has_many :geometry_attrs
   after_initialize :add_attr_methods
-  before_destroy :before_destroy_checks
+  before_destroy :before_destroy_checks, prepend: true
   validate :file_name_is_unique
 
   def before_destroy_checks

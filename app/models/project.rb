@@ -8,6 +8,7 @@ class Project < ActiveRecord::Base
   def before_destroy_actions
     # We cant simply use dependent: :destroy because simulations must be removed first
     # otherwise the directory and jobs won't get removed.
+    # note we might be able to use the prepend: true option to make it work without this hack
     simulations.destroy_all
     geometries.destroy_all
   end

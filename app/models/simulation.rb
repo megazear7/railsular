@@ -7,7 +7,7 @@ class Simulation < ActiveRecord::Base
   has_many :simulation_attrs
   has_and_belongs_to_many :results
   after_initialize :add_attr_methods
-  before_destroy :remove_jobs
+  before_destroy :remove_jobs, prepend: true
 
   def remove_jobs
     FileUtils.rm_rf job_directory_path
