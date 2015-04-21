@@ -1,3 +1,3 @@
 json.set! :reports do
-  json.array! @reports, :id, :name, :description, :created_at, :updated_at
+  json.array! @reports, :id, :message, :reportable_id, :reportable_type, :created_at, :updated_at
 end

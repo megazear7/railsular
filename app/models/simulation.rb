@@ -1,5 +1,6 @@
 class Simulation < ActiveRecord::Base
   belongs_to :project
+  has_many :reports, as: :reportable
   has_many :assigned_geometries, dependent: :destroy
   has_many :geometries, through: :assigned_geometries
   has_many :jobs, dependent: :destroy

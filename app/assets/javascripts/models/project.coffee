@@ -3,7 +3,7 @@ angular.module('simapp').factory('Project', (DataCache,ModelFactory,ObjectFactor
   # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (project) ->
     # Add the standard object methods
-    ObjectFactory("projects", project, [{has_many: "geometries"}, {has_many: "simulations"}])
+    ObjectFactory("projects", project, [{has_many: "geometries"}, {has_many: "simulations"}, {has_many: "reports", as: "reportable"}])
 
     # Add the custom object methods
     # None

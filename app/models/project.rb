@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
   has_many :simulations
   has_many :geometries
+  has_many :reports, as: :reportable
   before_destroy :before_destroy_actions
   validates_presence_of :name
 

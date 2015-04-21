@@ -17,6 +17,8 @@ standard_resolve = {
       Simulation.promise
     projectData: (Project) ->
       Project.promise
+    reportData: (Report) ->
+      Report.promise
     assignedGeometryData: (AssignedGeometry) ->
       AssignedGeometry.promise
     simulationAttributesData: (Simulation) ->

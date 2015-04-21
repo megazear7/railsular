@@ -51,26 +51,36 @@ angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
     angular.forEach relations, (relation) ->
 
       if "belongs_to" of relation
-        relation = relation.belongs_to
+        if "polymorphic" of relation
+          relation_table = pluralize(object[relation.belongs_to+"_type"].toLowerCase())
+          relation = relation.belongs_to
+        else
+          relation_table = pluralize(relation.belongs_to)
+          relation = relation.belongs_to
         object[relation] = ->
-          cache[pluralize(relation)][object["#{relation}_id"]]
+          cache[relation_table][object["#{relation}_id"]]
 
       else if "has_many" of relation
+        if "as" of relation
+          foreign_key_name = relation.as + "_id"
+        else
+          foreign_key_name = pluralize(table_name,1) + "_id"
+        relation_table = relation.has_many
         relation = relation.has_many
         object[relation] = ->
           objects = {}
-          angular.forEach cache[relation], (obj, id) ->
-            if obj["#{pluralize(table_name,1)}_id"] == object.id
+          angular.forEach cache[relation_table], (obj, id) ->
+            if obj[foreign_key_name] == object.id
               objects[id] = obj
           objects
         object[relation+"_where"] = (attrs) ->
           objs = {}
-          angular.forEach cache[relation], (obj, id) ->
+          angular.forEach cache[relation_table], (obj, id) ->
             add_obj_to_objs = true
             angular.forEach attrs, (val, attr) ->
               if obj[attr] != val
                 add_obj_to_objs = false
-            if obj["#{pluralize(table_name,1)}_id"] == object.id && add_obj_to_objs
+            if obj[foreign_key_name] == object.id && add_obj_to_objs
               objs[obj.id] = obj
           objs
 

@@ -5,6 +5,7 @@ class Geometry < ActiveRecord::Base
   do_not_validate_attachment_file_type :geo
   belongs_to :project
   belongs_to :geometry_type
+  has_many :reports, as: :reportable
   has_many :assigned_geometries, dependent: :destroy
   has_many :simulations, through: :assigned_geometries
   has_many :jobs, dependent: :destroy

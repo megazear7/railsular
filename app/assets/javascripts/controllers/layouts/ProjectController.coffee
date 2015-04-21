@@ -1,6 +1,6 @@
 controllers = angular.module('controllers')
-controllers.controller("ProjectController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry', 'Result', '$http'
-  ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry,AssignedGeometry,Result,$http)->
+controllers.controller("ProjectController", [ '$scope', '$routeParams', '$location', '$resource', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry', 'Result', '$http', 'Report'
+  ($scope,$routeParams,$location,$resource,Project,Simulation,Geometry,AssignedGeometry,Result,$http,Report)->
     $scope.link = (url) -> $location.path("/#{url}")
 
     $scope.projects = Project.all()
@@ -8,7 +8,7 @@ controllers.controller("ProjectController", [ '$scope', '$routeParams', '$locati
     $scope.simulations = $scope.activeProject.simulations()
     $scope.geometries = $scope.activeProject.geometries()
     $scope.results = Result.all()
- 
+
     $scope.displaySimNav = $location.path().indexOf("simulations") > -1
     $scope.displayGeoNav = $location.path().indexOf("geometries") > -1
     $scope.displayResNav = $location.path().indexOf("results") > -1

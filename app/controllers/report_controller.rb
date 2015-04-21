@@ -52,6 +52,6 @@ class ReportController < ApplicationController
     end
 
     def report_params
-      params.permit(:name, :description)
+      params.permit(:message, :reportable_id, :reportable_type)
     end
 end
