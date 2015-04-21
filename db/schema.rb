@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150416181103) do
+ActiveRecord::Schema.define(version: 20150421145043) do
 
   create_table "apps", force: true do |t|
     t.string   "name"
@@ -130,6 +130,16 @@ ActiveRecord::Schema.define(version: 20150416181103) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "reports", force: true do |t|
+    t.string   "message"
+    t.integer  "reportable_id"
+    t.string   "reportable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reports", ["reportable_id", "reportable_type"], name: "index_reports_on_reportable_id_and_reportable_type"
 
   create_table "results", force: true do |t|
     t.boolean  "generic",     default: false
