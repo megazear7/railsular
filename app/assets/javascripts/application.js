@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require angular/angular
+//= require ui-bootstrap-0.12.1.js
 //= require angular-route/angular-route
 //= require angular-resource/angular-resource
 //= require angular-flash/dist/angular-flash

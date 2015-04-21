@@ -20,15 +20,9 @@ controllers.controller("ProjectController", [ '$scope', '$routeParams', '$locati
       $scope.activeProject.delete()
       $location.path("projects/")
 
-    $scope.showReport = false
+    $scope.reports = $scope.activeProject.reports()
 
+    $scope.showReport = false
     $scope.openReport = ->
       $scope.showReport = true
-
-    $scope.closeReport = ->
-      $scope.showReport = false
-
-    $scope.sendReport = (reportMessage) ->
-      Report.create({message: reportMessage, reportable_type: "Project", reportable_id: $scope.activeProject.id})
-      $scope.showReport = false
 ])

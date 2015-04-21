@@ -6,6 +6,7 @@ simapp = angular.module('simapp',[
   'angular-flash.service',
   'angular-flash.flash-alert-directive',
   'n3-line-chart'
+  'ui.bootstrap'
 ])
 
 standard_resolve = {
