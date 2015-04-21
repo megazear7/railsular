@@ -34,17 +34,21 @@ SimApp::Application.routes.draw do
       delete 'app/:id/delete' => 'app#delete', defaults: { format: 'json' }
     end
 
+    get 'reports' => 'report#index', defaults: { format: 'json' }
+    get 'report/:id' => 'report#show', defaults: { format: 'json' }
+    post 'report/create' => 'report#create', defaults: { format: 'json' }
+    post 'report/:id/update' => 'report#update', defaults: { format: 'json' }
+    delete 'report/:id/delete' => 'report#delete', defaults: { format: 'json' }
+
     get 'projects' => 'project#index', defaults: { format: 'json' }
     get 'project/:id' => 'project#show', defaults: { format: 'json' }
     post 'project/create' => 'project#create', defaults: { format: 'json' }
-    get 'project/:id/report' => 'project#report', defaults: { format: 'json' }
     post 'project/:id/update' => 'project#update', defaults: { format: 'json' }
     delete 'project/:id/delete' => 'project#delete', defaults: { format: 'json' }
 
     get 'geometries' => 'geometry#index', defaults: { format: 'json' }
     get 'geometry/:id' => 'geometry#show', defaults: { format: 'json' }
     post 'geometry/create' => 'geometry#create', defaults: { format: 'json' }
-    get 'geometry/:id/report' => 'geometry#report', defaults: { format: 'json' }
     post 'geometry/:id/update' => 'geometry#update', defaults: { format: 'json' }
     delete 'geometry/:id/delete' => 'geometry#delete', defaults: { format: 'json' }
     get 'geometry_types_overview' => 'geometry#types', defaults: { format: 'json' }
@@ -72,7 +76,6 @@ SimApp::Application.routes.draw do
     get 'simulation/:id' => 'simulation#show', defaults: { format: 'json' }
     get 'simulation/:id/image' => 'simulation#image', defaults: { format: 'json' }
     post 'simulation/create' => 'simulation#create', defaults: { format: 'json' }
-    get 'simulation/:id/report' => 'simulation#report', defaults: { format: 'json' }
     post 'simulation/:id/update' => 'simulation#update', defaults: { format: 'json' }
     delete 'simulation/:id/delete' => 'simulation#delete', defaults: { format: 'json' }
     post 'simulation/:id/run' => 'simulation#run', defaults: { format: 'json' }
