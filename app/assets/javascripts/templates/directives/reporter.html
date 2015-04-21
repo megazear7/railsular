@@ -1,17 +1,17 @@
-<div class="modal fade in modal-open" style="display: {{ show ? 'block' : 'none'}};">
+<div class="modal fade in modal-open" style="display: {{ show.val ? 'block' : 'none'}};">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <span>Describe the problem:</span>
-        <a ng-click="close()"><span class="glyphicon glyphicon-remove pull-right"></span></a>
+        <a ng-click="close()" class="close"><span class="glyphicon glyphicon-remove pull-right"></span></a>
+        <h4 class="modal-title">Describe the problem:</h4>
       </div>
       <div class="modal-body">
         <textarea ng-model="reportMessage" class="form-control form-custom" />
         <hr />
-        <div ng-repeat="report in reports" style="text-align: left;">{{report.created_at | date:'fullDate'}}: {{report.message}}</div>
+        <div ng-repeat="report in reportable.reports()" style="text-align: left;">{{report.created_at | date:'fullDate'}}: {{report.message}}</div>
       </div>
       <div class="modal-footer">
-        <a ng-click="send(reportMessage)"><span class="glyphicon glyphicon-ok"></span></a>
+        <a ng-click="send(reportMessage)" class="btn btn-primary">Send <span class="glyphicon glyphicon-share-alt"></span></a>
       </div>
     </div>
   </div>

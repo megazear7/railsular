@@ -20,9 +20,10 @@ controllers.controller("ProjectController", [ '$scope', '$routeParams', '$locati
       $scope.activeProject.delete()
       $location.path("projects/")
 
-    $scope.reports = $scope.activeProject.reports()
+    $scope.showReport = {
+      val: false
+    }
 
-    $scope.showReport = false
     $scope.openReport = ->
-      $scope.showReport = true
+      $scope.showReport.val = true
 ])

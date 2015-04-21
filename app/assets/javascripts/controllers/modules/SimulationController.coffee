@@ -52,17 +52,12 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
       $scope.simulation.delete()
       $location.path("projects/"+$scope.activeProject.id+"/simulations/")
 
-    $scope.showReport = false
+    $scope.showReport = {
+      val: false
+    }
 
     $scope.openReport = ->
-      $scope.showReport = true
-
-    $scope.closeReport = ->
-      $scope.showReport = false
-
-    $scope.sendReport = (reportMessage) ->
-      Report.create({message: reportMessage, reportable_type: "Simulation", reportable_id: $scope.simulation.id})
-      $scope.showReport = false
+      $scope.showReport.val = true
 
     $scope.startEdit = ->
       $scope.simulation.startEdit()

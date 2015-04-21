@@ -27,15 +27,10 @@ controllers.controller("GeometryController", [ '$scope', '$routeParams', '$locat
           .success ->
             $scope.geometry.refreshStatus()
 
-    $scope.showReport = false
+    $scope.showReport = {
+      val: false
+    }
 
     $scope.openReport = ->
-      $scope.showReport = true
-
-    $scope.closeReport = ->
-      $scope.showReport = false
-
-    $scope.sendReport = (reportMessage) ->
-      $scope.showReport = false
-      Report.create({message: reportMessage, reportable_type: "Geometry", reportable_id: $scope.geometry.id})
+      $scope.showReport.val = true
 ])
