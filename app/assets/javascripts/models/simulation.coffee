@@ -18,6 +18,9 @@ angular.module('simapp').factory('Simulation', (DataCache,AssignedGeometry,Model
     simulation.refreshStatus = ->
       $http.get("simulation/#{simulation.id}")
         .success (data) ->
+          # TODO reset every attribute insttead of just status, and change the name
+          # of this method to refresh. An example of this is in the failed callback
+          # of the ObjectFactory save method
           DataCache.simulations[simulation.id].status = data.simulation.status
 
     simulation.after_failed_save = (data) ->

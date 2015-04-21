@@ -92,10 +92,10 @@ class Simulation < ActiveRecord::Base
               sim_attr = SimulationAttr.create(attribute_descriptor_id: attr_desc.id, value: params[name], simulation_id: self.id)
             end
             if not sim_attr.save
-              errors.add name, "#{name.titleize} attribute must follow this regex: #{attr_desc.validation}"
               return false 
             end
           else
+            errors.add name, "#{name.titleize} attribute must follow this regex: #{attr_desc.validation}"
             return false
           end
         end

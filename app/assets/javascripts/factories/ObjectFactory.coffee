@@ -6,7 +6,7 @@ angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
           obj = data[pluralize(table_name, 1)]
           angular.forEach Object.keys(obj), (attr) ->
             cache[table_name][obj.id][attr] = obj[attr]
-          object.after_failed_save(data)
+          object.after_failed_save(data) if "after_failed_save" of object
 
     object.delete = ->
       delete cache[table_name][object.id]
@@ -14,7 +14,7 @@ angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
         .error (data) ->
           # todo you must change angular routes and come back to the page to see this get added back, it should automatically appear back
           cache[table_name][object.id] = object
-          object.after_failed_delete(data)
+          object.after_failed_delete(data) if "after_failed_delete" of object
 
     object.startEdit = ->
       this.editing = true
