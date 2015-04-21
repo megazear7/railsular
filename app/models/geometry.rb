@@ -64,6 +64,14 @@ class Geometry < ActiveRecord::Base
     end
   end
 
+  def type_info
+    "geometry (#{geometry_type.name})"
+  end
+
+  def path_info
+    "#{job_directory_path}"
+  end
+
   def geo_type
     geometry_type.name
   end

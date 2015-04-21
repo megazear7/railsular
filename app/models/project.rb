@@ -11,4 +11,12 @@ class Project < ActiveRecord::Base
     simulations.destroy_all
     geometries.destroy_all
   end
+
+  def type_info
+    "project"
+  end
+
+  def path_info
+    "NULL"
+  end
 end

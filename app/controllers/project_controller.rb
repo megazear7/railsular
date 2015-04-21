@@ -1,21 +1,6 @@
 class ProjectController < ApplicationController
-  before_action :set_project, only: [:show, :update, :delete, :report]
+  before_action :set_project, only: [:show, :update, :delete]
   skip_before_action :verify_authenticity_token
-
-  def report
-    subject = "TotalSim App Issue Report: #{App.find(1).app_hex_code}"
-    body = "app: #{App.find(1).app_hex_code}\n" +
-      "type: project\n" +
-      "id: #{@project.id}\n" +
-      "path: NULL\n" +
-      "user: <user>\n" +
-      "datetime: #{DateTime.now}"
-    body += "\nmessage: #{params[:message]}" if params[:message]
-    system "echo '#{body}' | mutt -s '#{subject}' #{App.find(1).email}"
-    respond_to do |format|
-      format.json { render json: { message: 'report sent' } }
-    end
-  end
 
   def index
     @projects = Project.all

@@ -29,10 +29,6 @@ controllers.controller("ProjectController", [ '$scope', '$routeParams', '$locati
       $scope.showReport = false
 
     $scope.sendReport = (reportMessage) ->
+      Report.create({message: reportMessage, reportable_type: "Project", reportable_id: $scope.activeProject.id})
       $scope.showReport = false
-      $http.get("project/#{$scope.activeProject.id}/report", params: {message: reportMessage})
-        .success ->
-          alert("Report sent")
-        .error ->
-          alert("Error sending report")
 ])

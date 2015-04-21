@@ -25,6 +25,7 @@
               <a class="btn btn-default" ng-if="showReport">
                 <span>Describe the issue:</span>
                 <input type="text" ng-model="reportMessage" class="form-control form-custom" />
+                <div ng-repeat="report in activeProject.reports()">{{report.message}} ({{report.created_at}})</div>
                 <span class="glyphicon glyphicon-ok" ng-click="sendReport(reportMessage)"></span>
                 <span class="glyphicon glyphicon-remove" ng-click="closeReport()"></span>
               </a>

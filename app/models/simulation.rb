@@ -105,6 +105,14 @@ class Simulation < ActiveRecord::Base
     super simulation_params
   end
 
+  def type_info
+    "simulation"
+  end
+
+  def path_info
+    "path: #{job_directory_path}"
+  end
+
   def job_directory_name
     "ts_app_" + App.find(1).app_hex_code + "_" + ENV["USER"] + "_s" + id.to_s
   end

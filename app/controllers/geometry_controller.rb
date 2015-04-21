@@ -1,5 +1,5 @@
 class GeometryController < ApplicationController
-  before_action :set_geometry, only: [:show, :update, :delete, :run, :file_form, :update_file, :report]
+  before_action :set_geometry, only: [:show, :update, :delete, :run, :file_form, :update_file]
   skip_before_action :verify_authenticity_token
 
   def run
@@ -21,21 +21,6 @@ class GeometryController < ApplicationController
     end
     respond_to do |format|
       format.json { render json: @geometry_types }
-    end
-  end
-
-  def report
-    subject = "TotalSim App Issue Report: #{App.find(1).app_hex_code}"
-    body = "app: #{App.find(1).app_hex_code}\n" +
-      "type: geometry (#{@geometry.geometry_type.name})\n" +
-      "id: #{@geometry.id}\n" +
-      "path: #{@geometry.job_directory_path}\n" +
-      "user: <user>\n" +
-      "datetime: #{DateTime.now}"
-    body += "\nmessage: #{params[:message]}" if params[:message]
-    system "echo '#{body}' | mutt -s '#{subject}' #{App.find(1).email}"
-    respond_to do |format|
-      format.json { render json: { message: 'report sent' } }
     end
   end
 

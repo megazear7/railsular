@@ -1,7 +1,7 @@
 Mime::Type.register "image/png", :png
 
 class SimulationController < ApplicationController
-  before_action :set_simulation, only: [:show, :update, :delete, :run, :image, :movie_frame, :report, :download_results]
+  before_action :set_simulation, only: [:show, :update, :delete, :run, :image, :movie_frame, :download_results]
   skip_before_action :verify_authenticity_token
 
   def download_results
@@ -149,21 +149,6 @@ class SimulationController < ApplicationController
       else
         format.json { render json: { message: 'project doesnt exist' }, status: :unprocessable_entity }
       end
-    end
-  end
-
-  def report
-    subject = "TotalSim App Issue Report: #{App.find(1).app_hex_code}"
-    body = "app: #{App.find(1).app_hex_code}\n" +
-      "type: simulation\n" +
-      "id: #{@simulation.id}\n" +
-      "path: #{@simulation.job_directory_path}\n" +
-      "user: <user>\n" +
-      "datetime: #{DateTime.now}"
-    body += "\nmessage: #{params[:message]}" if params[:message]
-    system "echo '#{body}' | mutt -s '#{subject}' #{App.find(1).email}"
-    respond_to do |format|
-      format.json { render json: { message: 'report sent' } }
     end
   end
 
