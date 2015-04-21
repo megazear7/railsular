@@ -105,7 +105,6 @@ class Simulation < ActiveRecord::Base
   end
 
   def job_directory_name
-    # TODO replace user_id with the actual users id
     "ts_app_" + App.find(1).app_hex_code + "_" + ENV["USER"] + "_s" + id.to_s
   end
 
@@ -113,17 +112,17 @@ class Simulation < ActiveRecord::Base
     File.join(ENV['HOME'], "/crimson_files/", App.find(1).name.downcase.tr(' ', '_'), job_directory_name)
   end
 
-  def results_zip_path
+  def results_zip_file_path
     File.join(job_directory_path, "results", "results.zip")
   end
 
-  def data_points_json_path
+  def data_points_json_file_path
     File.join(job_directory_path, "results", "data", "data_points.json")
   end
 
   def data_point_results
-    if data_points_json_path and File.exist?(data_points_json_path)
-      File.open(data_points_json_path).read
+    if data_points_json_file_path and File.exist?(data_points_json_file_path)
+      File.open(data_points_json_file_path).read
     else
       nil
     end
@@ -133,27 +132,27 @@ class Simulation < ActiveRecord::Base
     data_point_results ? JSON.parse(data_point_results) : nil
   end
 
-  def images_path
+  def images_directory_path
     File.join(job_directory_path, "results", "images")
   end
 
-  def image_path variable_name, component_direction, view
-    File.join(images_path, variable_name, component_direction, view)
+  def image_file_path variable_name, component_direction, view
+    File.join(images_directory_path, variable_name, component_direction, view)
   end
 
-  def movies_path
+  def movies_directory_path
     File.join(job_directory_path, "results", "movies")
   end
 
-  def frame_path slice_normal, variable_name, component_direction, frame
-    File.join(movies_path, slice_normal, variable_name, component_direction, (frame.to_i-1).to_s.rjust(4, '0') + ".png")
+  def frame_file_path slice_normal, variable_name, component_direction, frame
+    File.join(movies_directory_path, slice_normal, variable_name, component_direction, (frame.to_i-1).to_s.rjust(4, '0') + ".png")
   end
 
-  def rendered_geometry_directory geo
+  def rendered_geometry_directory_path geo
     File.join(geo.job_directory_path, 'results', 'geometry')
   end
 
-  def rendered_data_directory geo
+  def rendered_data_directory_path geo
     File.join(geo.job_directory_path, 'results', 'data')
   end
 
@@ -234,7 +233,7 @@ class Simulation < ActiveRecord::Base
       geo[:pre_processing_data][:data] = assigned_geo.geometry.results_hash
 
       # for each rendered geometry, add an entry to the rendered geometries array
-      Dir.glob(rendered_data_directory(assigned_geo.geometry) + '/*.json') do |file|
+      Dir.glob(rendered_data_directory_path(assigned_geo.geometry) + '/*.json') do |file|
         next if File.basename(file, ".json") == File.basename(assigned_geo.geometry.geo_file_name, ".stl")
         r_geo = {
           filename: File.basename(file, ".json") + File.extname(assigned_geo.geometry.geo_file_name)
@@ -252,9 +251,9 @@ class Simulation < ActiveRecord::Base
 
     self.geometries.each do |geometry|
       FileUtils.cp geometry.geo.path, File.join(job_directory_path, "geometry", geometry.geo_file_name)
-      Dir.foreach(rendered_geometry_directory(geometry)) do |file|
+      Dir.foreach(rendered_geometry_directory_path(geometry)) do |file|
         next if file == "." or file == ".."
-        FileUtils.cp File.join(rendered_geometry_directory(geometry), file), File.join(job_directory_path, "geometry", file)
+        FileUtils.cp File.join(rendered_geometry_directory_path(geometry), file), File.join(job_directory_path, "geometry", file)
       end
     end
   end
@@ -293,7 +292,7 @@ class Simulation < ActiveRecord::Base
   def self.image_variable_names simulations
     lists = [ ]
     simulations.each do |sim|
-      lists.push Dir.entries(sim.images_path)
+      lists.push Dir.entries(sim.images_directory_path)
     end
     variable_names = lists.flatten.uniq
     variable_names.delete('.')
@@ -304,7 +303,7 @@ class Simulation < ActiveRecord::Base
   def self.image_component_directions simulations, variable_name
     lists = [ ]
     simulations.each do |sim|
-      lists.push Dir.entries(File.join(sim.images_path, variable_name))
+      lists.push Dir.entries(File.join(sim.images_directory_path, variable_name))
     end
     component_directions = lists.flatten.uniq
     component_directions.delete('.')
@@ -315,7 +314,7 @@ class Simulation < ActiveRecord::Base
   def self.image_views simulations, variable_name, component_direction
     lists = [ ]
     simulations.each do |sim|
-      lists.push Dir.entries(File.join(sim.images_path, variable_name, component_direction))
+      lists.push Dir.entries(File.join(sim.images_directory_path, variable_name, component_direction))
     end
     views = lists.flatten.uniq
     views.delete('.')
@@ -329,7 +328,7 @@ class Simulation < ActiveRecord::Base
   def self.movie_slice_normals simulations
     lists = [ ]
     simulations.each do |sim|
-      lists.push Dir.entries(sim.movies_path)
+      lists.push Dir.entries(sim.movies_directory_path)
     end
     slice_normals = lists.flatten.uniq
     slice_normals.delete('.')
@@ -340,7 +339,7 @@ class Simulation < ActiveRecord::Base
   def self.movie_variable_names simulations, slice_normal
     lists = [ ]
     simulations.each do |sim|
-      lists.push Dir.entries(File.join(sim.movies_path, slice_normal))
+      lists.push Dir.entries(File.join(sim.movies_directory_path, slice_normal))
     end
     variable_names = lists.flatten.uniq
     variable_names.delete('.')
@@ -351,7 +350,7 @@ class Simulation < ActiveRecord::Base
   def self.movie_component_directions simulations, slice_normal, variable_name
     lists = [ ]
     simulations.each do |sim|
-      lists.push Dir.entries(File.join(sim.movies_path, slice_normal, variable_name))
+      lists.push Dir.entries(File.join(sim.movies_directory_path, slice_normal, variable_name))
     end
     component_directions = lists.flatten.uniq
     component_directions.delete('.')
@@ -362,7 +361,7 @@ class Simulation < ActiveRecord::Base
   def self.movie_frame_count simulations, slice_normal, variable_name, component_direction
     lists = [ ]
     simulations.each do |sim|
-      lists.push Dir.entries(File.join(sim.movies_path, slice_normal, variable_name, component_direction))
+      lists.push Dir.entries(File.join(sim.movies_directory_path, slice_normal, variable_name, component_direction))
     end
     frames = lists.flatten.uniq
     frames.delete('.')

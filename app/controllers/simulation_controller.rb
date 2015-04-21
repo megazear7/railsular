@@ -5,8 +5,8 @@ class SimulationController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def download_results
-    if File.exist? @simulation.results_zip_path
-      send_file @simulation.results_zip_path, type: 'application/zip', filename: 'Results.zip'
+    if File.exist? @simulation.results_zip_file_path
+      send_file @simulation.results_zip_file_path, type: 'application/zip', filename: 'Results.zip'
     else
       respond_to do |format|
         format.json { render json: { message: "results zip does not exist" } }
@@ -59,7 +59,7 @@ class SimulationController < ApplicationController
     frame = params[:frame]
 
     if slice_normal.present? and variable_name.present? and component_direction.present?
-      send_data open(@simulation.frame_path(slice_normal, variable_name, component_direction, frame), "rb") { |f| f.read }
+      send_data open(@simulation.frame_file_path(slice_normal, variable_name, component_direction, frame), "rb") { |f| f.read }
     else
       send_data open(File.join(Rails.root, "public", "placeholder.png"), "rb") { |f| f.read }
     end
@@ -105,7 +105,7 @@ class SimulationController < ApplicationController
     component_direction = params[:component_direction]
     view = params[:view]
     if variable_name.present? and component_direction.present? and view.present?
-      send_data open(@simulation.image_path(variable_name, component_direction, view) + ".png", "rb") { |f| f.read }
+      send_data open(@simulation.image_file_path(variable_name, component_direction, view) + ".png", "rb") { |f| f.read }
     else
       send_data open(File.join(Rails.root, "public", "placeholder.png"), "rb") { |f| f.read }
     end

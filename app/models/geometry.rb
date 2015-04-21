@@ -175,7 +175,6 @@ class Geometry < ActiveRecord::Base
   end
 
   def job_directory_name
-    # TODO replace user_id with the actual users id
     "ts_app_" + App.find(1).app_hex_code + "_" + ENV["USER"] + "_g" + id.to_s
   end
 
@@ -187,11 +186,11 @@ class Geometry < ActiveRecord::Base
     File.join(job_directory_path, "results")
   end
 
-  def results_data_path
+  def results_data_directory_path
     File.join(results_directory_path, "data")
   end
 
-  def results_file
+  def results_file_path
     if geo_file_name
       File.join(results_directory_path, "data", File.basename(geo_file_name, ".stl") + ".json")
     else
@@ -201,8 +200,8 @@ class Geometry < ActiveRecord::Base
 
   def rendered_results_file_paths
     names = []
-    Dir.glob(results_data_path + '/*.json') do |file|
-      if file != results_file
+    Dir.glob(results_data_directory_path + '/*.json') do |file|
+      if file != results_file_path
         names << file
       end
     end
@@ -222,8 +221,8 @@ class Geometry < ActiveRecord::Base
   end
 
   def results
-    if results_file and File.exist?(results_file)
-      File.open(results_file).read
+    if results_file_path and File.exist?(results_file_path)
+      File.open(results_file_path).read
     else
       nil
     end
