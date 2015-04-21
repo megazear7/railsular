@@ -1,6 +1,6 @@
 controllers = angular.module('controllers')
-controllers.controller("GeometryController", [ '$scope', '$routeParams', '$location', '$resource', '$http', '$interval'
-  ($scope,$routeParams,$location,$resource,$http,$interval)->
+controllers.controller("GeometryController", [ '$scope', '$routeParams', '$location', '$resource', '$http', '$interval', 'Report'
+  ($scope,$routeParams,$location,$resource,$http,$interval,Report)->
     $scope.template = { url: "modules/geometry.html" }
 
     refreshPromise = $interval(
@@ -37,9 +37,5 @@ controllers.controller("GeometryController", [ '$scope', '$routeParams', '$locat
 
     $scope.sendReport = (reportMessage) ->
       $scope.showReport = false
-      $http.get("geometry/#{$scope.geometry.id}/report", params: {message: reportMessage})
-        .success ->
-          alert("Report sent")
-        .error ->
-          alert("Error sending report")
+      Report.create({message: reportMessage, reportable_type: "Geometry", reportable_id: $scope.geometry.id})
 ])

@@ -1,6 +1,6 @@
 controllers = angular.module('controllers')
-controllers.controller("SimulationController", [ '$scope', '$routeParams', '$location', '$resource', '$http', '$interval', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry', 'Result'
-  ($scope,$routeParams,$location,$resource,$http,$interval,Project,Simulation,Geometry,AssignedGeometry,Result)->
+controllers.controller("SimulationController", [ '$scope', '$routeParams', '$location', '$resource', '$http', '$interval', 'Project', 'Simulation', 'Geometry', 'AssignedGeometry', 'Result', 'Report'
+  ($scope,$routeParams,$location,$resource,$http,$interval,Project,Simulation,Geometry,AssignedGeometry,Result,Report)->
     $scope.template = { url: "modules/simulation.html" }
 
     refreshPromise = $interval(
@@ -61,12 +61,8 @@ controllers.controller("SimulationController", [ '$scope', '$routeParams', '$loc
       $scope.showReport = false
 
     $scope.sendReport = (reportMessage) ->
+      Report.create({message: reportMessage, reportable_type: "Simulation", reportable_id: $scope.simulation.id})
       $scope.showReport = false
-      $http.get("simulation/#{$scope.simulation.id}/report", params: {message: reportMessage})
-        .success ->
-          alert("Report sent")
-        .error ->
-          alert("Error sending report")
 
     $scope.startEdit = ->
       $scope.simulation.startEdit()
