@@ -12,18 +12,40 @@ controllers.controller("ProjectsController", [ '$scope', '$routeParams', '$locat
 
     counter = 0
     yMax = 0
+
     angular.forEach $scope.projects, (project) ->
       projectArray.push project
       sims = 0
       geos = 0
-      angular.forEach project.simulations(), ->
+      complexity = 0
+
+      angular.forEach project.simulations(), (simulation) ->
         sims++
-      angular.forEach project.geometries(), ->
+        complexity++
+        angular.forEach simulation.reports, ->
+          complexity++
+        angular.forEach simulation.assigned_geometries, ->
+          complexity++
+
+      angular.forEach project.geometries(), (geometry) ->
         geos++
-      y = sims + geos
-      if y > yMax
-        yMax = y
-      $scope.data.push { x: counter, size: y, sims: sims, geos: geos }
+        complexity++
+        angular.forEach geometry.reports, ->
+          complexity++
+
+      angular.forEach project.reports(), (geometry) ->
+        complexity++
+
+      complexity = complexity / 6
+
+      if sims > yMax
+        yMax = sims
+      if geos > yMax
+        yMax = geos
+      if complexity > yMax
+        yMax = complexity
+
+      $scope.data.push { x: counter, complexity: complexity, sims: sims, geos: geos }
       counter++
 
     projectCount = projectArray.length
@@ -50,7 +72,7 @@ controllers.controller("ProjectsController", [ '$scope', '$routeParams', '$locat
         }
       }
       series: [
-        {y: 'size', color: '#3F5D7D', type: 'column', label: 'Project Complexity'}
+        {y: 'complexity', color: '#3F5D7D', type: 'column', label: 'Project Complexity'}
         {y: 'sims', color: '#279B61', type: 'column', label: 'Simulation Count'}
         {y: 'geos', color: '#008AB8', type: 'column', label: 'Geometry Count'}
       ],
