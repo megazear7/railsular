@@ -3,7 +3,11 @@ angular.module('simapp').factory('Geometry', (DataCache,ModelFactory,ObjectFacto
   # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (geometry) ->
     # Add the standard object methods
-    ObjectFactory("geometries", geometry, [{belongs_to: "geometry_type"},{belongs_to: "project"}, {has_many: "assigned_geometries"}, {has_many_through: {has_many: "simulations", through: "assigned_geometries"}}, {has_many: "reports", as: "reportable"}])
+    ObjectFactory("geometries", geometry, [{belongs_to: "geometry_type"}
+                                           {belongs_to: "project"}
+                                           {has_many: "assigned_geometries"}
+                                           {has_many: "simulations", through: "assigned_geometries"}
+                                           {has_many: "reports", as: "reportable"}])
 
     # Add the custom object methods
     geometry.refreshStatus = ->

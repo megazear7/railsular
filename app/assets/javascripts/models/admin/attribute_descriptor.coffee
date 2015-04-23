@@ -3,7 +3,8 @@ angular.module('simapp').factory('AttributeDescriptor', (DataCache,$http,ModelFa
   # create the "object methods". These are methods that get called on a single object (i.e. table row)
   addMethods = (attribute_descriptor) ->
     # Add the standard object methods
-    ObjectFactory("attribute_descriptors", attribute_descriptor, [{belongs_to: "geometry_type"}, {has_many: "attribute_descriptor_values"}], "admin/")
+    ObjectFactory("attribute_descriptors", attribute_descriptor, [{belongs_to: "geometry_type"}
+                                                                  {has_many: "attribute_descriptor_values"}], "admin/")
 
     # Add the custom object methods
     # None
