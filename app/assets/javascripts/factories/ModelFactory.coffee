@@ -1,11 +1,13 @@
 angular.module('simapp').factory('ModelFactory', (DataCache,$http,$q) ->
-  (table_name, addMethods, url_prefix = "", cache = DataCache) ->
+  (table_name, addMethods, options = {}) ->
+    options["url_prefix"] = "" if "url_prefix" not of options
+    options["cache"] = DataCache if "cache" not of options
     {
       all: ->
-        cache[table_name]
+        options["cache"][table_name]
       where: (attrs) ->
         objs = {}
-        angular.forEach cache[table_name], (obj, obj_id) ->
+        angular.forEach options["cache"][table_name], (obj, obj_id) ->
           add_obj_to_objs = true
           angular.forEach attrs, (val, attr) ->
             if obj[attr] != val
@@ -14,10 +16,10 @@ angular.module('simapp').factory('ModelFactory', (DataCache,$http,$q) ->
             objs[obj.id] = obj
         objs
       find: (id) ->
-        cache[table_name][id]
+        options["cache"][table_name][id]
       find_by: (attrs) ->
         obj = false
-        angular.forEach cache[table_name], (tmp_obj, tmp_obj_id) ->
+        angular.forEach options["cache"][table_name], (tmp_obj, tmp_obj_id) ->
           isFound = true
           angular.forEach attrs, (val, attr) ->
             if tmp_obj[attr] != val
@@ -29,14 +31,18 @@ angular.module('simapp').factory('ModelFactory', (DataCache,$http,$q) ->
         else
           return false
       create: (obj) ->
-        # todo use reject inside of error so that the client of this create method can do something in the reject case
         return $q( (resolve, reject) ->
-          $http.post("#{url_prefix}#{pluralize(table_name, 1)}/create", obj)
+          $http.post("#{options["url_prefix"]}#{pluralize(table_name, 1)}/create", obj)
             .success (data) ->
-              cache[table_name][data[pluralize(table_name, 1)].id] = data[pluralize(table_name, 1)]
+              options["cache"][table_name][data[pluralize(table_name, 1)].id] = data[pluralize(table_name, 1)]
               addMethods(data[pluralize(table_name, 1)])
-              resolve(cache[table_name][data[pluralize(table_name, 1)].id])
-            .error ->
+              resolve(options["cache"][table_name][data[pluralize(table_name, 1)].id])
+              options.after_successful_create(data) if "after_successful_create" of options
+              options.after_create(data) if "after_create" of options
+            .error (data) ->
+              reject(data)
+              options.after_failed_create(data) if "after_failed_create" of options
+              options.after_create(data) if "after_create" of options
               alert("could not create #{pluralize(table_name, 1)} due to server error")
         )
     }

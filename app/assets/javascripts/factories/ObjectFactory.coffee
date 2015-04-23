@@ -40,7 +40,7 @@ angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
 
     object.startEdit = ->
       this.editing = true
-      angular.forEach object.after_start_edit (method) ->
+      angular.forEach object.after_start_edit, (method) ->
         method()
 
     object.after_stop_edit = []
@@ -48,7 +48,7 @@ angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
     object.stopEdit = ->
       object.save()
       this.editing = false
-      angular.forEach object.after_stop_edit (method) ->
+      angular.forEach object.after_stop_edit, (method) ->
         method()
 
     angular.forEach relations, (relation) ->
@@ -63,7 +63,7 @@ angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
         object[relation] = ->
           cache[relation_table][object["#{relation}_id"]]
 
-      else if ("has_many" of relation) and not ("through" of relation)
+      else if "has_many" of relation and "through" not of relation
         if "as" of relation
           foreign_key_name = relation.as + "_id"
         else
@@ -87,7 +87,7 @@ angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
               objs[obj.id] = obj
           objs
 
-      else if ("has_many" of relation) and ("through" of relation)
+      else if "has_many" of relation and "through" of relation
         through = relation.through
         relation = relation.has_many
         object[relation] = ->

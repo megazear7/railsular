@@ -10,7 +10,7 @@ angular.module('simapp').factory('AttributeDescriptor', (DataCache,$http,ModelFa
     # None
 
   # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
-  modelMethods = ModelFactory("attribute_descriptors", addMethods, "admin/")
+  modelMethods = ModelFactory("attribute_descriptors", addMethods, { url_prefix: "admin/" })
 
   # create the custom model methods
   modelMethods.simulation_attribute_descriptors = ->

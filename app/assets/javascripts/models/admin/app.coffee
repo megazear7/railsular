@@ -9,7 +9,7 @@ angular.module('simapp').factory('App', (DataCache,$http,ModelFactory,ObjectFact
     # None
 
   # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
-  modelMethods = ModelFactory("apps", addMethods, "admin/")
+  modelMethods = ModelFactory("apps", addMethods, { url_prefix: "admin/" })
 
   # create the custom model methods
   # None

@@ -9,7 +9,7 @@ angular.module('simapp').factory('JobDescriptor', (DataCache,$http,ModelFactory,
     # None
 
   # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
-  modelMethods = ModelFactory("job_descriptors", addMethods, "admin/")
+  modelMethods = ModelFactory("job_descriptors", addMethods, { url_prefix: "admin/" })
 
   # create the custom model methods
   modelMethods.geometry_job_descriptors = ->

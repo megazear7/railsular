@@ -15,7 +15,7 @@ angular.module('simapp').factory('GeometryType', (DataCache,$http,ModelFactory,O
       ret
 
   # create the "model methods". These are methods that get called on the entire model (i.e. an entire table)
-  modelMethods = ModelFactory("geometry_types", addMethods, "admin/")
+  modelMethods = ModelFactory("geometry_types", addMethods, { url_prefix: "admin/" })
 
   # create the custom model methods
   # None
