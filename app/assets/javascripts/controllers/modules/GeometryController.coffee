@@ -17,15 +17,16 @@ controllers.controller("GeometryController", [ '$scope', '$routeParams', '$locat
 
     $scope.delete = ->
       $scope.geometry.delete()
-      $location.path("projects/"+$scope.activeProject.id+"/geometries/")
+        .then ->
+          $location.path("projects/"+$scope.activeProject.id+"/geometries/")
 
     $scope.finish = ->
       $scope.geometry.final = true
-      promise = $scope.geometry.save()
-      promise.then ->
-        $http.post("geometry/#{$scope.geometry.id}/run")
-          .success ->
-            $scope.geometry.refreshStatus()
+      $scope.geometry.save()
+        .then ->
+          $http.post("geometry/#{$scope.geometry.id}/run")
+            .success ->
+              $scope.geometry.refreshStatus()
 
     $scope.showReport = {
       val: false

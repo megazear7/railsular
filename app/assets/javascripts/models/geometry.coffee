@@ -12,12 +12,12 @@ angular.module('simapp').factory('Geometry', (DataCache,ModelFactory,ObjectFacto
           DataCache.geometries[geometry.id].status = data.geometry.status
           DataCache.geometries[geometry.id].results = data.geometry.results
 
-    geometry.after_failed_delete = (data) ->
+    geometry.after_failed_delete.push (data) ->
       if data.message and data.message.simulations
         angular.forEach data.message.simulations, (message) ->
           alert(message)
 
-    geometry.after_failed_save = (data) ->
+    geometry.after_failed_save.push (data) ->
       complete_message = "Could not save geometry\n"
       angular.forEach data.message, (message_type) ->
         angular.forEach message_type, (message) ->

@@ -23,7 +23,7 @@ angular.module('simapp').factory('Simulation', (DataCache,AssignedGeometry,Model
           # of the ObjectFactory save method
           DataCache.simulations[simulation.id].status = data.simulation.status
 
-    simulation.after_failed_save = (data) ->
+    simulation.after_failed_save.push (data) ->
       complete_message = "Could not save simulation\n"
       angular.forEach data.message, (message_type) ->
         angular.forEach message_type, (message) ->

@@ -1,27 +1,49 @@
 angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
   (table_name, object, relations, url_prefix = "", cache = DataCache) ->
+
+    object.after_failed_save = []
+    object.after_successful_save = []
+
     object.save = ->
       $http.post("#{url_prefix}#{pluralize(table_name, 1)}/#{object.id}/update", object)
+        .success (data) ->
+          angular.forEach object.after_successful_save, (method) ->
+            method(data)
         .error (data) ->
           obj = data[pluralize(table_name, 1)]
           angular.forEach Object.keys(obj), (attr) ->
             cache[table_name][obj.id][attr] = obj[attr]
-          object.after_failed_save(data) if "after_failed_save" of object
+          angular.forEach object.after_failed_save, (method) ->
+            method(data)
+
+    object.after_failed_delete = []
+    object.after_successful_delete = []
 
     object.delete = ->
       delete cache[table_name][object.id]
       $http.delete("#{url_prefix}#{pluralize(table_name, 1)}/#{object.id}/delete")
+        .success (data) ->
+          angular.forEach object.after_successful_delete, (method) ->
+            method(data)
         .error (data) ->
-          # todo you must change angular routes and come back to the page to see this get added back, it should automatically appear back
           cache[table_name][object.id] = object
-          object.after_failed_delete(data) if "after_failed_delete" of object
+          angular.forEach object.after_failed_delete, (method) ->
+            method(data)
+
+    object.after_start_edit = []
 
     object.startEdit = ->
       this.editing = true
+      angular.forEach object.after_start_edit (method) ->
+        method()
+
+    object.after_stop_edit = []
 
     object.stopEdit = ->
       object.save()
       this.editing = false
+      angular.forEach object.after_stop_edit (method) ->
+        method()
 
     throughRelation = (through, relation) ->
       object[relation] = ->
