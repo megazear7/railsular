@@ -1,0 +1,18 @@
+<nav class="navbar navbar-inverse navbar-static-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <ul class="nav navbar-nav">
+        <li><a ng-click="openMenu($event)"><span class="glyphicon glyphicon-list"></span></a></li>
+      </ul>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a class="navbar-brand" ng-click="link('projects')" ng-if="!activeProject">No Project Selected</a></li>
+        <li><a class="navbar-brand" ng-click="link('projects/'+activeProject.id+'/simulations')" ng-if="activeProject">{{activeProject.name}}</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-click="link('projects')" class="navbar-brand" style="cursor: pointer;">{{appName}}</li>
+      </ul>
+    </div>
+  </div>
+</nav>
