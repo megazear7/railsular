@@ -3,8 +3,6 @@ controllers.controller("GeometryController", [ '$scope', '$routeParams', '$locat
   ($scope,$routeParams,$location,$resource,$http,$interval,Report)->
     $scope.template = { url: "modules/geometry.html" }
 
-    console.log($scope.geometry.simulations())
-
     refreshPromise = $interval(
       ->
         $scope.geometry.refreshStatus()
