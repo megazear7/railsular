@@ -1,6 +1,7 @@
 angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
   (table_name, object, relations, url_prefix = "", cache = DataCache) ->
 
+    object.after_save = []
     object.after_failed_save = []
     object.after_successful_save = []
 
@@ -15,7 +16,10 @@ angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
             cache[table_name][obj.id][attr] = obj[attr]
           angular.forEach object.after_failed_save, (method) ->
             method(data)
+          angular.forEach object.after_save, (method) ->
+            method(data)
 
+    object.after_delete = []
     object.after_failed_delete = []
     object.after_successful_delete = []
 
@@ -28,6 +32,8 @@ angular.module('simapp').factory 'ObjectFactory', (DataCache,$http,$q) ->
         .error (data) ->
           cache[table_name][object.id] = object
           angular.forEach object.after_failed_delete, (method) ->
+            method(data)
+          angular.forEach object.after_delete, (method) ->
             method(data)
 
     object.after_start_edit = []
