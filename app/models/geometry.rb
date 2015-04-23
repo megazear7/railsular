@@ -18,7 +18,7 @@ class Geometry < ActiveRecord::Base
     ### Checks to make to possibly prevent destroying:
     # check for simulations:
     if simulations.any?
-      errors.add :simulations, "You must either delete the associated simulations or remove this geometry from them. The associated simulations are: " + simulations.pluck(:name).join(",")
+      errors.add(:simulations, "You must either delete the associated simulations or remove this geometry from them. The associated simulations are: " + simulations.pluck(:name).join(","))
       return false
     end
 
